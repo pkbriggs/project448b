@@ -1,7 +1,22 @@
 
 // declaring constants
 var CANVAS_WIDTH = $(window).width() - 300;
-var CANVAS_HEIGHT = CANVAS_WIDTH;
+var CANVAS_HEIGHT = $(window).height() * 0.8;
+
+var CHART_HEIGHT = CANVAS_HEIGHT * 0.7;
+
+var chart_config = {
+  "bars": {
+    "width": 50, // width of the bar (in px)
+    "spacing": 30, // amount of spacing between each bar (in px)
+    "fill": "green",
+    "stroke": "#333"
+  }
+};
+
+var chart_data = [40, 60, 25, 70, 66];
+var chart_max_value = 80;
+var chart_min_value = 0;
 
 
 function createSVG() {
@@ -12,30 +27,46 @@ function createSVG() {
 
   // create a container for all of our elements
   var container = svg.append("g");
+  window.container = container;
 
+  return container;
+}
 
-  var circle1 = container.append("circle")
-    .attr("cx", 100)
-    .attr("cy", 400)
-    .attr("r", 80)
-    .attr("fill", "#333");
+function createChartBars(container) {
+  var bars = container.selectAll(".chart_bar")
+    .data(chart_data);
 
-  var circle2 = container.append("circle")
-    .attr("cx", 300)
-    .attr("cy", 400)
-    .attr("r", 80)
-    .attr("fill", "#333");
+  bars.enter()
+    .append("rect")
+    .attr("class", "chart_bar")
+    .attr("width", chart_config["bars"]["width"])
+    .attr("height", function(d, i) {
+      var bar_height = (d/(chart_max_value*1.0)) * CHART_HEIGHT;
+      return bar_height;
+    })
+    .attr("x", function(d, i) {
+      return i * (chart_config["bars"]["width"] + chart_config["bars"]["spacing"]);
+    })
+    .attr("y", function(d, i) {
+      var bar_height = (d/(chart_max_value*1.0)) * CHART_HEIGHT; // same as calculation above for height
+      return CHART_HEIGHT - bar_height;
+    })
+    .attr("fill", chart_config["bars"]["fill"])
+    .attr("stroke", chart_config["bars"]["stroke"]);
 
-  var rect = container.append("rect")
-    .attr("x", 140)
-    .attr("y", 100)
-    .attr("height", 400)
-    .attr("width", 120)
-    .attr("fill", "#333");
+  return bars;
+}
 
+function updateChartConfigValue(type, key, value) {
+  chart_config[type][key] = value;
+
+  if (type == "bars") {
+    container.selectAll(".chart_bar").transition().attr(key, value);
+  }
 }
 
 
 $(document).ready(function() {
-  createSVG();
+  var container = createSVG();
+  var chart_bars = createChartBars(container);
 });
