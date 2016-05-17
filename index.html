@@ -19,7 +19,83 @@
   </div>
 
   <div class="vis_controls">
-    <!-- controls go here -->
+    <!-- Bar Styling -->
+    <div class="control_container selected bar_styling">
+      <h3 class="title special">Bar Styling</h3>
+
+      <!-- Bar Length -->
+      <section class="control_subcontainer bar_length">
+        <input placeholder="25px"></input>
+        <div class="input_subtitle">Bar Length</div>
+      </section>
+
+      <!-- Bar Color -->
+      <section class="control_subcontainer bar_color">
+        <input placeholder="#333" class="color_picker"></input>
+        <div class="input_subtitle">Bar Color</div>
+      </section>
+
+      <!-- Bar Labels -->
+      <section class="control_subcontainer bar_labels">
+        <input type="radio" name="bar_label_toggle" value="Show"> Show<br>
+        <input type="radio" name="bar_label_toggle" value="Hide"> Hide
+        <div class="input_subtitle">Bar Labels</div>
+
+        <!-- Bar Label Color -->
+        <input placeholder="#333" class="color_picker"></input>
+        <div class="input_subtitle">Bar Label Color</div>
+      </section>
+    </div>
+
+    <!-- Grid Styling -->
+    <div class="control_container not_selected grid_styling">
+      <h3 class="title special">Grid Styling</h3>
+
+      <!-- Grid Lines Toggle -->
+      <section class="control_subcontainer grid_toggle">
+        <input type="radio" name="bg_toggle" value="Show"> Show<br>
+        <input type="radio" name="bg_toggle" value="Hide"> Hide
+        <div class="input_subtitle">Grid Lines</div>
+      </section>
+
+      <!-- Grid Line Opacity -->
+      <section class="control_subcontainer grid_opacity">
+        <input placeholder="1"></input>
+        <div class="input_subtitle">Grid Line Opacity</div>
+      </section>
+
+      <!-- Grid Width -->
+      <section class="control_subcontainer grid_line_width">
+        <input placeholder="1px"></input>
+        <div class="input_subtitle">Grid Line Width</div>
+      </section>
+    </div>
+
+    <!-- Axis Styling -->
+    <div class="control_container not_selected axis_styling">
+      <h3 class="title special">Axis Styling</h3>
+
+      <!-- Axis Color -->
+      <section class="control_subcontainer axis_color">
+        <input placeholder="#333" class="color_picker"></input>
+        <div class="input_subtitle">Axis Color</div>
+      </section>
+
+      <!-- Grid Line Opacity -->
+      <section class="control_subcontainer grid_opacity">
+        <input placeholder="1"></input>
+        <div class="input_subtitle">Grid Line Opacity</div>
+      </section>
+
+      <!-- Axis Labels -->
+      <section class="control_subcontainer axis_labels">
+        <input placeholder="Dirk"></input>
+        <div class="input_subtitle">X-Axis Label</div>
+
+        <input placeholder="Romo"></input>
+        <div class="input_subtitle">Y-Axis Label</div>
+      </section>
+    </div>
   </div>
 
   <script src="js/d3.min.js"></script>
