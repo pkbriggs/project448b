@@ -116,7 +116,7 @@ function createChart(container) {
 
   // y axis
   container.append("g")
-      .attr("class", "y axis")
+      .attr("class", "y_axis")
       .call(yAxis)
     .append("text") // label for the y axis
       .attr("class", "axis_label")
@@ -191,8 +191,33 @@ function updateChartConfigValue(type, key, value) {
   // general cases
   if (type == "bars") {
     container.selectAll(".chart_bar").transition().attr(key, value);
-  } else if (type == "grid") {
+
+  } else if (type === "grid") {
     container.selectAll(".y_grid").transition().attr(key, value);
+
+  } else if (type === "axis") {
+    if(key === "line_color") {
+      container.selectAll(".x_axis path, .y_axis path").transition().attr("fill", value);
+
+    } else if (key === "tick_label_color") {
+      container.selectAll(".x_axis .tick, .y_axis .tick").transition().attr("fill", value);
+
+    } else if (key === "tick_label_font_size") {
+      container.selectAll(".x_axis .tick text, .y_axis .tick text").transition().attr("font-size", value);
+
+    } else if (key === "x_label") {
+      container.selectAll(".x_axis .axis_label").transition().text(value);
+
+    } else if (key === "y_label") {
+      container.selectAll(".y_axis .axis_label").transition().text(value);
+
+    } else if (key === "label_color") {
+      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("fill", value);
+      
+    } else if (key === "label_font_size") {
+      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("font-size", value);
+    }
+
   }
 }
 
