@@ -21,7 +21,7 @@ $(function() {
 		var type = $(this).data("type");
 		var key = $(this).data("key");
 
-		if(type === "grid" && key === "visible") {
+		if(key === "visible") {
 			key = "opacity";
 		}
 
