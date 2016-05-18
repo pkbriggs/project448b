@@ -17,8 +17,25 @@ var chart_config = {
     "width": 50, // width of the bar (in px)
     "spacing": 0.3, // amount of spacing between each bar (between 0 and 1)
     "fill": "green",
-    "stroke": "#333",
-    "y_label": "Drinks Consumed"
+    "stroke": "#333"
+    // "y_label": "Drinks Consumed"
+  },
+  "grid": {
+    "visible": true,
+    "opacity": 0.8,
+    "line_width": 1,
+    // frequency?
+  },
+  "axis": {
+    "line_color": "#333",
+    "tick_label_color": "#333",
+    "tick_label_font": "Arial",
+    "tick_label_font_size": 14,
+    "x_label": "X Label",
+    "y_label": "Y Label",
+    "label_color": "#333",
+    "label_font": "Arial",
+    "label_font_size": 14
   }
 };
 
@@ -106,6 +123,7 @@ function createChart(container) {
     .selectAll("text")
       .style("text-anchor", "end")
       // .attr("dx", "-.8em")
+      // .text(chart_config["axis"]["x_label"])
       .attr("dy", "1.3em");
       // .attr("transform", "rotate(-50)" );
 
@@ -118,7 +136,7 @@ function createChart(container) {
       .attr("dy", "-3.5em")
       .attr("dx", "-0.3em")
       .style("text-anchor", "end")
-      .text(chart_config["bars"]["y_label"]);
+      .text(chart_config["axis"]["y_label"]);
 
   var bars = container.selectAll(".chart_bar")
       .data(chart_data);
