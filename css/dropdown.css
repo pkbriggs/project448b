@@ -1,0 +1,25 @@
+.dropdown {
+	position: relative;
+	border: 1px solid #D9D9D9;
+	border-radius: 2px;
+	background: white;
+	width: 107px;
+	font-size: 12px;
+	font-weight: 400;
+	padding: 1px;
+}
+
+.dropdown .fa {
+	position: absolute;
+	color: #8E8E93;
+	right: 4px;
+	font-size: 11px;
+}
+
+.dropdown .fa-angle-up {
+	margin-top: -0.5px;
+}
+
+.dropdown .fa-angle-down {
+	margin-top: 5.5px;
+}
