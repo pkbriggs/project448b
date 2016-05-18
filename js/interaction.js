@@ -83,6 +83,10 @@ function createSVG() {
 
 
 function createChart(container) {
+  // give the contain some margins
+  container
+    .attr("transform", "translate(" + CHART_MARGINS.left + "," + CHART_MARGINS.top + ")");
+
   xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
   var yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
 
@@ -98,41 +102,35 @@ function createChart(container) {
       .orient("left")
       .ticks(10);
 
-  container
-    .attr("transform",
-          "translate(" + CHART_MARGINS.left + "," + CHART_MARGINS.top + ")");
-
-
-
-
+  // x axis
   container.append("g")
       .attr("class", "x_axis")
       .attr("transform", "translate(0," + CHART_HEIGHT + ")")
       .call(xAxis)
-    // .selectAll("text")
-      // .style("text-anchor", "center")
-      // .attr("dx", "-.8em")
-      // .text(chart_config["axis"]["x_label"])
-      // .text()
-      // .attr("dy", "1.3em");
-      // .attr("transform", "rotate(-50)" );
+    .append("text") // label for the x axis
+      .style("text-anchor", "center")
+      .attr("class", "axis_label")
+      .attr("dx", CHART_WIDTH/2.2)
+      .text(chart_config["axis"]["x_label"])
+      .attr("dy", "3.4em");
 
+  // y axis
   container.append("g")
       .attr("class", "y axis")
       .call(yAxis)
-    .append("text")
+    .append("text") // label for the y axis
+      .attr("class", "axis_label")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
       .attr("dy", "-3.5em")
-      .attr("dx", "-0.3em")
+      .attr("dx", -CHART_HEIGHT/2.5)
       .style("text-anchor", "end")
       .text(chart_config["axis"]["y_label"]);
 
-
-
+  // create the chart bars, tie them to the data set
   var bars = container.selectAll(".chart_bar")
     .data(chart_data);
 
+  // when the bars are first created, do these things
   bars.enter()
     .append("rect")
     .attr("class", "chart_bar")
@@ -142,22 +140,13 @@ function createChart(container) {
     .attr("width", xScale.rangeBand())
     .attr("y", function(d) { return yScale(d["value"]); })
     .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); });
-    //
-    // .append("text")
-    // .attr("x", function(d, i) { return xScale(i); })
-    // .attr("y", function(d) { return CHART_HEIGHT - yScale(d["value"]); })
-    // .attr("dy", "-5em")
-    // .text(function(d, i) {
-    //   return d["label"];
-    // });
-
 }
 
 function updateChartConfigValue(type, key, value) {
   chart_config[type][key] = value;
 
   // special cases
-  if (type == "bars" && key == "spacing") {
+  if (type == "bars" && key == "spacing") { // TODO: Clean me up
     xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
     xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
     xAxis = d3.svg.axis()
