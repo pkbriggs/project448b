@@ -7,9 +7,6 @@ $(function() {
 		var type = $(this).data("type");
 		var key = $(this).data("key");
 
-		console.log("Type: " + type + " key: " + key + " val_of_input: " + val_of_input);
-
-		// Call function to update bar chart
 		updateChartConfigValue(type, key, val_of_input);
 	});
 
