@@ -19,6 +19,7 @@ $(function() {
 		var style = category_style_array[1];
 
 		console.log("Category: " + category + " style: " + style + " val_of_input: " + val_of_input);
+		updateChartConfigValue(category, style, val_of_input);
 
 		// Call function to update bar chart
 	});
