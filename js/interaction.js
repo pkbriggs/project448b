@@ -120,9 +120,11 @@ function createChart(container) {
       .style("text-anchor", "end")
       .text(chart_config["bars"]["y_label"]);
 
-  container.selectAll("bar")
-      .data(chart_data)
-    .enter().append("rect")
+  var bars = container.selectAll(".chart_bar")
+      .data(chart_data);
+
+  bars.enter().append("rect")
+      .attr("class", "chart_bar")
       .style("fill", chart_config["bars"]["fill"])
       .style("stroke", chart_config["bars"]["stroke"])
       .attr("x", function(d, i) { return xScale(i); })

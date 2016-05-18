@@ -16,9 +16,11 @@ $(function() {
 		var type_key_array = convertString($(this).data("type"));
 		var type = type_key_array[0];
 		var key = type_key_array[1];
+		if (type == "bar")
+			type = "bars";
 
 		console.log("Type: " + type + " key: " + key + " val_of_input: " + val_of_input);
-		// updateChartConfigValue(type, key, val_of_input);
+		updateChartConfigValue(type, key, val_of_input);
 
 		// Call function to update bar chart
 	});
