@@ -6,7 +6,11 @@
 
   <title>Final Project | CS448B</title>
   <link rel="stylesheet" href="css/style.css">
-  <!-- <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300,900' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="css/controls.css">
+
+  <!-- Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700,900,600italic,700italic,400italic,300italic,900italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css ">
 
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -21,37 +25,36 @@
   <div class="vis_controls">
     <!-- Bar Styling -->
     <div class="control_container selected bar_styling">
-      <h3 class="title special">Bar Styling</h3>
+      <h3 class="title special">Bar Styling <i class="fa fa-chevron-down"></i> </h3>
 
       <!-- Bar Width -->
       <section class="control_subcontainer">
-        <div class="input_subtitle">Bar Width</div>
+        <div class="input_subtitle">Width</div>
         <input class="style_input" placeholder="25px" data-type="bar_width"></input>
-      </section>
-
-      <!-- Bar Color -->
-      <section class="control_subcontainer">
-        <div class="input_subtitle">Bar Fill</div>
-        <input class="style_input color_picker" placeholder="#333" data-type="bar_fill"></input>
-      </section>
-
-      <!-- Bar Stroke -->
-      <section class="control_subcontainer">
-        <div class="input_subtitle">Bar Stroke Color</div>
-        <input class="style_input color_picker" placeholder="#333" data-type="bar_stroke"></input>
       </section>
 
       <!-- Bar Spacing -->
       <section class="control_subcontainer">
-        <div class="input_subtitle">Bar Spacing</div>
+        <div class="input_subtitle">Spacing</div>
         <input class="style_input" placeholder="30px" data-type="bar_spacing"></input>
+      </section>
+      <!-- Bar Stroke -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Stroke Color</div>
+        <input class="style_input color_picker" placeholder="#333" data-type="bar_stroke"></input>
+      </section>
+
+      <!-- Bar Color -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Fill</div>
+        <input class="style_input color_picker" placeholder="#333" data-type="bar_fill"></input>
       </section>
 
       <!-- Bar Labels -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Bar Labels</div>
-        <input type="radio" name="bar_label_toggle" value="Show" checked> Show<br>
-        <input type="radio" name="bar_label_toggle" value="Hide"> Hide
+        <input type="radio" name="bar_label_toggle" value="Show" checked> <span class="light"> &nbsp; Show<span><br>
+        <input type="radio" name="bar_label_toggle" value="Hide"> <span class="light"> &nbsp; Hide</span>
 
         <div class="input_subtitle">Bar Label Color</div>
         <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input>
@@ -66,35 +69,35 @@
 
     <!-- Grid Styling -->
     <div class="control_container not_selected grid_styling">
-      <h3 class="title special">Grid Styling</h3>
+      <h3 class="title special">Grid Styling <i class="fa fa-chevron-down"></i></h3>
 
       <!-- Grid Lines Toggle -->
       <section class="control_subcontainer grid_toggle">
-        <div class="input_subtitle">Grid Lines</div>
-        <input type="radio" name="grid_toggle" value="Show" checked> Show<br>
-        <input type="radio" name="grid_toggle" value="Hide"> Hide
+        <div class="input_subtitle">Lines</div>
+        <input type="radio" name="grid_toggle" value="Show" checked> <span class="light"> &nbsp; Show </span><br>
+        <input type="radio" name="grid_toggle" value="Hide"> <span class="light"> &nbsp; Hide </span>
       </section>
 
       <!-- Grid Line Opacity -->
       <section class="control_subcontainer">
-        <div class="input_subtitle">Grid Line Opacity</div>
+        <div class="input_subtitle">Opacity</div>
         <input class="style_input" placeholder="1" data-type="grid_opacity"></input>
       </section>
 
       <!-- Grid Width -->
       <section class="control_subcontainer">
-        <div class="input_subtitle">Grid Line Width</div>
+        <div class="input_subtitle">Width</div>
         <input class="style_input" placeholder="1px" data-type="grid_line_width"></input>
       </section>
     </div>
 
     <!-- Axis Styling -->
-    <div class="control_container not_selected axis_styling">
-      <h3 class="title special">Axis Styling</h3>
+    <div class="control_container not_selected axis_styling last">
+      <h3 class="title special">Axis Styling <i class="fa fa-chevron-down"></i></h3>
 
       <!-- Axis Color -->
       <section class="control_subcontainer">
-        <div class="input_subtitle">Axis Line Color</div>
+        <div class="input_subtitle">Axis Line Color </div>
         <input class="style_input color_picker" placeholder="#333" data-type="axis_line_color"></input>
       </section>
 
