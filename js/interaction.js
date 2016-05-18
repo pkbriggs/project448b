@@ -14,7 +14,6 @@ var CHART_HEIGHT = CANVAS_HEIGHT - CHART_MARGINS.top - CHART_MARGINS.bottom;
 
 var chart_config = {
   "bars": {
-    "width": 50, // width of the bar (in px)
     "spacing": 0.3, // amount of spacing between each bar (between 0 and 1)
     "fill": "green",
     "stroke": "#333"
