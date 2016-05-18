@@ -25,7 +25,7 @@ var chart_config = {
   "grid": {
     "visible": true,
     "opacity": 0.8,
-    "line_width": 1
+    "stroke_width": 1
     // frequency?
   },
   "axis": {
@@ -116,6 +116,32 @@ function createChart(container) {
       .style("text-anchor", "end")
       .text(chart_config["axis"]["y_label"]);
 
+  // Add Grid lines:
+  var numberOfTicks = 10;
+
+  var yAxisGrid = yAxis.ticks(numberOfTicks)
+    .tickSize(CHART_WIDTH, 0)
+    .tickFormat("")
+    .orient("right");
+
+  var xAxisGrid = xAxis.ticks(numberOfTicks)
+    .tickSize(-CHART_HEIGHT, 0)
+    .tickFormat("")
+    .orient("top");
+
+  container.append("g")
+    .attr('class', "y_grid grid")
+    .attr('stroke', "grey")
+    .attr('opacity', "0.2")
+    .attr('stroke-width', "1")
+    .call(yAxisGrid);
+
+  container.append("g")
+    .attr('class', "x_grid grid hidden")
+    .attr('stroke', "dimgrey")
+    .attr('opacity', "0")
+    .attr('stroke-width', "1")
+    .call(xAxisGrid);
 
 
   var bars = container.selectAll(".chart_bar")
@@ -153,6 +179,8 @@ function updateChartConfigValue(type, key, value) {
   // general cases
   if (type == "bars") {
     container.selectAll(".chart_bar").transition().attr(key, value);
+  } else if (type == "grid") {
+    container.selectAll(".y_grid").transition().attr(key, value);
   }
 }
 
