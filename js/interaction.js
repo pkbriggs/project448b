@@ -43,6 +43,8 @@ var chart_config = {
 
 // this data and the max/min are hardcoded right now, but these eventually need to be dynamic
 var chart_data = [40, 60, 25, 70, 66];
+var xScale = null;
+var xAxis = null;
 
 
 function createSVG() {
@@ -60,11 +62,11 @@ function createSVG() {
 
 
 function createChart(container) {
-  var xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
+  xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
 
   var yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
 
-  var xAxis = d3.svg.axis()
+  xAxis = d3.svg.axis()
       .scale(xScale)
       .orient("bottom");
       // .tickFormat(d3.time.format("%Y-%m"));
@@ -93,7 +95,7 @@ function createChart(container) {
   yScale.domain([0, d3.max(chart_data, function(d) { return d; })]);
 
   container.append("g")
-      .attr("class", "x axis")
+      .attr("class", "x_axis")
       .attr("transform", "translate(0," + CHART_HEIGHT + ")")
       .call(xAxis)
     .selectAll("text")
@@ -135,7 +137,17 @@ function updateChartConfigValue(type, key, value) {
 
   // special cases
   if (type == "bars" && key == "spacing") {
-
+    xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
+    xScale.domain(chart_data.map(function(d, i) { return i; }));
+    xAxis = d3.svg.axis()
+        .scale(xScale)
+        .orient("bottom");
+    container.selectAll(".x_axis").call(xAxis);
+    container.selectAll(".chart_bar").transition()
+      .attr("x", function(d, i) { return xScale(i); })
+      .attr("width", xScale.rangeBand())
+      .attr("y", function(d) { return yScale(d); })
+      .attr("height", function(d) { return CHART_HEIGHT - yScale(d); });
   }
 
   // general cases
