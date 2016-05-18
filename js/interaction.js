@@ -42,7 +42,28 @@ var chart_config = {
 };
 
 // this data and the max/min are hardcoded right now, but these eventually need to be dynamic
-var chart_data = [40, 60, 25, 70, 66];
+var chart_data = [
+  {
+    "value": 40,
+    "label": "fruits"
+  },
+  {
+    "value": 60,
+    "label": "vegetables"
+  },
+  {
+    "value": 25,
+    "label": 1966
+  },
+  {
+    "value": 70,
+    "label": "onomatopoeia"
+  },
+  {
+    "value": 66,
+    "label": "hi"
+  }
+];
 var xScale = null;
 var xAxis = null;
 
@@ -62,57 +83,46 @@ function createSVG() {
 
 
 function createChart(container) {
-  xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
+  // give the contain some margins
+  container
+    .attr("transform", "translate(" + CHART_MARGINS.left + "," + CHART_MARGINS.top + ")");
 
+  xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
   var yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
+
+  xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
+  yScale.domain([0, d3.max(chart_data, function(d) { return d["value"]; })]);
 
   xAxis = d3.svg.axis()
       .scale(xScale)
       .orient("bottom");
-      // .tickFormat(d3.time.format("%Y-%m"));
-      // .ticks(10);
 
   var yAxis = d3.svg.axis()
       .scale(yScale)
       .orient("left")
       .ticks(10);
 
-  container
-    .attr("transform",
-          "translate(" + CHART_MARGINS.left + "," + CHART_MARGINS.top + ")");
-
-
-
-
-  // d3.csv("bar-data.csv", function(error, data) {
-
-  //     data.forEach(function(d) {
-  //         d.date = parseDate(d.date);
-  //         d.value = +d.value;
-  //     });
-
-  xScale.domain(chart_data.map(function(d, i) { return i; }));
-  yScale.domain([0, d3.max(chart_data, function(d) { return d; })]);
-
+  // x axis
   container.append("g")
       .attr("class", "x_axis")
       .attr("transform", "translate(0," + CHART_HEIGHT + ")")
       .call(xAxis)
-    .selectAll("text")
-      .style("text-anchor", "end")
-      // .attr("dx", "-.8em")
-      // .text(chart_config["axis"]["x_label"])
-      .attr("dy", "1.3em");
-      // .attr("transform", "rotate(-50)" );
+    .append("text") // label for the x axis
+      .style("text-anchor", "center")
+      .attr("class", "axis_label")
+      .attr("dx", CHART_WIDTH/2.2)
+      .text(chart_config["axis"]["x_label"])
+      .attr("dy", "3.4em");
 
+  // y axis
   container.append("g")
       .attr("class", "y axis")
       .call(yAxis)
-    .append("text")
+    .append("text") // label for the y axis
+      .attr("class", "axis_label")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
       .attr("dy", "-3.5em")
-      .attr("dx", "-0.3em")
+      .attr("dx", -CHART_HEIGHT/2.5)
       .style("text-anchor", "end")
       .text(chart_config["axis"]["y_label"]);
 
@@ -144,36 +154,38 @@ function createChart(container) {
     .call(xAxisGrid);
 
 
+  // create the chart bars, tie them to the data set
   var bars = container.selectAll(".chart_bar")
     .data(chart_data);
 
+  // when the bars are first created, do these things
   bars.enter()
     .append("rect")
     .attr("class", "chart_bar")
     .attr("fill", chart_config["bars"]["fill"])
     .attr("stroke", chart_config["bars"]["stroke"])
-    .attr("x", function(d, i) { return xScale(i); })
+    .attr("x", function(d, i) { return xScale(d["label"]); })
     .attr("width", xScale.rangeBand())
-    .attr("y", function(d) { return yScale(d); })
-    .attr("height", function(d) { return CHART_HEIGHT - yScale(d); });
+    .attr("y", function(d) { return yScale(d["value"]); })
+    .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); });
 }
 
 function updateChartConfigValue(type, key, value) {
   chart_config[type][key] = value;
 
   // special cases
-  if (type == "bars" && key == "spacing") {
+  if (type == "bars" && key == "spacing") { // TODO: Clean me up
     xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
-    xScale.domain(chart_data.map(function(d, i) { return i; }));
+    xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
     xAxis = d3.svg.axis()
         .scale(xScale)
         .orient("bottom");
     container.selectAll(".x_axis").call(xAxis);
     container.selectAll(".chart_bar").transition()
-      .attr("x", function(d, i) { return xScale(i); })
+      .attr("x", function(d, i) { return xScale(d["label"]); })
       .attr("width", xScale.rangeBand())
-      .attr("y", function(d) { return yScale(d); })
-      .attr("height", function(d) { return CHART_HEIGHT - yScale(d); });
+      .attr("y", function(d) { return yScale(d); }) // WHY DO WE NEED TO REPEAT THESE?
+      .attr("height", function(d) { return CHART_HEIGHT - yScale(d); }); // WHY DO WE NEED TO REPEAT THESE?
   }
 
   // general cases
