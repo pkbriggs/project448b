@@ -1,24 +1,24 @@
 $(function() {
-
 	// Helper function
-	var convertString = function(category_and_style) {
-		// Category_and_style is something like bar_width
+	var convertString = function(type_and_key) {
+		// type_and_key is something like bar_width
 		// we want to extract both bar and width
-		var category = category_and_style.substring(0, category_and_style.indexOf("_"));
-		var style = category_and_style.substring(category_and_style.indexOf("_") + 1);
+		var type = type_and_key.substring(0, type_and_key.indexOf("_"));
+		var key = type_and_key.substring(type_and_key.indexOf("_") + 1);
 
-		return [category, style];
+		return [type, key];
 	};
 
 	var $style_input = $(".style_input");
 	$style_input.keyup(function(event) {
 		var val_of_input = $(this).val();
 
-		var category_style_array = convertString($(this).data("type"));
-		var category = category_style_array[0];
-		var style = category_style_array[1];
+		var type_key_array = convertString($(this).data("type"));
+		var type = type_key_array[0];
+		var key = type_key_array[1];
 
-		console.log("Category: " + category + " style: " + style + " val_of_input: " + val_of_input);
+		console.log("Type: " + type + " key: " + key + " val_of_input: " + val_of_input);
+		// updateChartConfigValue(type, key, val_of_input);
 
 		// Call function to update bar chart
 	});
@@ -28,11 +28,11 @@ $(function() {
 	$radio_btns.click(function(event) {
 		var to_show = ($(this).val() === "Show")
 
-		var category_style_array = convertString($(this)[0].name);
-		var category = category_style_array[0];
-		var style = category_style_array[1];
+		var type_key_array = convertString($(this)[0].name);
+		var type = type_key_array[0];
+		var key = type_key_array[1];
 
-		console.log("Category: " + category + " style: " + style + " val_of_input: " + to_show);
+		console.log("Type: " + type + " key: " + key + " val_of_input: " + to_show);
 
 		// Call function to update bar chart
 	});
