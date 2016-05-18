@@ -23,23 +23,35 @@
     <div class="control_container selected bar_styling">
       <h3 class="title special">Bar Styling</h3>
 
-      <!-- Bar Length -->
+      <!-- Bar Width -->
       <section class="control_subcontainer">
-        <div class="input_subtitle">Bar Length</div>
-        <input class="style_input" placeholder="25px" data-type="bar_length"></input>
+        <div class="input_subtitle">Bar Width</div>
+        <input class="style_input" placeholder="25px" data-type="bar_width"></input>
       </section>
 
       <!-- Bar Color -->
       <section class="control_subcontainer">
-        <div class="input_subtitle">Bar Color</div>
-        <input class="style_input color_picker" placeholder="#333" data-type="bar_color"></input>
+        <div class="input_subtitle">Bar Fill</div>
+        <input class="style_input color_picker" placeholder="#333" data-type="bar_fill"></input>
+      </section>
+
+      <!-- Bar Stroke -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Bar Stroke Color</div>
+        <input class="style_input color_picker" placeholder="#333" data-type="bar_stroke"></input>
+      </section>
+
+      <!-- Bar Spacing -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Bar Spacing</div>
+        <input class="style_input" placeholder="30px" data-type="bar_spacing"></input>
       </section>
 
       <!-- Bar Labels -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Bar Labels</div>
-        <input class="style_input" type="radio" name="bar_label_toggle" value="Show" data-type="bar_label_toggle"> Show<br>
-        <input class="style_input" type="radio" name="bar_label_toggle" value="Hide" data-type="bar_label_toggle"> Hide
+        <input type="radio" name="bar_label_toggle" value="Show" checked> Show<br>
+        <input type="radio" name="bar_label_toggle" value="Hide"> Hide
 
         <div class="input_subtitle">Bar Label Color</div>
         <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input>
@@ -48,7 +60,7 @@
         <input class="style_input font_picker" placeholder="12px" data-type="bar_label_font"></input>
 
         <div class="input_subtitle">Bar Label Font Size</div>
-        <input class="style_input font_size" placeholder="12px" data-type="bar_label_font_size"></input>
+        <input class="style_input" placeholder="12px" data-type="bar_label_font_size"></input>
       </section>
     </div>
 
@@ -59,20 +71,20 @@
       <!-- Grid Lines Toggle -->
       <section class="control_subcontainer grid_toggle">
         <div class="input_subtitle">Grid Lines</div>
-        <input type="radio" name="bg_toggle" value="Show"> Show<br>
-        <input type="radio" name="bg_toggle" value="Hide"> Hide
+        <input type="radio" name="grid_toggle" value="Show" checked> Show<br>
+        <input type="radio" name="grid_toggle" value="Hide"> Hide
       </section>
 
       <!-- Grid Line Opacity -->
-      <section class="control_subcontainer grid_opacity">
+      <section class="control_subcontainer">
         <div class="input_subtitle">Grid Line Opacity</div>
-        <input placeholder="1"></input>
+        <input class="style_input" placeholder="1" data-type="grid_opacity"></input>
       </section>
 
       <!-- Grid Width -->
-      <section class="control_subcontainer grid_line_width">
+      <section class="control_subcontainer">
         <div class="input_subtitle">Grid Line Width</div>
-        <input placeholder="1px"></input>
+        <input class="style_input" placeholder="1px" data-type="grid_line_width"></input>
       </section>
     </div>
 
@@ -81,39 +93,39 @@
       <h3 class="title special">Axis Styling</h3>
 
       <!-- Axis Color -->
-      <section class="control_subcontainer axis_line_color">
+      <section class="control_subcontainer">
         <div class="input_subtitle">Axis Line Color</div>
-        <input placeholder="#333" class="color_picker"></input>
+        <input class="style_input color_picker" placeholder="#333" data-type="axis_line_color"></input>
       </section>
 
       <!-- Axis Marks (numbers) -->
-      <section class="control_subcontainer axis_marks">
+      <section class="control_subcontainer">
         <div class="input_subtitle">Axis Mark Color</div>
-        <input placeholder="#333" class="color_picker"></input>
+        <input class="style_input color_picker" placeholder="#333"></input>
         
         <div class="input_subtitle">Axis Mark Font</div>
-        <input placeholder="12px" class="font_picker"></input>
+        <input class="style_input font_picker" placeholder="12px" data-type="axis_mark_font"></input>
 
         <div class="input_subtitle">Axis Mark Font Size</div>
-        <input placeholder="12px" class="font_size"></input>
+        <input class="style_input" placeholder="12px" data-type="axis_mark_font_size"></input>
       </section>
 
       <!-- Axis Labels -->
       <section class="control_subcontainer axis_labels">
         <div class="input_subtitle">X-Axis Label</div>
-        <input placeholder="Dirk"></input>
+        <input class="style_input" placeholder="Dirk" data-type="axis_x_label"></input>
 
         <div class="input_subtitle">Y-Axis Label</div>
-        <input placeholder="Romo"></input>
+        <input class="style_input" placeholder="Romo" data-type="axis_y_label"></input>
 
         <div class="input_subtitle">Axis Label Color</div>
-        <input placeholder="#333" class="color_picker"></input>
+        <input class="style_input color_picker" placeholder="#333" data-type="axis_label_color"></input>
 
         <div class="input_subtitle">Axis Label Font</div>
-        <input placeholder="12px" class="font_picker"></input>
+        <input class="style_input font_picker" placeholder="12px" class="font_picker" data-type="axis_label_font"></input>
 
         <div class="input_subtitle">Axis Label Font Size</div>
-        <input placeholder="12px" class="font_size"></input>
+        <input class="style_input" placeholder="12px" data-type="axis_label_font_size"></input>
       </section>
     </div>
   </div>
