@@ -19,12 +19,121 @@
   </div>
 
   <div class="vis_controls">
-    <!-- controls go here -->
+    <!-- Bar Styling -->
+    <div class="control_container selected bar_styling">
+      <h3 class="title special">Bar Styling</h3>
+
+      <!-- Bar Width -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Bar Width</div>
+        <input class="style_input" placeholder="25px" data-type="bar_width"></input>
+      </section>
+
+      <!-- Bar Color -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Bar Fill</div>
+        <input class="style_input color_picker" placeholder="#333" data-type="bar_fill"></input>
+      </section>
+
+      <!-- Bar Stroke -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Bar Stroke Color</div>
+        <input class="style_input color_picker" placeholder="#333" data-type="bar_stroke"></input>
+      </section>
+
+      <!-- Bar Spacing -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Bar Spacing</div>
+        <input class="style_input" placeholder="30px" data-type="bar_spacing"></input>
+      </section>
+
+      <!-- Bar Labels -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Bar Labels</div>
+        <input type="radio" name="bar_label_toggle" value="Show" checked> Show<br>
+        <input type="radio" name="bar_label_toggle" value="Hide"> Hide
+
+        <div class="input_subtitle">Bar Label Color</div>
+        <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input>
+
+        <div class="input_subtitle">Bar Label Font</div>
+        <input class="style_input font_picker" placeholder="12px" data-type="bar_label_font"></input>
+
+        <div class="input_subtitle">Bar Label Font Size</div>
+        <input class="style_input" placeholder="12px" data-type="bar_label_font_size"></input>
+      </section>
+    </div>
+
+    <!-- Grid Styling -->
+    <div class="control_container not_selected grid_styling">
+      <h3 class="title special">Grid Styling</h3>
+
+      <!-- Grid Lines Toggle -->
+      <section class="control_subcontainer grid_toggle">
+        <div class="input_subtitle">Grid Lines</div>
+        <input type="radio" name="grid_toggle" value="Show" checked> Show<br>
+        <input type="radio" name="grid_toggle" value="Hide"> Hide
+      </section>
+
+      <!-- Grid Line Opacity -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Grid Line Opacity</div>
+        <input class="style_input" placeholder="1" data-type="grid_opacity"></input>
+      </section>
+
+      <!-- Grid Width -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Grid Line Width</div>
+        <input class="style_input" placeholder="1px" data-type="grid_line_width"></input>
+      </section>
+    </div>
+
+    <!-- Axis Styling -->
+    <div class="control_container not_selected axis_styling">
+      <h3 class="title special">Axis Styling</h3>
+
+      <!-- Axis Color -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Axis Line Color</div>
+        <input class="style_input color_picker" placeholder="#333" data-type="axis_line_color"></input>
+      </section>
+
+      <!-- Axis Marks (numbers) -->
+      <section class="control_subcontainer">
+        <div class="input_subtitle">Axis Mark Color</div>
+        <input class="style_input color_picker" placeholder="#333"></input>
+        
+        <div class="input_subtitle">Axis Mark Font</div>
+        <input class="style_input font_picker" placeholder="12px" data-type="axis_mark_font"></input>
+
+        <div class="input_subtitle">Axis Mark Font Size</div>
+        <input class="style_input" placeholder="12px" data-type="axis_mark_font_size"></input>
+      </section>
+
+      <!-- Axis Labels -->
+      <section class="control_subcontainer axis_labels">
+        <div class="input_subtitle">X-Axis Label</div>
+        <input class="style_input" placeholder="Dirk" data-type="axis_x_label"></input>
+
+        <div class="input_subtitle">Y-Axis Label</div>
+        <input class="style_input" placeholder="Romo" data-type="axis_y_label"></input>
+
+        <div class="input_subtitle">Axis Label Color</div>
+        <input class="style_input color_picker" placeholder="#333" data-type="axis_label_color"></input>
+
+        <div class="input_subtitle">Axis Label Font</div>
+        <input class="style_input font_picker" placeholder="12px" class="font_picker" data-type="axis_label_font"></input>
+
+        <div class="input_subtitle">Axis Label Font Size</div>
+        <input class="style_input" placeholder="12px" data-type="axis_label_font_size"></input>
+      </section>
+    </div>
   </div>
 
   <script src="js/d3.min.js"></script>
   <script src="js/jquery-2.2.3.min.js"></script>
   <script src="js/interaction.js"></script>
+  <script src="js/viz-controls.js"></script>
 
 </body>
 </html>
