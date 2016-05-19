@@ -153,7 +153,6 @@ function createChart(container) {
     .attr('stroke-width', "1")
     .call(xAxisGrid);
 
-
   // create the chart bars, tie them to the data set
   var bars = container.selectAll(".chart_bar")
     .data(chart_data);
@@ -213,7 +212,7 @@ function updateChartConfigValue(type, key, value) {
 
     } else if (key === "label_color") {
       container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("fill", value);
-      
+
     } else if (key === "label_font_size") {
       container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("font-size", value);
     }
