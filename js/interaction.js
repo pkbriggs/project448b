@@ -308,6 +308,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
   }
 }
 
+// TODO: note source - http://techslides.com/save-svg-as-an-image
 function enableSaveButton() {
   d3.select("#save").on("click", function(){
     $("#svgcanvas")[0].width = CANVAS_WIDTH;
