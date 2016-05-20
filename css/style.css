@@ -34,13 +34,17 @@ textarea, input {
 	font-weight: 300;
 }
 
+.small {
+	font-size: 12px;
+}
+
 .vis_container {
 	position: absolute;
-	left: 225px;
+	left: 185px;
 	width: 600px;
-	width: -webkit-calc(100% - 225px);
-	width: -moz-calc(100% - 225px);
-	width: calc(100% - 225px);
+	width: -webkit-calc(100% - 185px);
+	width: -moz-calc(100% - 185px);
+	width: calc(100% - 185px);
 }
 
 .vis_controls {
@@ -48,7 +52,7 @@ textarea, input {
 	position: static;
 	left: 0;
 	top: 0;
-	width: 195px;
+	width: 155px;
 
 	/* content */
 	padding: 15px;

@@ -3,10 +3,10 @@
 	border: 1px solid #D9D9D9;
 	border-radius: 2px;
 	background: white;
-	width: 107px;
 	font-size: 12px;
 	font-weight: 400;
 	padding: 1px;
+	z-index: 2;
 }
 
 .dropdown .fa {
@@ -22,4 +22,62 @@
 
 .dropdown .fa-angle-down {
 	margin-top: 5.5px;
+}
+
+.options {
+	/* Positioning */
+	position: absolute;
+	margin-top: -3px;
+	z-index: 0 !important;
+	height: 0;
+	overflow-y: hidden; /* To make sure text doesn't overflow out of the hidden container*/
+
+	/* Content */
+	background: white;
+	font-size: 12px;
+	font-weight: 400;
+	padding: 1px 2px;
+
+	/* Borders */
+	border-left: 1px solid #D9D9D9;
+	border-right: 1px solid #D9D9D9;
+	border-bottom: 1px solid #D9D9D9;
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	
+	/* Transitions */
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.dropdown.active + .options {
+	margin-top: 0 !important;
+	z-index: 1 !important;
+	overflow-y: scroll;
+	height: 100px; /* approximate max height */
+}
+
+.option:hover {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+.font, .size {
+	display: inline-block;
+}
+
+.font .dropdown {
+	width: 107px;
+}	
+
+.font .options {
+	width: 105px;
+}
+
+.size .dropdown {
+	width: 32px;
+}
+
+.size .options {
+	width: 30px;
 }

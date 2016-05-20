@@ -54,23 +54,62 @@
       <!-- Bar Labels -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Bar Labels</div>
-        <input type="radio" name="bar_label_toggle" value="Show" checked> <span class="light"> &nbsp; Show<span><br>
-        <input type="radio" name="bar_label_toggle" value="Hide"> <span class="light"> &nbsp; Hide</span>
+        <input type="radio" name="bar_label_toggle" value="Show" checked> <span class="small"> &nbsp; Show<span><br>
+        <input type="radio" name="bar_label_toggle" value="Hide"> <span class="small"> &nbsp; Hide</span>
 
+        <div class="font_and_size">
+          <div class="font">
+            <div class="style_input font_picker dropdown">
+              <span>Helvetica Neue</span>
+              <i class="fa fa-angle-up"></i>
+              <i class="fa fa-angle-down"></i>
+            </div>
+            <div class="options">
+              <div class="option">option 1</div>
+              <div class="option">option 2</div>
+              <div class="option">option 3</div>
+              <div class="option">option 4</div>
+              <div class="option">option 5</div>
+              <div class="option">option 6</div>
+              <div class="option">option 7</div>
+              <div class="option">option 8</div>
+              <div class="option">option 9</div>
+              <div class="option">option 10</div>
+              <div class="option">option 11</div>
+              <div class="option">option 12</div>
+              <div class="option">option 13</div>
+              <div class="option">option 14</div>
+              <div class="option">option 15</div>
+            </div>
+          </div>
 
-        <div class="input_subtitle">Font</div>
-        <div class="style_input font_picker dropdown">
-          Helvetica Neue
-          <i class="fa fa-angle-up"></i>
-          <i class="fa fa-angle-down"></i>
+          <div class="size">
+            <div class="style_input size_picker dropdown">
+              <span>12</span>
+              <i class="fa fa-angle-up"></i>
+              <i class="fa fa-angle-down"></i>
+            </div>
+            <div class="options">
+              <div class="option">8</div>
+              <div class="option">9</div>
+              <div class="option">10</div>
+              <div class="option">11</div>
+              <div class="option">12</div>
+              <div class="option">13</div>
+              <div class="option">14</div>
+              <div class="option">18</div>
+              <div class="option">20</div>
+              <div class="option">24</div>
+              <div class="option">36</div>
+              <div class="option">48</div>
+              <div class="option">64</div>
+            </div>
+          </div>
         </div>
 
-
-        <div class="input_subtitle">Bar Label Color</div>
+        <div class="input_subtitle">Color</div>
         <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input>
 
-        <div class="input_subtitle">Bar Label Font Size</div>
-        <input class="style_input" placeholder="12px" data-type="bar_label_font_size"></input>
       </section>
     </div>
 
@@ -144,6 +183,7 @@
   <script src="js/jquery-2.2.3.min.js"></script>
   <script src="js/interaction.js"></script>
   <script src="js/viz-controls.js"></script>
+  <script src="js/dropdown.js"></script>
 
 </body>
 </html>

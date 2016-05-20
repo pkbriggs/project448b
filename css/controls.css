@@ -11,6 +11,7 @@
 
 .title {
 	font-weight: 700;
+	margin-bottom: 8px;
 }
 
 .title i {
@@ -22,13 +23,18 @@
 }
 
 .control_subcontainer {
-	margin-top: 8px;
+	margin-top: 2px;
 }
 
 .input_subtitle {
+	margin-top: 4px;
 	font-weight: 600;
 }
 
 .label {
 	font-weight: 300;
+}
+
+.font_and_size {
+	margin-top: 4px;
 }
