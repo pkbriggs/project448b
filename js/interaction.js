@@ -65,6 +65,7 @@ var chart_data = [
   }
 ];
 var xScale = null;
+var yScale = null;
 var xAxis = null;
 
 
@@ -89,7 +90,7 @@ function createChart(container) {
     .attr("transform", "translate(" + CHART_MARGINS.left + "," + CHART_MARGINS.top + ")");
 
   xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
-  var yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
+  yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
 
   xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
   yScale.domain([0, d3.max(chart_data, function(d) { return d["value"]; })]);
@@ -189,7 +190,7 @@ function createChart(container) {
       .attr("font-size", "10")
       .attr("font-family", "sans-serif")
       .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-      .attr("y", function(d) { return yScale(d["value"]) - 8; })
+      .attr("y", function(d) { return yScale(d["value"]) - 7; })
       .attr("visibility", "hidden");
 
   } else {
@@ -216,7 +217,7 @@ function createChart(container) {
       .attr("font-size", "10")
       .attr("font-family", "sans-serif")
       .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-      .attr("y", function(d) { return yScale(d["value"]) - 5; })
+      .attr("y", function(d) { return yScale(d["value"]) - 7; })
       .attr("visibility", "hidden");
   }
 }
@@ -227,6 +228,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
   } else {
     chart_config[type][key] = value;
   }
+  var chart_type = $("#chart_info").data("type")
 
   // special cases
   if (type == "bars" && key == "spacing") { // TODO: Clean me up
@@ -235,12 +237,28 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     xAxis = d3.svg.axis()
         .scale(xScale)
         .orient("bottom");
-    container.selectAll(".x_axis").call(xAxis);
-    container.selectAll(".chart_bar").transition()
+
+    container.selectAll(".x_axis").call(xAxis);  // Re-draw axis
+    container.selectAll(".chart_bar")  // Re-draw bars
       .attr("x", function(d, i) { return xScale(d["label"]); })
       .attr("width", xScale.rangeBand())
-      .attr("y", function(d) { return yScale(d); }) // WHY DO WE NEED TO REPEAT THESE?
-      .attr("height", function(d) { return CHART_HEIGHT - yScale(d); }); // WHY DO WE NEED TO REPEAT THESE?
+
+    container.selectAll(".chart_bar_label")  // Red-draw bar labels
+      .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
+      .attr("y", function(d) { return yScale(d["value"]) - 7; })
+
+    if(chart_type === "line") {
+      var line = d3.svg.line()
+  			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
+  			.y(function(d) { return yScale(d["value"]); });
+
+      container.selectAll(".chart_line")  // Re-draw lines
+        .attr("d", line(chart_data))
+
+      container.selectAll(".chart_dot")  // Re-draw points
+        .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
+        .attr("cy", function(d) { return yScale(d["value"]); })
+    }
 
     // Add ability to change the spacing of the line chart!
   }
@@ -248,7 +266,6 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
   // general cases
   if (type === "bars") {
     if(!is_bar_label) {
-      var chart_type = $("#chart_info").data("type")
       if(chart_type === "bar") {
         container.selectAll(".chart_bar").transition().attr(key, value);
       } else {
