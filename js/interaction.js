@@ -72,7 +72,8 @@ function createSVG() {
   // Add an svg element to the DOM
   var svg = d3.select(".vis_container").append("svg")
     .attr("width", CANVAS_WIDTH)
-    .attr("height", CANVAS_HEIGHT);
+    .attr("height", CANVAS_HEIGHT)
+    .attr("background", "red");
 
   // create a container for all of our elements
   var container = svg.append("g");
@@ -153,24 +154,66 @@ function createChart(container) {
     .attr('stroke-width', "1")
     .call(xAxisGrid);
 
-  // create the chart bars, tie them to the data set
-  var bars = container.selectAll(".chart_bar")
-    .data(chart_data);
+  var chart_type = $("#chart_info").data("type")
+  if(chart_type === "line") {
+    // Create lines if we are doing a line chart
+    var line = d3.svg.line()
+  			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
+  			.y(function(d) { return yScale(d["value"]); });
 
-  // when the bars are first created, do these things
-  bars.enter()
-    .append("rect")
-    .attr("class", "chart_bar")
-    .attr("fill", chart_config["bars"]["fill"])
-    .attr("stroke", chart_config["bars"]["stroke"])
-    .attr("x", function(d, i) { return xScale(d["label"]); })
-    .attr("width", xScale.rangeBand())
-    .attr("y", function(d) { return yScale(d["value"]); })
-    .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); });
+    container.append("svg:path")
+      .attr("class", "chart_line")
+      .attr("d", line(chart_data))
+      .attr("fill", "none")
+      .attr("stroke-width", "1")
+      .attr("stroke", "steelblue");
+
+    var circles = container.selectAll(".chart_dot")
+      .data(chart_data);
+
+    circles.enter()
+      .append("circle")
+      .attr("class", "chart_dot")
+      .attr("fill", "steelblue")
+      .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
+      .attr("cy", function(d) { return yScale(d["value"]); })
+      .attr("r", "3");
+
+  } else {
+    // create the chart bars, tie them to the data set
+    var bars = container.selectAll(".chart_bar")
+      .data(chart_data);
+
+    // when the bars are first created, do these things
+    bars.enter()
+      .append("rect")
+      .attr("class", "chart_bar")
+      .attr("fill", chart_config["bars"]["fill"])
+      .attr("stroke", chart_config["bars"]["stroke"])
+      .attr("x", function(d, i) { return xScale(d["label"]); })
+      .attr("width", xScale.rangeBand())
+      .attr("y", function(d) { return yScale(d["value"]); })
+      .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); })
+
+    bars.enter()
+      .append("text")
+      .attr("class", "chart_bar_label")
+      .text(function(d) { return d["value"]; })
+      .attr("text-anchor", "middle")
+      .attr("font-size", "10")
+      .attr("font-family", "sans-serif")
+      .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
+      .attr("y", function(d) { return yScale(d["value"]) - 5; })
+      .attr("visibility", "hidden");
+  }
 }
 
-function updateChartConfigValue(type, key, value) {
-  chart_config[type][key] = value;
+function updateChartConfigValue(type, key, value, is_bar_label) {
+  if(is_bar_label === true) {
+    chart_config[type]["label_" + key] = value;
+  } else {
+    chart_config[type][key] = value;
+  }
 
   // special cases
   if (type == "bars" && key == "spacing") { // TODO: Clean me up
