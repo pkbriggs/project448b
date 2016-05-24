@@ -17,13 +17,13 @@ var chart_config = {
     "spacing": 0.3, // amount of spacing between each bar (between 0 and 1)
     "fill": "green",
     "stroke": "#333",
-    "label_visible": false,
-    "label_color": "blue",
-    "label_font_size": 14
+    "label_visiblity": false,
+    "label_fill": "#333",
+    "label_font_size": 10
     // "y_label": "Drinks Consumed"
   },
   "grid": {
-    "visible": true,
+    "visiblity": true,
     "opacity": 0.8,
     "stroke_width": 1
     // frequency?
@@ -144,6 +144,7 @@ function createChart(container) {
     .attr('stroke', "grey")
     .attr('opacity', "0.2")
     .attr('stroke-width', "1")
+    .attr('visibility', 'visible')
     .call(yAxisGrid);
 
   container.append("g")
@@ -151,6 +152,7 @@ function createChart(container) {
     .attr('stroke', "dimgrey")
     .attr('opacity', "0")
     .attr('stroke-width', "1")
+    .attr('visibility', 'visible')
     .call(xAxisGrid);
 
   // create the chart bars, tie them to the data set
@@ -166,10 +168,22 @@ function createChart(container) {
     .attr("x", function(d, i) { return xScale(d["label"]); })
     .attr("width", xScale.rangeBand())
     .attr("y", function(d) { return yScale(d["value"]); })
-    .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); });
+    .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); })
+
+  bars.enter()
+    .append("text")
+    .attr("class", "chart_bar_label")
+    .text(function(d) { return d["value"]; })
+    .attr("text-anchor", "middle")
+    .attr("font-size", "10")
+    .attr("font-family", "sans-serif")
+    .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
+    .attr("y", function(d) { return yScale(d["value"]) - 5; })
+    .attr("visibility", "hidden");
 }
 
-function updateChartConfigValue(type, key, value) {
+function updateChartConfigValue(type, key, value, is_bar_label) {
+  console.log("Type: " + type + " key: " + key + " value: " + value + " is_bar_label: " + is_bar_label);
   chart_config[type][key] = value;
 
   // special cases
@@ -188,8 +202,12 @@ function updateChartConfigValue(type, key, value) {
   }
 
   // general cases
-  if (type == "bars") {
-    container.selectAll(".chart_bar").transition().attr(key, value);
+  if (type === "bars") {
+    if(is_bar_label === false)
+      container.selectAll(".chart_bar").transition().attr(key, value);
+    else{
+      container.selectAll(".chart_bar_label").transition().attr(key, value);
+    }
 
   } else if (type === "grid") {
     container.selectAll(".y_grid").transition().attr(key, value);

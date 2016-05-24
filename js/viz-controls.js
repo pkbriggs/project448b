@@ -1,32 +1,25 @@
-$(function() {	
+$(function() {
 
 	var $style_input = $(".style_input");
 	$style_input.keyup(function(event) {
 		var val_of_input = $(this).val();
 		var type = $(this).data("type");
 		var key = $(this).data("key");
-
-		if(type === "grid" && key === "opacity" && $("input:radio[name=grid_toggle]:checked").val() == "Hide")
-			// Edge case where the user has already hidden the grid lines. If they then change the opacity,
-			// we don't do anything. DISCUSS behavior here!
-			return;
+		var is_bar_label = ($(this).data("label") !== undefined) ? true : false;
 
 		// Call function to update bar chart
-		updateChartConfigValue(type, key, val_of_input);
+		updateChartConfigValue(type, key, val_of_input, is_bar_label);
 	});
 
 	// Dealing with buttons that show/hide elements on the graph
 	var $radio_btns = $("input[type=radio]");
 	$radio_btns.click(function(event) {
-		var to_show = ($(this).val() === "Show") ? $("#grid_line_opacity").val() : "0";
+		var to_show = ($(this).val() === "Show") ? "visible" : "hidden";
 		var type = $(this).data("type");
 		var key = $(this).data("key");
+		var is_bar_label = ($(this).data("label") !== undefined) ? true : false;
 
-		if(key === "visible") {
-			key = "opacity";
-		}
-		
 		// Call function to update bar chart
-		updateChartConfigValue(type, key, to_show);
+		updateChartConfigValue(type, key, to_show, is_bar_label);
 	});
 });

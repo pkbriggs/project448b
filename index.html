@@ -49,8 +49,8 @@
       <!-- Bar Labels -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Bar Labels</div>
-        <input type="radio" name="bar_label_toggle" value="Show" data-type="bars" data-key="label_visible"> <span class="light"> &nbsp; Show<span><br>
-        <input type="radio" name="bar_label_toggle" value="Hide" data-type="bars" data-key="label_visible" checked> <span class="light"> &nbsp; Hide</span>
+        <input type="radio" name="bar_label_toggle" value="Show" data-type="bars" data-key="visibility" data-label="true"> <span class="light"> &nbsp; Show<span><br>
+        <input type="radio" name="bar_label_toggle" value="Hide" data-type="bars" data-key="visibility" data-label="true" checked> <span class="light"> &nbsp; Hide</span>
 
         <div class="input_subtitle">Font</div>
         <div class="style_input font_picker dropdown">
@@ -60,10 +60,10 @@
         </div>
 
         <div class="input_subtitle">Bar Label Color</div>
-        <input class="style_input color_picker" value="#333" data-type="bars" data-key="label_color"></input>
+        <input class="style_input color_picker" value="#333" data-type="bars" data-key="fill" data-label="true"></input>
 
         <div class="input_subtitle">Bar Label Font Size</div>
-        <input class="style_input" value="12px" data-type="bars" data-key="label_font_size"></input>
+        <input class="style_input" value="10px" data-type="bars" data-key="font-size" data-label="true"></input>
       </section>
     </div>
 
@@ -74,8 +74,8 @@
       <!-- Grid Lines Toggle -->
       <section class="control_subcontainer grid_toggle">
         <div class="input_subtitle">Lines</div>
-        <input type="radio" name="grid_toggle" value="Show" data-type="grid" data-key="visible" checked> <span class="light"> &nbsp; Show </span><br>
-        <input type="radio" name="grid_toggle" value="Hide" data-type="grid" data-key="visible"> <span class="light"> &nbsp; Hide </span>
+        <input type="radio" name="grid_toggle" value="Show" data-type="grid" data-key="visibility" checked> <span class="light"> &nbsp; Show </span><br>
+        <input type="radio" name="grid_toggle" value="Hide" data-type="grid" data-key="visibility"> <span class="light"> &nbsp; Hide </span>
       </section>
 
       <!-- Grid Line Opacity -->
