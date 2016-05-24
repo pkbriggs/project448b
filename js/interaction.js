@@ -189,7 +189,7 @@ function createChart(container) {
       .attr("font-size", "10")
       .attr("font-family", "sans-serif")
       .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-      .attr("y", function(d) { return yScale(d["value"]) - 5; })
+      .attr("y", function(d) { return yScale(d["value"]) - 8; })
       .attr("visibility", "hidden");
 
   } else {
@@ -241,12 +241,23 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       .attr("width", xScale.rangeBand())
       .attr("y", function(d) { return yScale(d); }) // WHY DO WE NEED TO REPEAT THESE?
       .attr("height", function(d) { return CHART_HEIGHT - yScale(d); }); // WHY DO WE NEED TO REPEAT THESE?
+
+    // Add ability to change the spacing of the line chart!
   }
 
   // general cases
   if (type === "bars") {
     if(!is_bar_label) {
-      container.selectAll(".chart_bar").transition().attr(key, value);
+      var chart_type = $("#chart_info").data("type")
+      if(chart_type === "bar") {
+        container.selectAll(".chart_bar").transition().attr(key, value);
+      } else {
+        if(key === "fill") {
+          container.selectAll(".chart_dot").transition().attr(key, value);
+        } else {
+          container.selectAll(".chart_line").transition().attr(key, value);
+        }
+      }
     } else {
       container.selectAll(".chart_bar_label").transition().attr(key, value);
     }
