@@ -181,6 +181,17 @@ function createChart(container) {
       .attr("cy", function(d) { return yScale(d["value"]); })
       .attr("r", "3");
 
+    circles.enter()
+      .append("text")
+      .attr("class", "chart_bar_label")
+      .text(function(d) { return d["value"]; })
+      .attr("text-anchor", "middle")
+      .attr("font-size", "10")
+      .attr("font-family", "sans-serif")
+      .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
+      .attr("y", function(d) { return yScale(d["value"]) - 5; })
+      .attr("visibility", "hidden");
+
   } else {
     // create the chart bars, tie them to the data set
     var bars = container.selectAll(".chart_bar")
@@ -234,9 +245,9 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 
   // general cases
   if (type === "bars") {
-    if(is_bar_label === false)
+    if(!is_bar_label) {
       container.selectAll(".chart_bar").transition().attr(key, value);
-    else{
+    } else {
       container.selectAll(".chart_bar_label").transition().attr(key, value);
     }
 
