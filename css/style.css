@@ -49,11 +49,11 @@ input[type=radio] {
 
 .vis_container {
 	position: absolute;
-	left: 205px;
+	left: 207px;
 	width: 600px;
-	width: -webkit-calc(100% - 205px);
-	width: -moz-calc(100% - 205px);
-	width: calc(100% - 205px);
+	width: -webkit-calc(100% - 207px);
+	width: -moz-calc(100% - 207px);
+	width: calc(100% - 207px);
 }
 
 .vis_controls {
@@ -61,7 +61,7 @@ input[type=radio] {
 	position: static;
 	left: 0;
 	top: 0;
-	width: 175px;
+	width: 177px;
 
 	/* content */
 	padding: 15px;
