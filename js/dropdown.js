@@ -13,11 +13,16 @@ $(function() {
 	var $options = $(".options");
 	$options.click(function(event) {
 		var $target = $(event.target);
-		var font = $target.text();
+		var option = $target.text();
 		var $dropdown = $target.parent().prev();
 		$dropdown.toggleClass("active");
 		var $selection = $dropdown.find("span");
 		console.log($selection);
-		$selection.text(font);
+		$selection.text(option);
+		var type = $dropdown.data("type");
+		var key = $dropdown.data("key");
+		var is_bar_label = ($dropdown.data("label") !== undefined) ? true : false;
+		console.log(type, key, option, is_bar_label);
+		updateChartConfigValue(type, key, option, is_bar_label);
 	});
 });

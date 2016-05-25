@@ -31,7 +31,8 @@ $(function() {
   	console.log(color);
   	var type = $(this).data("type");
 		var key = $(this).data("key");
-		updateChartConfigValue(type, key, color, false);
+		var is_bar_label = ($(this).data("label") !== undefined) ? true : false;
+		updateChartConfigValue(type, key, color, is_bar_label);
   });
 
 });

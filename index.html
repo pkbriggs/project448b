@@ -109,7 +109,7 @@
           </div>
 
           <div class="size">
-            <div class="style_input size_picker dropdown">
+            <div class="style_input size_picker dropdown" data-type="bars" data-key="font-size" data-label="true">
               <span>12</span>
               <i class="fa fa-angle-up"></i>
               <i class="fa fa-angle-down"></i>
@@ -131,12 +131,10 @@
             </div>
           </div>
         </div>
-
-        <!-- <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input> -->
         
         <!-- Color picker stuff -->
         <div class="labelcolor cpcontainer">
-          <div class="cp input-group colorpicker-component">
+          <div class="cp input-group colorpicker-component" data-type="bars" data-key="fill" data-label="true">
             <input type="text" value="#00AABB" />
             <span class="input-group-addon"><i></i></span>
           </div>
@@ -160,12 +158,11 @@
       <!-- Grid Line Opacity -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Opacity</div>
-        <!-- <input class="style_input" value="0.0 - 1.0" data-type="bars" data-key="spacing"></input> -->
         <div class="slider_container">
           <div class="slider_reading">
             25%
           </div>
-          <div class="slider"></div>
+          <div class="slider" data-type="bars" data-key=""></div>
           <div class="label min">0</div>
           <div class="label max">1</div>
         </div>
@@ -184,11 +181,10 @@
 
       <!-- Axis Color -->
       <section class="control_subcontainer">
-        <!-- <input class="style_input color_picker" value="#333" data-type="axis" data-key="line_color"></input> -->
         <div class="axiscolor">
           <span class="small"> Axis Color: &nbsp; </span>
           <div class="axiscp cpcontainer">
-            <div class="cp input-group colorpicker-component">
+            <div class="cp input-group colorpicker-component" data-type="axis" data-key="line_color">
               <input type="text" value="#00AABB" />
               <span class="input-group-addon"><i></i></span>
             </div>
@@ -199,15 +195,12 @@
 
       <!-- Axis Marks (numbers) -->
       <section class="control_subcontainer">
-        <!-- <input class="style_input color_picker" value="#333" data-type="axis" data-key="tick_label_color"></input> -->
         <div class="input_subtitle">Tick Labels</div>
-        <!-- <input class="style_input color_picker" value="#333" data-type="axis" data-key="tick_label_color"></input> -->
-        <!-- <input class="style_input font_picker" value="Arial" data-type="axis" data-key="tick_label_font"></input> -->
-        <!-- <input class="style_input" value="12px" data-type="axis" data-key="tick_label_font_size"></input> -->
        
+       <!-- Font and Size -->
         <div class="font_and_size">
           <div class="font">
-            <div class="style_input font_picker dropdown">
+            <div class="style_input font_picker dropdown" value="Arial" data-type="axis" data-key="tick_label_font">
               <span>Helvetica Neue</span>
               <i class="fa fa-angle-up"></i>
               <i class="fa fa-angle-down"></i>
@@ -232,7 +225,7 @@
           </div>
 
           <div class="size">
-            <div class="style_input size_picker dropdown">
+            <div class="style_input size_picker dropdown" data-type="axis" data-key="tick_label_font_size">
               <span>12</span>
               <i class="fa fa-angle-up"></i>
               <i class="fa fa-angle-down"></i>
@@ -255,9 +248,10 @@
           </div>
         </div>
 
+        <!-- Color of tick font -->
         <div class="tickcolor">
           <div class="tickcp cpcontainer">
-            <div class="cp input-group colorpicker-component">
+            <div class="cp input-group colorpicker-component" data-type="axis" data-key="tick_label_color">
               <input type="text" value="#00AABB" />
               <span class="input-group-addon"><i></i></span>
             </div>
@@ -277,13 +271,11 @@
           <span class="small"> Y-Axis: &nbsp; </span>
           <input class="style_input xylabel" value="Y Label" data-type="axis" data-key="y_label"></input>
         </div>
-        <!-- <input class="style_input color_picker" value="#333" data-type="axis" data-key="label_color"></input> -->
-        <!-- <input class="style_input font_picker" value="Arial" class="font_picker" data-type="axis" data-key="label_font"></input> -->
-        <!-- <input class="style_input" value="12px" data-type="axis" data-key="label_font_size"></input> -->
 
+        <!-- Font and size of XY Labels -->
         <div class="font_and_size">
           <div class="font">
-            <div class="style_input font_picker dropdown">
+            <div class="style_input font_picker dropdown" data-type="axis" data-key="label_font">
               <span>Helvetica Neue</span>
               <i class="fa fa-angle-up"></i>
               <i class="fa fa-angle-down"></i>
@@ -308,7 +300,7 @@
           </div>
 
           <div class="size">
-            <div class="style_input size_picker dropdown">
+            <div class="style_input size_picker dropdown" data-type="axis" data-key="label_font_size">
               <span>12</span>
               <i class="fa fa-angle-up"></i>
               <i class="fa fa-angle-down"></i>
@@ -331,9 +323,10 @@
           </div>
         </div>
 
+        <!-- XY Label Color -->
         <div class="tickcolor">
           <div class="tickcp cpcontainer">
-            <div class="cp input-group colorpicker-component">
+            <div class="cp input-group colorpicker-component" data-type="axis" data-key="label_color">
               <input type="text" value="#00AABB" />
               <span class="input-group-addon"><i></i></span>
             </div>
