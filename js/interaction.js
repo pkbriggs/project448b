@@ -84,7 +84,7 @@ if(chart_type === "bar") {
     },
     {
       "label": "March",
-      "val_one": 10,
+      "val_one": 15,
       "val_two": 40,
       "val_three": 50,
       "val_four": 5
