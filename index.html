@@ -41,21 +41,29 @@
 
       <!-- Bar Stroke -->
       <section class="control_subcontainer">
-        <div class="input_subtitle">Stroke Color</div>
+        <div class="input_subtitle">Color</div>
         <!-- <input class="style_input color_picker" value="#333" data-type="bars" data-key="stroke"></input> -->
-         <!-- Color picker stuff -->
-        <div id="cp3" class="input-group colorpicker-component">
-          <input type="text" value="#00AABB" />
-          <span class="input-group-addon"><i></i></span>
+        <!-- Color picker stuff -->
+        
+        <div class="strokecolor">
+          <span class="small"> Stroke: &nbsp; </span>
+          <div class="strokecp cpcontainer">
+            <div class="cp input-group colorpicker-component">
+              <input type="text" value="#00AABB" />
+              <span class="input-group-addon"><i></i></span>
+            </div>
+          </div>
         </div>
-      </section>
-
-
-
-      <!-- Bar Color -->
-      <section class="control_subcontainer">
-        <div class="input_subtitle">Fill</div>
-        <input class="style_input color_picker" value="#333" data-type="bars" data-key="fill"></input>
+              
+        <div class="fillcolor">
+          <span class="small"> Fill: &nbsp; </span>
+          <div class="fillcp cpcontainer">
+            <div class="cp input-group colorpicker-component">
+              <input type="text" value="#00AABB" />
+              <span class="input-group-addon"><i></i></span>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- Bar Labels -->
@@ -114,14 +122,16 @@
           </div>
         </div>
 
-        <div class="input_subtitle">Color</div>
         <!-- <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input> -->
         
         <!-- Color picker stuff -->
-        <div id="cp2" class="input-group colorpicker-component">
-          <input type="text" value="#00AABB" />
-          <span class="input-group-addon"><i></i></span>
+        <div class="labelcolor cpcontainer">
+          <div class="cp input-group colorpicker-component">
+            <input type="text" value="#00AABB" />
+            <span class="input-group-addon"><i></i></span>
+          </div>
         </div>
+
         <!-- XX -->
       </section>
     </div>

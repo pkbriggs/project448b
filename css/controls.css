@@ -23,7 +23,7 @@
 }
 
 .control_subcontainer {
-	margin-top: 2px;
+	margin-top: 10px;
 }
 
 .input_subtitle {
@@ -37,6 +37,25 @@
 
 .font_and_size {
 	margin-top: 4px;
+}
+
+/* colorpicker stuff */
+
+.labelcolor {
+	margin-top: 3px;
+}
+
+.fillcolor, .strokecolor {
+	display: relative;
+}
+
+.fillcolor {
+	margin-top: 3px;
+}
+
+.fillcp, .strokecp {
+	float: right;
+	width: 70%;
 }
 
 .input-group-addon {

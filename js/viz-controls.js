@@ -25,9 +25,10 @@ $(function() {
 });
 
  $(function() {
-  $('#cp2').colorpicker();
-});
+  $cp = $(".cp").colorpicker();
+  $cp.on("changeColor", function(event) {
+  	var color = $cp.data('colorpicker').color.toHex();
+  	console.log(color);
+  });
 
-$(function() {
-  $('#cp3').colorpicker();
 });
