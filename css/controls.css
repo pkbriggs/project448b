@@ -38,3 +38,7 @@
 .font_and_size {
 	margin-top: 4px;
 }
+
+.special-color {
+  background-color: <?php the_field('color'); ?>;
+}

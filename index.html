@@ -109,7 +109,15 @@
 
         <div class="input_subtitle">Color</div>
         <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input>
-
+        <div id="cp2" class="input-group colorpicker-component">
+          <input type="text" value="#00AABB" class="form-control" />
+          <span class="input-group-addon"><i></i></span>
+        </div>
+        <script>
+          $(function() {
+              $('#cp2').colorpicker();
+          });
+        </script>
       </section>
     </div>
 
@@ -120,8 +128,8 @@
       <!-- Grid Lines Toggle -->
       <section class="control_subcontainer grid_toggle">
         <div class="input_subtitle">Lines</div>
-        <input type="radio" name="grid_toggle" value="Show" checked> <span class="light"> &nbsp; Show </span><br>
-        <input type="radio" name="grid_toggle" value="Hide"> <span class="light"> &nbsp; Hide </span>
+        <input type="radio" name="grid_toggle" value="Show" checked> <span class="small"> &nbsp; Show </span><br>
+        <input type="radio" name="grid_toggle" value="Hide"> <span class="small"> &nbsp; Hide </span>
       </section>
 
       <!-- Grid Line Opacity -->

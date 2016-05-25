@@ -1,3 +1,4 @@
+/* Dropdown Selector*/
 .dropdown {
 	position: relative;
 	border: 1px solid #D9D9D9;
@@ -9,21 +10,19 @@
 	z-index: 2;
 }
 
+
+/* Dropdown Icons*/
 .dropdown .fa {
 	position: absolute;
 	color: #8E8E93;
 	right: 4px;
 	font-size: 11px;
 }
+.dropdown .fa-angle-up { margin-top: -0.5px; }
+.dropdown .fa-angle-down { margin-top: 5.5px; }
 
-.dropdown .fa-angle-up {
-	margin-top: -0.5px;
-}
 
-.dropdown .fa-angle-down {
-	margin-top: 5.5px;
-}
-
+/* Dropdown Options*/
 .options {
 	/* Positioning */
 	position: absolute;
@@ -51,17 +50,21 @@
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 
+
+/* When the dropdown is active*/
 .dropdown.active + .options {
 	margin-top: 0 !important;
 	z-index: 1 !important;
 	overflow-y: scroll;
-	height: 100px; /* approximate max height */
+	height: 100px;
 }
 
 .option:hover {
 	background-color: rgba(0, 0, 0, 0.05);
 }
 
+
+/* Application Specific Sizing */
 .font, .size {
 	display: inline-block;
 }
