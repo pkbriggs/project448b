@@ -72,19 +72,12 @@ input[type=radio] {
 
 
 /* uploaded image things */
-.image_upload_outer_container {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	display: flex;
-	background: rgba(33, 33, 33, 0.7);
-	z-index: 3;
-}
-
 .image_upload_container {
-	background: #ededed;
-	margin-left: auto;
-	margin-right: auto;
+	border: 1px solid #333;
+	padding: 5px;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 
 .image_upload_container {
@@ -117,6 +110,8 @@ input[type=radio] {
 .image_dominant_color {
 	width: 100px;
 	height: 100px;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 .image_color_palette_color {
