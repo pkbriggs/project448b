@@ -14,7 +14,7 @@ h3 {
 }
 
 textarea:focus, input:focus{
-    outline: none;
+    outline: none !important;
 }
 
 textarea, input {

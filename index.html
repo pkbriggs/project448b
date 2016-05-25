@@ -9,10 +9,10 @@
   <link rel="stylesheet" href="css/controls.css">
   <link rel="stylesheet" href="css/dropdown.css">
   <link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">  
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 
   <!-- Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700,900,600italic,700italic,400italic,300italic,900italic' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css ">
 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -23,6 +23,7 @@
 </head>
 
 <body>
+  <div id="chart_info" data-type="line" data-source="1"></div>
   <div class="vis_container">
     <!-- SVG stuff added here by JS -->
   </div>
@@ -32,27 +33,29 @@
     <div class="control_container selected bar_styling">
       <h3 class="title special">Bar Styling <i class="fa fa-chevron-down"></i> </h3>
 
-      <!-- Bar Width -->
-      <section class="control_subcontainer">
-        <div class="input_subtitle">Width</div>
-        <input class="style_input" placeholder="25px" data-type="bar_width"></input>
-      </section>
-
       <!-- Bar Spacing -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Spacing</div>
-        <input class="style_input" placeholder="30px" data-type="bar_spacing"></input>
+        <input class="style_input" value="0.0 - 1.0" data-type="bars" data-key="spacing"></input>
       </section>
+
       <!-- Bar Stroke -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Stroke Color</div>
-        <input class="style_input color_picker" placeholder="#333" data-type="bar_stroke"></input>
+        <!-- <input class="style_input color_picker" value="#333" data-type="bars" data-key="stroke"></input> -->
+         <!-- Color picker stuff -->
+        <div id="cp3" class="input-group colorpicker-component">
+          <input type="text" value="#00AABB" />
+          <span class="input-group-addon"><i></i></span>
+        </div>
       </section>
+
+
 
       <!-- Bar Color -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Fill</div>
-        <input class="style_input color_picker" placeholder="#333" data-type="bar_fill"></input>
+        <input class="style_input color_picker" value="#333" data-type="bars" data-key="fill"></input>
       </section>
 
       <!-- Bar Labels -->
@@ -112,15 +115,14 @@
         </div>
 
         <div class="input_subtitle">Color</div>
-        <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input>
+        <!-- <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input> -->
         
         <!-- Color picker stuff -->
         <div id="cp2" class="input-group colorpicker-component">
+          <input type="text" value="#00AABB" />
           <span class="input-group-addon"><i></i></span>
-          <input type="text" value="#00AABB" class="form-control" />
         </div>
         <!-- XX -->
-
       </section>
     </div>
 
@@ -138,13 +140,13 @@
       <!-- Grid Line Opacity -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Opacity</div>
-        <input class="style_input" placeholder="1" data-type="grid_opacity"></input>
+        <input class="style_input" value="0.2" data-type="grid" data-key="opacity" id="grid_line_opacity"></input>
       </section>
 
       <!-- Grid Width -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Width</div>
-        <input class="style_input" placeholder="1px" data-type="grid_line_width"></input>
+        <input class="style_input" value="1px" data-type="grid" data-key="stroke-width"></input>
       </section>
     </div>
 
@@ -154,38 +156,38 @@
 
       <!-- Axis Color -->
       <section class="control_subcontainer">
-        <div class="input_subtitle">Axis Line Color </div>
-        <input class="style_input color_picker" placeholder="#333" data-type="axis_line_color"></input>
+        <div class="input_subtitle">Axis Line Color</div>
+        <input class="style_input color_picker" value="#333" data-type="axis" data-key="line_color"></input>
       </section>
 
       <!-- Axis Marks (numbers) -->
       <section class="control_subcontainer">
-        <div class="input_subtitle">Axis Mark Color</div>
-        <input class="style_input color_picker" placeholder="#333"></input>
-        
-        <div class="input_subtitle">Axis Mark Font</div>
-        <input class="style_input font_picker" placeholder="12px" data-type="axis_mark_font"></input>
+        <div class="input_subtitle">Axis Tick Color</div>
+        <input class="style_input color_picker" value="#333" data-type="axis" data-key="tick_label_color"></input>
 
-        <div class="input_subtitle">Axis Mark Font Size</div>
-        <input class="style_input" placeholder="12px" data-type="axis_mark_font_size"></input>
+        <div class="input_subtitle">Axis Tick Font</div>
+        <input class="style_input font_picker" value="Arial" data-type="axis" data-key="tick_label_font"></input>
+
+        <div class="input_subtitle">Axis Tick Font Size</div>
+        <input class="style_input" value="12px" data-type="axis" data-key="tick_label_font_size"></input>
       </section>
 
       <!-- Axis Labels -->
       <section class="control_subcontainer axis_labels">
         <div class="input_subtitle">X-Axis Label</div>
-        <input class="style_input" placeholder="Dirk" data-type="axis_x_label"></input>
+        <input class="style_input" value="X Label" data-type="axis" data-key="x_label"></input>
 
         <div class="input_subtitle">Y-Axis Label</div>
-        <input class="style_input" placeholder="Romo" data-type="axis_y_label"></input>
+        <input class="style_input" value="Y Label" data-type="axis" data-key="y_label"></input>
 
         <div class="input_subtitle">Axis Label Color</div>
-        <input class="style_input color_picker" placeholder="#333" data-type="axis_label_color"></input>
+        <input class="style_input color_picker" value="#333" data-type="axis" data-key="label_color"></input>
 
         <div class="input_subtitle">Axis Label Font</div>
-        <input class="style_input font_picker" placeholder="12px" class="font_picker" data-type="axis_label_font"></input>
+        <input class="style_input font_picker" value="Arial" class="font_picker" data-type="axis" data-key="label_font"></input>
 
         <div class="input_subtitle">Axis Label Font Size</div>
-        <input class="style_input" placeholder="12px" data-type="axis_label_font_size"></input>
+        <input class="style_input" value="12px" data-type="axis" data-key="label_font_size"></input>
       </section>
     </div>
   </div>

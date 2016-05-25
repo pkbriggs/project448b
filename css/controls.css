@@ -39,4 +39,11 @@
 	margin-top: 4px;
 }
 
+.input-group-addon {
+	padding: 0 !important;
+}
+.input-group-addon i {
+	width: 20px !important; 
+	height: 19px !important;
+}
 
