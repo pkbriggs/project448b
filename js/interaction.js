@@ -43,68 +43,8 @@ var chart_config = {
 
 // this data and the max/min are hardcoded right now, but these eventually need to be dynamic
 var chart_type = $("#chart_info").data("type");
-if(chart_type === "bar") {
-  var chart_data = [
-    {
-      "value": 40,
-      "label": "fruits"
-    },
-    {
-      "value": 60,
-      "label": "vegetables"
-    },
-    {
-      "value": 25,
-      "label": 1966
-    },
-    {
-      "value": 70,
-      "label": "onomatopoeia"
-    },
-    {
-      "value": 66,
-      "label": "hi"
-    }
-  ];
-} else {
-  var chart_data = [
-    {
-      "label": "January",
-      "val_one": 40,
-      "val_two": 13,
-      "val_three": 70,
-      "val_four": 6
-    },
-    {
-      "label": "February",
-      "val_one": 50,
-      "val_two": 29,
-      "val_three": 40,
-      "val_four": 15
-    },
-    {
-      "label": "March",
-      "val_one": 15,
-      "val_two": 40,
-      "val_three": 50,
-      "val_four": 5
-    },
-    {
-      "label": "April",
-      "val_one": 14,
-      "val_two": 35,
-      "val_three": 55,
-      "val_four": 8
-    },
-    {
-      "label": "May",
-      "val_one": 70,
-      "val_two": 60,
-      "val_three": 15,
-      "val_four": 13,
-    }
-  ];
-}
+var chart_data = setupChartData(chart_type);
+
 var xScale = null;
 var yScale = null;
 var xAxis = null;
@@ -166,16 +106,17 @@ function createChart(container) {
     yScale.domain([0,d3.max(line_data, function(c) { return d3.max(c.values, function(v) { return v["value"]; }); })]);
   }
 
-  xAxis = d3.svg.axis()
-      .scale(xScale)
+  xAxis = d3.svg.axis().scale(xScale)
+      .outerTickSize(1)
+      .tickPadding(5)
       .orient("bottom");
-
-  var yAxis = d3.svg.axis()
-      .scale(yScale)
+  var yAxis = d3.svg.axis().scale(yScale)
       .orient("left")
-      .ticks(10);
+      .outerTickSize(1)
+      .tickPadding(5)
+      .ticks(5);
 
-  // x axis
+  // Add x-axis to the grid along with the x-axis label
   container.append("g")
       .attr("class", "x_axis")
       .attr("transform", "translate(0," + CHART_HEIGHT + ")")
@@ -187,7 +128,7 @@ function createChart(container) {
       .text(chart_config["axis"]["x_label"])
       .attr("dy", "3.4em");
 
-  // y axis
+  // Add y-axis to the grid along with the y-axis label
   container.append("g")
       .attr("class", "y_axis")
       .call(yAxis)
@@ -199,19 +140,18 @@ function createChart(container) {
       .style("text-anchor", "end")
       .text(chart_config["axis"]["y_label"]);
 
-  // Add Grid lines:
+  // Code to add the grid lines
   var numberOfTicks = 10;
-
   var yAxisGrid = yAxis.ticks(numberOfTicks)
     .tickSize(CHART_WIDTH, 0)
     .tickFormat("")
     .orient("right");
-
   var xAxisGrid = xAxis.ticks(numberOfTicks)
     .tickSize(-CHART_HEIGHT, 0)
     .tickFormat("")
     .orient("top");
 
+  // Add horizontal grid lines to the chart
   container.append("g")
     .attr('class', "y_grid grid")
     .attr('stroke', "grey")
@@ -220,12 +160,13 @@ function createChart(container) {
     .attr('visibility', 'visible')
     .call(yAxisGrid);
 
+  // Add vertical grid lines to the chart, but hide them by default
   container.append("g")
     .attr('class', "x_grid grid hidden")
     .attr('stroke', "dimgrey")
     .attr('opacity', "0")
     .attr('stroke-width', "1")
-    .attr('visibility', 'visible')
+    .attr('visibility', 'hidden')
     .call(xAxisGrid);
 
   if(chart_type === "line") {
@@ -278,7 +219,7 @@ function createChart(container) {
     var bars = container.selectAll(".chart_bar")
       .data(chart_data);
 
-    // when the bars are first created, do these things
+    // Add actual bars to the chart
     bars.enter()
       .append("rect")
       .attr("class", "chart_bar")
@@ -289,6 +230,7 @@ function createChart(container) {
       .attr("y", function(d) { return yScale(d["value"]); })
       .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); })
 
+    // Add text underneath the x-axis
     bars.enter()
       .append("text")
       .attr("class", "chart_bar_label")
@@ -302,105 +244,7 @@ function createChart(container) {
   }
 }
 
-function updateChartConfigValue(type, key, value, is_bar_label) {
-  if(type !== "change_color_scale") {
-    if(is_bar_label === true) {
-      chart_config[type]["label_" + key] = value;
-    } else {
-      chart_config[type][key] = value;
-    }
-  }
-
-  // special cases
-  if (type == "bars" && key == "spacing") { // TODO: Clean me up
-    xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
-    xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
-    xAxis = d3.svg.axis()
-        .scale(xScale)
-        .orient("bottom");
-
-    container.selectAll(".x_axis").call(xAxis);  // Re-draw axis
-    container.selectAll(".chart_bar")  // Re-draw bars
-      .attr("x", function(d, i) { return xScale(d["label"]); })
-      .attr("width", xScale.rangeBand());
-
-    container.selectAll(".chart_bar_label")  // Red-draw bar labels
-      .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-      .attr("y", function(d) { return yScale(d["value"]) - 7; });
-
-    if(chart_type === "line") {
-      var line = d3.svg.line()
-  			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-  			.y(function(d) { return yScale(d["value"]); });
-
-      container.selectAll(".chart_line")  // Re-draw lines
-        .attr("d", function(d) { return line(d.values); });
-
-      container.selectAll(".chart_dot")  // Re-draw points
-        .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-        .attr("cy", function(d) { return yScale(d["value"]); });
-    }
-  }
-
-  // general cases
-  if (type === "bars") {
-    if(!is_bar_label) {
-      if(chart_type === "bar") {
-        container.selectAll(".chart_bar").transition().attr(key, value);
-      } else {
-        // Changes all the colors at once!
-        if(key === "fill") {
-          container.selectAll(".chart_dot").transition().attr("stroke", value);
-        } else {
-          container.selectAll(".chart_line").transition().attr(key, value);
-        }
-      }
-    } else {
-      container.selectAll(".chart_bar_label").transition().attr(key, value);
-    }
-
-  } else if (type === "grid") {
-    container.selectAll(".y_grid").transition().attr(key, value);
-
-  } else if (type === "axis") {
-    if(key === "line_color") {
-      container.selectAll(".x_axis path, .y_axis path").transition().attr("fill", value);
-
-    } else if (key === "tick_label_color") {
-      container.selectAll(".x_axis .tick, .y_axis .tick").transition().attr("fill", value);
-
-    } else if (key === "tick_label_font_size") {
-      container.selectAll(".x_axis .tick text, .y_axis .tick text").transition().attr("font-size", value);
-
-    } else if (key === "x_label") {
-      container.selectAll(".x_axis .axis_label").transition().text(value);
-
-    } else if (key === "y_label") {
-      container.selectAll(".y_axis .axis_label").transition().text(value);
-
-    } else if (key === "label_color") {
-      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("fill", value);
-
-    } else if (key === "label_font_size") {
-      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("font-size", value);
-    }
-
-  } else if (type === "change_color_scale") {
-    if(chart_type === "line") {
-      container.selectAll(".chart_line")  // Re-color line
-        .attr("stroke", function(d) { return color_scale(d.name); });
-      container.selectAll(".chart_dot")  // Re-color points
-        .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
-    } else {
-      container.selectAll(".chart_bar")  // Re-color bars
-        .attr("fill", function(d, i){ return color_scale(i)})
-    }
-  }
-}
-
-
 $(document).ready(function() {
   var container = createSVG();
-  // var chart_bars = createChartBars(container);
   createChart(container);
 });
