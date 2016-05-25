@@ -69,7 +69,6 @@ function handleDragOver(evt) {
   evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy. prevents browser from redirecting to new page showing only the image
 }
 
-
 // when the user drops an image on the drop zone
 function handleFileSelect(evt) {
   $(".image_drag_and_drop_zone").removeClass("drag_in_progress");
@@ -82,13 +81,16 @@ function handleFileSelect(evt) {
   loadAndRenderUploadedImage(files[0], getColorsFromImage);
 }
 
+// initialize the "choose file" input field
 function initImageFilePicker() {
   $(".image_file_picker").change(function() {
     // this.files contains an array of the "uploaded" files
     // grab the first image in the FileList object and load/render it. when this is complete, it gets the colors from the image
     loadAndRenderUploadedImage(this.files[0], getColorsFromImage);
   });
+}
 
+function initImageDropZone() {
   var dropZone = $(".image_drag_and_drop_zone")[0];
   dropZone.addEventListener('dragenter', handleDragEnter, false);
   dropZone.addEventListener('dragleave', handleDragLeave, false);
@@ -97,7 +99,7 @@ function initImageFilePicker() {
 }
 
 
-
 $(document).ready(function() {
   initImageFilePicker();
+  initImageDropZone();
 });
