@@ -2,6 +2,8 @@
 // declaring constants
 var CANVAS_WIDTH = $(window).width() - 500;
 var CANVAS_HEIGHT = $(window).height() * 0.8;
+var OUTPUT_FILENAME = "chart.png";
+var OUTPUT_FILETYPE = "image/png";
 
 var CHART_MARGINS = {
   top: 80,
@@ -310,7 +312,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 
 // TODO: note source - http://techslides.com/save-svg-as-an-image
 function enableSaveButton() {
-  d3.select("#save").on("click", function(){
+  d3.select(".save_button").on("click", function(){
     $("#svgcanvas")[0].width = CANVAS_WIDTH;
     $("#svgcanvas")[0].height = CANVAS_HEIGHT;
 
@@ -324,7 +326,7 @@ function enableSaveButton() {
     // var img = '<img src="'+imgsrc+'">';
     // d3.select("#svgdataurl").html(img);
 
-    var canvas = document.querySelector("canvas"),
+    var canvas = $(".save_canvas")[0],
         context = canvas.getContext("2d");
 
     var image = new Image;
@@ -336,12 +338,8 @@ function enableSaveButton() {
       binaryblob();
 
       var a = document.createElement("a");
-      a.download = "chart.png";
-      a.href = canvas.toDataURL("image/png");
-
-       var pngimg = '<img src="'+a.href+'">';
-         d3.select("#pngdataurl").html(pngimg);
-
+      a.download = OUTPUT_FILENAME;
+      a.href = canvas.toDataURL(OUTPUT_FILETYPE);
       a.click();
     };
 
@@ -349,7 +347,7 @@ function enableSaveButton() {
 }
 
 function binaryblob(){
-  var byteString = atob(document.querySelector("canvas").toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")); //wtf is atob?? https://developer.mozilla.org/en-US/docs/Web/API/Window.atob
+  var byteString = atob($(".save_canvas")[0].toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")); //wtf is atob?? https://developer.mozilla.org/en-US/docs/Web/API/Window.atob
   var ab = new ArrayBuffer(byteString.length);
   var ia = new Uint8Array(ab);
   for (var i = 0; i < byteString.length; i++) {
