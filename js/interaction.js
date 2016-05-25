@@ -38,9 +38,6 @@ var chart_config = {
     "label_color": "#333",
     "label_font": "Arial",
     "label_font_size": 14
-  },
-  "change_color_scale": {
-    "changed": "false"
   }
 };
 
@@ -73,38 +70,38 @@ if(chart_type === "bar") {
   var chart_data = [
     {
       "label": "January",
-      "value_one": 40,
-      "value_two": 13,
-      "value_three": 70,
-      "value_four": 6
+      "val_one": 40,
+      "val_two": 13,
+      "val_three": 70,
+      "val_four": 6
     },
     {
       "label": "February",
-      "value_one": 50,
-      "value_two": 29,
-      "value_three": 40,
-      "value_four": 1
+      "val_one": 50,
+      "val_two": 29,
+      "val_three": 40,
+      "val_four": 1
     },
     {
       "label": "March",
-      "value_one": 10,
-      "value_two": 40,
-      "value_three": 50,
-      "value_four": 5
+      "val_one": 10,
+      "val_two": 40,
+      "val_three": 50,
+      "val_four": 5
     },
     {
       "label": "April",
-      "value_one": 14,
-      "value_two": 35,
-      "value_three": 55,
-      "value_four": 8
+      "val_one": 14,
+      "val_two": 35,
+      "val_three": 55,
+      "val_four": 8
     },
     {
       "label": "May",
-      "value_one": 70,
-      "value_two": 60,
-      "value_three": 13,
-      "value_four": 15
+      "val_one": 70,
+      "val_two": 60,
+      "val_three": 15,
+      "val_four": 13,
     }
   ];
 }
@@ -112,6 +109,7 @@ var xScale = null;
 var yScale = null;
 var xAxis = null;
 var color_scale = null;
+var lines = null;
 
 
 function createSVG() {
@@ -128,6 +126,11 @@ function createSVG() {
   return container;
 }
 
+function setColorScale(domain, colors) {
+  // Helper function that sets the color scale
+  color_scale.domain(domain);
+  color_scale.range(colors);
+}
 
 function createChart(container) {
   // give the contain some margins
@@ -138,8 +141,11 @@ function createChart(container) {
   yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
 
   color_scale = d3.scale.ordinal();
-  color_scale.domain(d3.keys(chart_data[0]).filter(function(key) { return key !== "label"; }));
-  color_scale.range(["#333", "red", "green", "blue"]);
+  if(chart_type === "bar") {
+    setColorScale([0, 1, 2, 3, 4], ["#333", "red", "teal", "orange", "green"]);
+  } else {
+    setColorScale(["val_one", "val_two", "val_three", "val_four"], ["#333", "teal", "orange", "green"]);
+  }
 
   // We only use this array of maps when we are in "line" mode
   var line_data = color_scale.domain().map(function(name) {
@@ -231,7 +237,7 @@ function createChart(container) {
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
   			.y(function(d) { return yScale(d["value"]); });
 
-    var lines = container.selectAll(".chart_line")
+    lines = container.selectAll(".chart_line")
       .data(line_data)
       .enter().append("g")
         .attr("class", "data_point");
@@ -279,7 +285,7 @@ function createChart(container) {
     bars.enter()
       .append("rect")
       .attr("class", "chart_bar")
-      .attr("fill", chart_config["bars"]["fill"])
+      .attr("fill", function(d, i){ return color_scale(i)})
       .attr("stroke", chart_config["bars"]["stroke"])
       .attr("x", function(d, i) { return xScale(d["label"]); })
       .attr("width", xScale.rangeBand())
@@ -300,10 +306,12 @@ function createChart(container) {
 }
 
 function updateChartConfigValue(type, key, value, is_bar_label) {
-  if(is_bar_label === true) {
-    chart_config[type]["label_" + key] = value;
-  } else {
-    chart_config[type][key] = value;
+  if(type !== "change_color_scale") {
+    if(is_bar_label === true) {
+      chart_config[type]["label_" + key] = value;
+    } else {
+      chart_config[type][key] = value;
+    }
   }
 
   // special cases
@@ -335,8 +343,6 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
         .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
         .attr("cy", function(d) { return yScale(d["value"]); });
     }
-
-    // Add ability to change the spacing of the line chart!
   }
 
   // general cases
@@ -345,6 +351,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       if(chart_type === "bar") {
         container.selectAll(".chart_bar").transition().attr(key, value);
       } else {
+        // Changes all the colors at once!
         if(key === "fill") {
           container.selectAll(".chart_dot").transition().attr("stroke", value);
         } else {
@@ -383,7 +390,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 
   } else if (type === "change_color_scale") {
     if(chart_type === "line") {
-      lines.append("path")  // Re-color line
+      lines.selectAll(".chart_line")  // Re-color line
         .attr("stroke", function(d) { return color_scale(d.name); });
 
       lines.selectAll(".chart_dot")  // Re-color points
