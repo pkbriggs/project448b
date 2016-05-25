@@ -38,35 +38,80 @@ var chart_config = {
     "label_color": "#333",
     "label_font": "Arial",
     "label_font_size": 14
+  },
+  "change_color_scale": {
+    "changed": "false"
   }
 };
 
 // this data and the max/min are hardcoded right now, but these eventually need to be dynamic
-var chart_data = [
-  {
-    "value": 40,
-    "label": "fruits"
-  },
-  {
-    "value": 60,
-    "label": "vegetables"
-  },
-  {
-    "value": 25,
-    "label": 1966
-  },
-  {
-    "value": 70,
-    "label": "onomatopoeia"
-  },
-  {
-    "value": 66,
-    "label": "hi"
-  }
-];
+var chart_type = $("#chart_info").data("type");
+if(chart_type === "bar") {
+  var chart_data = [
+    {
+      "value": 40,
+      "label": "fruits"
+    },
+    {
+      "value": 60,
+      "label": "vegetables"
+    },
+    {
+      "value": 25,
+      "label": 1966
+    },
+    {
+      "value": 70,
+      "label": "onomatopoeia"
+    },
+    {
+      "value": 66,
+      "label": "hi"
+    }
+  ];
+} else {
+  var chart_data = [
+    {
+      "label": "January",
+      "value_one": 40,
+      "value_two": 13,
+      "value_three": 70,
+      "value_four": 6
+    },
+    {
+      "label": "February",
+      "value_one": 50,
+      "value_two": 29,
+      "value_three": 40,
+      "value_four": 1
+    },
+    {
+      "label": "March",
+      "value_one": 10,
+      "value_two": 40,
+      "value_three": 50,
+      "value_four": 5
+    },
+    {
+      "label": "April",
+      "value_one": 14,
+      "value_two": 35,
+      "value_three": 55,
+      "value_four": 8
+    },
+    {
+      "label": "May",
+      "value_one": 70,
+      "value_two": 60,
+      "value_three": 13,
+      "value_four": 15
+    }
+  ];
+}
 var xScale = null;
 var yScale = null;
 var xAxis = null;
+var color_scale = null;
 
 
 function createSVG() {
@@ -92,8 +137,31 @@ function createChart(container) {
   xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
   yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
 
+  color_scale = d3.scale.ordinal();
+  color_scale.domain(d3.keys(chart_data[0]).filter(function(key) { return key !== "label"; }));
+  color_scale.range(["#333", "red", "green", "blue"]);
+
+  // We only use this array of maps when we are in "line" mode
+  var line_data = color_scale.domain().map(function(name) {
+    return {
+      name: name,
+      values: chart_data.map(function(d) {
+        return {label: d.label, value: +d[name]};
+      })
+    };
+  });
+
   xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
-  yScale.domain([0, d3.max(chart_data, function(d) { return d["value"]; })]);
+
+  if(chart_type === "bar") {
+    yScale.domain([0, d3.max(chart_data, function(d) { return d["value"]; })]);
+  } else {
+    // With many lines, we need to grab the min/max values for the y-axis
+    yScale.domain([
+      0,
+      d3.max(line_data, function(c) { return d3.max(c.values, function(v) { return v["value"]; }); })
+    ]);
+  }
 
   xAxis = d3.svg.axis()
       .scale(xScale)
@@ -157,32 +225,41 @@ function createChart(container) {
     .attr('visibility', 'visible')
     .call(xAxisGrid);
 
-  var chart_type = $("#chart_info").data("type")
   if(chart_type === "line") {
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
   			.y(function(d) { return yScale(d["value"]); });
 
-    container.append("svg:path")
+    var lines = container.selectAll(".chart_line")
+      .data(line_data)
+      .enter().append("g")
+        .attr("class", "data_point");
+
+    // Add actual lines as one path svg element
+    lines.append("path")
       .attr("class", "chart_line")
-      .attr("d", line(chart_data))
+      .attr("d", function(d) { return line(d.values); })
       .attr("fill", "none")
       .attr("stroke-width", "1")
-      .attr("stroke", "steelblue");
+      .attr("stroke", function(d) { return color_scale(d.name); });
 
-    var circles = container.selectAll(".chart_dot")
-      .data(chart_data);
-
-    circles.enter()
+    // Add points to line chart
+    lines.selectAll(".chart_dot")
+      .data(function(d){ return d.values })
+      .enter()
       .append("circle")
       .attr("class", "chart_dot")
-      .attr("fill", "steelblue")
+      .attr("fill", "none")
+      .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
       .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
       .attr("cy", function(d) { return yScale(d["value"]); })
       .attr("r", "3");
 
-    circles.enter()
+    // Add data-labels on top of points in line chart
+    lines.selectAll(".chart_bar_label")
+      .data(function(d){ return d.values })
+      .enter()
       .append("text")
       .attr("class", "chart_bar_label")
       .text(function(d) { return d["value"]; })
@@ -228,7 +305,6 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
   } else {
     chart_config[type][key] = value;
   }
-  var chart_type = $("#chart_info").data("type")
 
   // special cases
   if (type == "bars" && key == "spacing") { // TODO: Clean me up
@@ -241,11 +317,11 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     container.selectAll(".x_axis").call(xAxis);  // Re-draw axis
     container.selectAll(".chart_bar")  // Re-draw bars
       .attr("x", function(d, i) { return xScale(d["label"]); })
-      .attr("width", xScale.rangeBand())
+      .attr("width", xScale.rangeBand());
 
     container.selectAll(".chart_bar_label")  // Red-draw bar labels
       .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-      .attr("y", function(d) { return yScale(d["value"]) - 7; })
+      .attr("y", function(d) { return yScale(d["value"]) - 7; });
 
     if(chart_type === "line") {
       var line = d3.svg.line()
@@ -253,11 +329,11 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
   			.y(function(d) { return yScale(d["value"]); });
 
       container.selectAll(".chart_line")  // Re-draw lines
-        .attr("d", line(chart_data))
+        .attr("d", function(d) { return line(d.values); });
 
       container.selectAll(".chart_dot")  // Re-draw points
         .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-        .attr("cy", function(d) { return yScale(d["value"]); })
+        .attr("cy", function(d) { return yScale(d["value"]); });
     }
 
     // Add ability to change the spacing of the line chart!
@@ -270,7 +346,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
         container.selectAll(".chart_bar").transition().attr(key, value);
       } else {
         if(key === "fill") {
-          container.selectAll(".chart_dot").transition().attr(key, value);
+          container.selectAll(".chart_dot").transition().attr("stroke", value);
         } else {
           container.selectAll(".chart_line").transition().attr(key, value);
         }
@@ -305,6 +381,14 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("font-size", value);
     }
 
+  } else if (type === "change_color_scale") {
+    if(chart_type === "line") {
+      lines.append("path")  // Re-color line
+        .attr("stroke", function(d) { return color_scale(d.name); });
+
+      lines.selectAll(".chart_dot")  // Re-color points
+        .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
+    }
   }
 }
 
