@@ -8,10 +8,14 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/controls.css">
   <link rel="stylesheet" href="css/dropdown.css">
+  <link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">  
 
   <!-- Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700,900,600italic,700italic,400italic,300italic,900italic' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css ">
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
 
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -54,8 +58,8 @@
       <!-- Bar Labels -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Bar Labels</div>
-        <input type="radio" name="bar_label_toggle" value="Show" checked> <span class="small"> &nbsp; Show<span><br>
-        <input type="radio" name="bar_label_toggle" value="Hide"> <span class="small"> &nbsp; Hide</span>
+        <input type="radio" name="bar_label_toggle" value="Show" checked> <span class="small"> Show &nbsp; </span>
+        <input type="radio" name="bar_label_toggle" value="Hide"> <span class="small"> Hide</span>
 
         <div class="font_and_size">
           <div class="font">
@@ -109,15 +113,14 @@
 
         <div class="input_subtitle">Color</div>
         <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input>
+        
+        <!-- Color picker stuff -->
         <div id="cp2" class="input-group colorpicker-component">
-          <input type="text" value="#00AABB" class="form-control" />
           <span class="input-group-addon"><i></i></span>
+          <input type="text" value="#00AABB" class="form-control" />
         </div>
-        <script>
-          $(function() {
-              $('#cp2').colorpicker();
-          });
-        </script>
+        <!-- XX -->
+
       </section>
     </div>
 
@@ -192,6 +195,8 @@
   <script src="js/interaction.js"></script>
   <script src="js/viz-controls.js"></script>
   <script src="js/dropdown.js"></script>
+  <script src="js/bootstrap-colorpicker.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 </body>
 </html>

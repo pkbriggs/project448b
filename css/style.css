@@ -9,6 +9,10 @@ html, body {
 	color: #333;
 }
 
+h3 {
+	font-size: 16px !important;
+}
+
 textarea:focus, input:focus{
     outline: none;
 }
@@ -17,9 +21,14 @@ textarea, input {
 	border-style: solid;
 	border: 1px solid #D9D9D9;
 	border-radius: 2px;
+	width: 100%;
 
-	font-size: 12px;
+	font-size: 12px !important;
 	padding: 1px;
+}
+
+input[type=radio] {
+	width: 17px;
 }
 
 .bold {
@@ -35,16 +44,16 @@ textarea, input {
 }
 
 .small {
-	font-size: 12px;
+	font-size: 12px !important;
 }
 
 .vis_container {
 	position: absolute;
-	left: 185px;
+	left: 205px;
 	width: 600px;
-	width: -webkit-calc(100% - 185px);
-	width: -moz-calc(100% - 185px);
-	width: calc(100% - 185px);
+	width: -webkit-calc(100% - 205px);
+	width: -moz-calc(100% - 205px);
+	width: calc(100% - 205px);
 }
 
 .vis_controls {
@@ -52,7 +61,7 @@ textarea, input {
 	position: static;
 	left: 0;
 	top: 0;
-	width: 155px;
+	width: 175px;
 
 	/* content */
 	padding: 15px;

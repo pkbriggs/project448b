@@ -37,3 +37,7 @@ $(function() {
 		// Call function to update bar chart
 	});
 });
+
+ $(function() {
+  $('#cp2').colorpicker();
+});
