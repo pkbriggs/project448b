@@ -163,10 +163,7 @@ function createChart(container) {
     yScale.domain([0, d3.max(chart_data, function(d) { return d["value"]; })]);
   } else {
     // With many lines, we need to grab the min/max values for the y-axis
-    yScale.domain([
-      0,
-      d3.max(line_data, function(c) { return d3.max(c.values, function(v) { return v["value"]; }); })
-    ]);
+    yScale.domain([0,d3.max(line_data, function(c) { return d3.max(c.values, function(v) { return v["value"]; }); })]);
   }
 
   xAxis = d3.svg.axis()
@@ -390,11 +387,13 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 
   } else if (type === "change_color_scale") {
     if(chart_type === "line") {
-      lines.selectAll(".chart_line")  // Re-color line
+      container.selectAll(".chart_line")  // Re-color line
         .attr("stroke", function(d) { return color_scale(d.name); });
-
-      lines.selectAll(".chart_dot")  // Re-color points
+      container.selectAll(".chart_dot")  // Re-color points
         .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
+    } else {
+      container.selectAll(".chart_bar")  // Re-color bars
+        .attr("fill", function(d, i){ return color_scale(i)})
     }
   }
 }
