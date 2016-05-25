@@ -29,7 +29,7 @@
 	border: 1px solid #DEDEDE !important;
 }
 
-.slider_a {
+.slider_container {
 	margin-bottom: -5px;
 }
 
@@ -39,7 +39,7 @@
 	margin-top: -25px;
 }
 
-.slider_a .min, .slider_b .min, .slider_c .min {
+.slider_container .min, .slider_b .min, .slider_c .min {
 	color: #7B7B7B;
 	font-size: 11px;
 	font-weight: 300;
@@ -47,7 +47,7 @@
 	margin-left: 1px;
 }
 
-.slider_a .max, .slider_b .max, .slider_c .max {
+.slider_container .max, .slider_b .max, .slider_c .max {
 	color: #7B7B7B;  
   font-size: 11px;
   font-weight: 300;

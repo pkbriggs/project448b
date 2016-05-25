@@ -27,8 +27,12 @@ $(function() {
  $(function() {
   $cp = $(".cp").colorpicker();
   $cp.on("changeColor", function(event) {
-  	var color = $cp.data('colorpicker').color.toHex();
+  	var color = $(this).data('colorpicker').color.toHex();
   	console.log(color);
+  	var type = $(this).data("type");
+		var key = $(this).data("key");
+		var is_bar_label = ($(this).data("label") !== undefined) ? true : false;
+		updateChartConfigValue(type, key, color, is_bar_label);
   });
 
 });

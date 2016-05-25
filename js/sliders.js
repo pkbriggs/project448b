@@ -8,7 +8,10 @@ $(function() {
     value: 25,
     slide: function(event, ui) {
       var new_value = ui.value / decimal_scaling;
-      $(this).prev().text(ui.value + "%");      
+      $(this).prev().text(ui.value + "%");   
+      var type = $(this).data("type");
+      var key = $(this).data("key");
+      updateChartConfigValue(type, key, new_value, false);   
     }
   });
     $(this).prev().text($(".slider").slider("value") + "%");
