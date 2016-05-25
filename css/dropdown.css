@@ -2,11 +2,11 @@
 .dropdown {
 	position: relative;
 	border: 1px solid #D9D9D9;
-	border-radius: 2px;
+	border-radius: 3px;
 	background: white;
 	font-size: 12px;
 	font-weight: 400;
-	padding: 1px;
+	padding: 1px 2px;
 	z-index: 2;
 }
 

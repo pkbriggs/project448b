@@ -7,6 +7,7 @@
 html, body {
 	height: 100%;
 	color: #333;
+	overflow: hidden;
 }
 
 h3 {
@@ -20,11 +21,11 @@ textarea:focus, input:focus{
 textarea, input {
 	border-style: solid;
 	border: 1px solid #D9D9D9;
-	border-radius: 2px;
+	border-radius: 3px;
 	width: 100%;
 
 	font-size: 12px !important;
-	padding: 1px;
+	padding: 1px 2px;
 }
 
 input[type=radio] {
@@ -51,7 +52,7 @@ input[type=radio] {
 	position: absolute;
 	left: 225px;
 	width: 600px;
-	width: -webkit-calc(100% - 225px);
+	width: -webkit-calc(100% - 226px);
 	width: -moz-calc(100% - 225px);
 	width: calc(100% - 225px);
 }
@@ -62,11 +63,13 @@ input[type=radio] {
 	left: 0;
 	top: 0;
 	width: 195px;
+	height: 100%;
+	overflow-y: scroll;
 
 	/* content */
 	padding: 1px 22px 15px 20px;
 	background-color: #F5F5F5;
-	border-right: 1px solid #D9D9D9;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.13);
 	font-size: 14px;
 }
 
