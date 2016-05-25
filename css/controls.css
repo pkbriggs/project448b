@@ -68,6 +68,11 @@
 	margin-top: 3px;
 }
 
+.input-group input {
+	border-top-right-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+
 .input-group-addon {
 	padding: 0 !important;
 }
