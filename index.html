@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/controls.css">
   <link rel="stylesheet" href="css/dropdown.css">
-  <link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">  
+  <link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">
   <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/sliders.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -28,6 +28,15 @@
   <div id="chart_info" data-type="line" data-source="1"></div>
   <div class="vis_container">
     <!-- SVG stuff added here by JS -->
+    <div class="image_drag_and_drop_zone">
+      <div class="drag_and_drop_label">Drop an image here</div>
+    </div>
+    <input type="file" class="image_file_picker" />
+    <div class="image_picker_preview_container"></div>
+    <div class="image_dominant_color"></div>
+    <div class="image_color_palette_container">
+      <!-- a div will be appended here for each of the colors in the palette. they each have the class "image_color_palette_color" -->
+    </div>
   </div>
 
   <div class="vis_controls">
@@ -55,7 +64,7 @@
         <div class="input_subtitle">Color</div>
         <!-- <input class="style_input color_picker" value="#333" data-type="bars" data-key="stroke"></input> -->
         <!-- Color picker stuff -->
-        
+
         <div class="strokecolor">
           <span class="small"> Stroke: &nbsp; </span>
           <div class="strokecp cpcontainer">
@@ -65,7 +74,7 @@
             </div>
           </div>
         </div>
-              
+
         <div class="fillcolor">
           <span class="small"> Fill: &nbsp; </span>
           <div class="fillcp cpcontainer">
@@ -134,7 +143,7 @@
         </div>
 
         <!-- <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input> -->
-        
+
         <!-- Color picker stuff -->
         <div class="labelcolor cpcontainer">
           <div class="cp input-group colorpicker-component">
@@ -221,6 +230,8 @@
   <script src="js/bootstrap-colorpicker.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script src="js/sliders.js"></script>
+  <script src="js/color-thief.min.js"></script>
+  <script src="js/color-extractor.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 </body>

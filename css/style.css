@@ -69,3 +69,39 @@ input[type=radio] {
 	border-right: 1px solid #D9D9D9;
 	font-size: 14px;
 }
+
+
+/* uploaded image things */
+.image_drag_and_drop_zone {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 200px;
+	height: 200px;
+	border: 1px dashed #bbb;
+	transition: background-color 0.2s ease-in;
+}
+.image_drag_and_drop_zone.drag_in_progress {
+	background-color: #ececec;
+}
+
+.drag_and_drop_label {
+	color: #bbb;
+	pointer-events: none;
+}
+
+.uploaded_image_preview {
+	max-width: 300px;
+	max-height: 300px;
+}
+
+.image_dominant_color {
+	width: 100px;
+	height: 100px;
+}
+
+.image_color_palette_color {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+}
