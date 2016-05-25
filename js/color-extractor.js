@@ -50,22 +50,27 @@ function getColorsFromImage(image) {
   });
 }
 
+// when a user begins dragging something over the drag area
 function handleDragEnter(evt) {
   $(".image_drag_and_drop_zone").addClass("drag_in_progress");
   $(".drag_and_drop_label").text("Drop away!");
 }
 
+// when the users stops dragging something over the drag area (without dropping)
 function handleDragLeave(evt) {
   $(".image_drag_and_drop_zone").removeClass("drag_in_progress");
   $(".drag_and_drop_label").text("Drop an image here");
 }
 
+// called every time the user moves their cursor while dragging over the drop area
 function handleDragOver(evt) {
   evt.stopPropagation();
   evt.preventDefault();
-  evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+  evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy. prevents browser from redirecting to new page showing only the image
 }
 
+
+// when the user drops an image on the drop zone
 function handleFileSelect(evt) {
   $(".image_drag_and_drop_zone").removeClass("drag_in_progress");
   $(".drag_and_drop_label").text("Got it!");
