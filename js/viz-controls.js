@@ -23,3 +23,12 @@ $(function() {
 		updateChartConfigValue(type, key, to_show, is_bar_label);
 	});
 });
+
+ $(function() {
+  $cp = $(".cp").colorpicker();
+  $cp.on("changeColor", function(event) {
+  	var color = $cp.data('colorpicker').color.toHex();
+  	console.log(color);
+  });
+
+});

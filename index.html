@@ -8,10 +8,16 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/controls.css">
   <link rel="stylesheet" href="css/dropdown.css">
+  <link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">  
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/sliders.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
   <!-- Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700,900,600italic,700italic,400italic,300italic,900italic' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css ">
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
 
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -32,39 +38,112 @@
       <!-- Bar Spacing -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Spacing</div>
-        <input class="style_input" value="0.0 - 1.0" data-type="bars" data-key="spacing"></input>
+        <!-- <input class="style_input" value="0.0 - 1.0" data-type="bars" data-key="spacing"></input> -->
+        <div class="slider_a">
+          <div class="slider_reading">
+            25%
+          </div>
+          <div class="slider"></div>
+          <div class="label min">0</div>
+          <div class="label max">1</div>
+        </div>
       </section>
+
 
       <!-- Bar Stroke -->
       <section class="control_subcontainer">
-        <div class="input_subtitle">Stroke Color</div>
-        <input class="style_input color_picker" value="#333" data-type="bars" data-key="stroke"></input>
-      </section>
-
-      <!-- Bar Color -->
-      <section class="control_subcontainer">
-        <div class="input_subtitle">Fill</div>
-        <input class="style_input color_picker" value="#333" data-type="bars" data-key="fill"></input>
+        <div class="input_subtitle">Color</div>
+        <!-- <input class="style_input color_picker" value="#333" data-type="bars" data-key="stroke"></input> -->
+        <!-- Color picker stuff -->
+        
+        <div class="strokecolor">
+          <span class="small"> Stroke: &nbsp; </span>
+          <div class="strokecp cpcontainer">
+            <div class="cp input-group colorpicker-component">
+              <input type="text" value="#00AABB" />
+              <span class="input-group-addon"><i></i></span>
+            </div>
+          </div>
+        </div>
+              
+        <div class="fillcolor">
+          <span class="small"> Fill: &nbsp; </span>
+          <div class="fillcp cpcontainer">
+            <div class="cp input-group colorpicker-component">
+              <input type="text" value="#00AABB" />
+              <span class="input-group-addon"><i></i></span>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- Bar Labels -->
       <section class="control_subcontainer">
         <div class="input_subtitle">Bar Labels</div>
-        <input type="radio" name="bar_label_toggle" value="Show" data-type="bars" data-key="visibility" data-label="true"> <span class="light"> &nbsp; Show<span><br>
-        <input type="radio" name="bar_label_toggle" value="Hide" data-type="bars" data-key="visibility" data-label="true" checked> <span class="light"> &nbsp; Hide</span>
+        <input type="radio" name="bar_label_toggle" value="Show" checked> <span class="small"> Show &nbsp; </span>
+        <input type="radio" name="bar_label_toggle" value="Hide"> <span class="small"> Hide</span>
 
-        <div class="input_subtitle">Font</div>
-        <div class="style_input font_picker dropdown">
-          Helvetica Neue
-          <i class="fa fa-angle-up"></i>
-          <i class="fa fa-angle-down"></i>
+        <div class="font_and_size">
+          <div class="font">
+            <div class="style_input font_picker dropdown">
+              <span>Helvetica Neue</span>
+              <i class="fa fa-angle-up"></i>
+              <i class="fa fa-angle-down"></i>
+            </div>
+            <div class="options">
+              <div class="option">option 1</div>
+              <div class="option">option 2</div>
+              <div class="option">option 3</div>
+              <div class="option">option 4</div>
+              <div class="option">option 5</div>
+              <div class="option">option 6</div>
+              <div class="option">option 7</div>
+              <div class="option">option 8</div>
+              <div class="option">option 9</div>
+              <div class="option">option 10</div>
+              <div class="option">option 11</div>
+              <div class="option">option 12</div>
+              <div class="option">option 13</div>
+              <div class="option">option 14</div>
+              <div class="option">option 15</div>
+            </div>
+          </div>
+
+          <div class="size">
+            <div class="style_input size_picker dropdown">
+              <span>12</span>
+              <i class="fa fa-angle-up"></i>
+              <i class="fa fa-angle-down"></i>
+            </div>
+            <div class="options">
+              <div class="option">8</div>
+              <div class="option">9</div>
+              <div class="option">10</div>
+              <div class="option">11</div>
+              <div class="option">12</div>
+              <div class="option">13</div>
+              <div class="option">14</div>
+              <div class="option">18</div>
+              <div class="option">20</div>
+              <div class="option">24</div>
+              <div class="option">36</div>
+              <div class="option">48</div>
+              <div class="option">64</div>
+            </div>
+          </div>
         </div>
 
-        <div class="input_subtitle">Bar Label Color</div>
-        <input class="style_input color_picker" value="#333" data-type="bars" data-key="fill" data-label="true"></input>
+        <!-- <input class="style_input color_picker" placeholder="#333" data-type="bar_label_color"></input> -->
+        
+        <!-- Color picker stuff -->
+        <div class="labelcolor cpcontainer">
+          <div class="cp input-group colorpicker-component">
+            <input type="text" value="#00AABB" />
+            <span class="input-group-addon"><i></i></span>
+          </div>
+        </div>
 
-        <div class="input_subtitle">Bar Label Font Size</div>
-        <input class="style_input" value="10px" data-type="bars" data-key="font-size" data-label="true"></input>
+        <!-- XX -->
       </section>
     </div>
 
@@ -75,8 +154,8 @@
       <!-- Grid Lines Toggle -->
       <section class="control_subcontainer grid_toggle">
         <div class="input_subtitle">Lines</div>
-        <input type="radio" name="grid_toggle" value="Show" data-type="grid" data-key="visibility" checked> <span class="light"> &nbsp; Show </span><br>
-        <input type="radio" name="grid_toggle" value="Hide" data-type="grid" data-key="visibility"> <span class="light"> &nbsp; Hide </span>
+        <input type="radio" name="grid_toggle" value="Show" checked> <span class="small"> &nbsp; Show </span><br>
+        <input type="radio" name="grid_toggle" value="Hide"> <span class="small"> &nbsp; Hide </span>
       </section>
 
       <!-- Grid Line Opacity -->
@@ -138,6 +217,11 @@
   <script src="js/jquery-2.2.3.min.js"></script>
   <script src="js/interaction.js"></script>
   <script src="js/viz-controls.js"></script>
+  <script src="js/dropdown.js"></script>
+  <script src="js/bootstrap-colorpicker.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="js/sliders.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 </body>
 </html>

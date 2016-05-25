@@ -11,6 +11,7 @@
 
 .title {
 	font-weight: 700;
+	margin-bottom: 8px;
 }
 
 .title i {
@@ -22,13 +23,46 @@
 }
 
 .control_subcontainer {
-	margin-top: 8px;
+	margin-top: 10px;
 }
 
 .input_subtitle {
+	margin-top: 4px;
 	font-weight: 600;
 }
 
 .label {
 	font-weight: 300;
 }
+
+.font_and_size {
+	margin-top: 4px;
+}
+
+/* colorpicker stuff */
+
+.labelcolor {
+	margin-top: 3px;
+}
+
+.fillcolor, .strokecolor {
+	display: relative;
+}
+
+.fillcolor {
+	margin-top: 3px;
+}
+
+.fillcp, .strokecp {
+	float: right;
+	width: 70%;
+}
+
+.input-group-addon {
+	padding: 0 !important;
+}
+.input-group-addon i {
+	width: 20px !important; 
+	height: 19px !important;
+}
+
