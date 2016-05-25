@@ -313,28 +313,26 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 // TODO: note source - http://techslides.com/save-svg-as-an-image
 function enableSaveButton() {
   d3.select(".save_button").on("click", function(){
-    $("#svgcanvas")[0].width = CANVAS_WIDTH;
-    $("#svgcanvas")[0].height = CANVAS_HEIGHT;
+    // ensure the canvas we draw to is the correct size
+    $(".save_canvas")[0].width = CANVAS_WIDTH;
+    $(".save_canvas")[0].height = CANVAS_HEIGHT;
 
+    // get the HTML representing our chart's SVG
     var html = d3.select("svg")
           .attr("version", 1.1)
           .attr("xmlns", "http://www.w3.org/2000/svg")
           .node().parentNode.innerHTML;
 
-    //console.log(html);
+    var canvas = $(".save_canvas")[0];
+    var context = canvas.getContext("2d");
+
     var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
-    // var img = '<img src="'+imgsrc+'">';
-    // d3.select("#svgdataurl").html(img);
-
-    var canvas = $(".save_canvas")[0],
-        context = canvas.getContext("2d");
-
     var image = new Image;
     image.src = imgsrc;
     image.onload = function() {
       context.drawImage(image, 0, 0);
 
-      //save and serve it as an actual filename
+      // save and serve the canvas as an actual filename
       binaryblob();
 
       var a = document.createElement("a");

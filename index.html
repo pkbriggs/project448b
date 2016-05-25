@@ -42,6 +42,11 @@
     </div>
   </div>
 
+  <div class="chart_save_container">
+    <div class="save_button">Save as Image</div>
+    <canvas class="save_canvas" width="1" height="1" style="display:none"></canvas>
+  </div>
+
   <div class="vis_controls">
     <!-- Bar Styling -->
     <div class="control_container selected bar_styling">
@@ -223,12 +228,6 @@
         <input class="style_input" value="12px" data-type="axis" data-key="label_font_size"></input>
       </section>
     </div>
-
-    <!-- Save functionality -->
-    <div id="svg"></div>
-    <div class="save_button">Save as Image</div>
-    <canvas class="save_canvas" id="svgcanvas" width="960" height="500" style="display:none"></canvas>
-
   </div>
 
   <script src="js/d3.min.js"></script>
