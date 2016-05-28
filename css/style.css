@@ -59,10 +59,10 @@ input[type=radio] {
 
 .vis_controls {
 	/* position */
-	position: static;
+	position: fixed;
 	left: 0;
 	top: 0;
-	width: 195px;
+	width: 205px;
 	height: 100%;
 	overflow-y: scroll;
 
@@ -110,11 +110,16 @@ input[type=radio] {
 	max-height: 300px;
 }
 
+.image_picker_preview_container img {
+	display: block;
+	margin: 5px auto;
+}
+
 .image_dominant_color {
 	width: 100px;
 	height: 100px;
-	margin-bottom: 10px;
-	margin-top: 10px;
+	margin: 10px auto;
+	display: block;
 }
 
 .image_color_palette_color {
@@ -125,4 +130,30 @@ input[type=radio] {
 
 .x_axis .tick line, .y_axis .tick line {
 	stroke: #333;
+}
+
+/* style for first step in workflow */
+.chart_image_container {
+	width: 200px;
+	height: 200px;
+	margin: 10px;
+	float: left;
+	background-image: url("../img/dirk_bar.jpg");
+	background-size: cover;
+	color: white;
+	opacity: 0.8;
+}
+
+.chart_image_container:hover {
+	opacity: 1;
+	cursor: pointer;
+} 
+
+#select_chart_container {
+	width: 100%;
+	height: 100%;
+}
+
+#chart_super_container {
+	display: none;
 }

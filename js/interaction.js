@@ -42,14 +42,15 @@ var chart_config = {
 };
 
 // this data and the max/min are hardcoded right now, but these eventually need to be dynamic
-var chart_type = $("#chart_info").data("type");
-var chart_data = setupChartData(chart_type);
+var chart_type = null;
+var chart_data = null;
 
 var xScale = null;
 var yScale = null;
 var xAxis = null;
-var color_scale = null;
-var lines = null;
+// code dealing with colors
+var color_scale = d3.scale.ordinal();
+var num_chart_colors = 0;
 
 
 function createSVG() {
@@ -79,13 +80,6 @@ function createChart(container) {
 
   xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
   yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
-
-  color_scale = d3.scale.ordinal();
-  if(chart_type === "bar") {
-    setColorScale([0, 1, 2, 3, 4], ["#333", "red", "teal", "orange", "green"]);
-  } else {
-    setColorScale(["val_one", "val_two", "val_three", "val_four"], ["#333", "teal", "orange", "green"]);
-  }
 
   // We only use this array of maps when we are in "line" mode
   var line_data = color_scale.domain().map(function(name) {
@@ -175,7 +169,7 @@ function createChart(container) {
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
   			.y(function(d) { return yScale(d["value"]); });
 
-    lines = container.selectAll(".chart_line")
+    var lines = container.selectAll(".chart_line")
       .data(line_data)
       .enter().append("g")
         .attr("class", "data_point");
@@ -245,6 +239,18 @@ function createChart(container) {
 }
 
 $(document).ready(function() {
-  var container = createSVG();
-  createChart(container);
+  $(".chart_image_container").click(function(event) {
+    chart_type = $(this).data("type");
+    chart_data = setupChartData(chart_type);
+
+    $("#select_chart_container").css("display", "none");
+
+    // Need to add animation here!
+    $("#chart_super_container").css("display", "block");
+    $("#chart_super_container").css("position", "relative");
+    
+    var container = createSVG();
+    createChart(container);
+  });
+  
 });

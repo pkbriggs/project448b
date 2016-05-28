@@ -18,337 +18,353 @@
 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
 
 <body>
-  <div id="chart_info" data-type="line" data-source="1"></div>
-  <div class="vis_container">
-    <!-- SVG stuff added here by JS -->
-  </div>
-
-  <div class="image_upload_container">
-    <div class="image_drag_and_drop_zone">
-      <div class="drag_and_drop_label">Drop an image here</div>
+  <!-- First section contains types of charts you can style from the image-->
+  <section id="select_chart_container">
+    <h2>Magic Image Processing Extraction</h2>
+    <div class="chart_image_container" data-type="bar" id="bar_example">
+      Bar Chart Example
     </div>
-    <input type="file" class="image_file_picker" />
-    <div class="image_picker_preview_container"></div>
-    <div class="image_dominant_color"></div>
-    <div class="image_color_palette_container">
-      <!-- a div will be appended here for each of the colors in the palette. they each have the class "image_color_palette_color" -->
+
+    <div class="chart_image_container" data-type="line" id="line_example">
+      Line Chart Example
     </div>
-  </div>
+  </section>
 
-  <div class="vis_controls">
-    <!-- Bar Styling -->
-    <div class="control_container selected bar_styling">
-      <h3 class="title special">Bar Styling <i class="fa fa-chevron-down"></i> </h3>
+  <!-- Contains the actual D3 chart and styling tools -->
+  <section id="chart_super_container">
 
-      <!-- Bar Spacing -->
-      <section class="control_subcontainer">
-        <div class="input_subtitle">Spacing</div>
-        <div class="slider_container">
-          <div class="slider_reading">
-            25%
+    <div id="chart_info" data-type="line" data-source="1"></div>
+    <div class="vis_container">
+      <!-- SVG stuff added here by JS -->
+    </div>
+
+    <div class="image_upload_container">
+      <div class="image_drag_and_drop_zone">
+        <div class="drag_and_drop_label">Drop an image here</div>
+      </div>
+      <input type="file" class="image_file_picker" />
+      <div class="image_picker_preview_container"></div>
+      <div class="image_dominant_color"></div>
+      <div class="image_color_palette_container">
+        <!-- a div will be appended here for each of the colors in the palette. they each have the class "image_color_palette_color" -->
+      </div>
+    </div>
+
+    <div class="vis_controls">
+      <!-- Bar Styling -->
+      <div class="control_container selected bar_styling">
+        <h3 class="title special">Bar Styling <i class="fa fa-chevron-down"></i> </h3>
+
+        <!-- Bar Spacing -->
+        <section class="control_subcontainer">
+          <div class="input_subtitle">Spacing</div>
+          <div class="slider_container">
+            <div class="slider_reading">
+              25%
+            </div>
+            <div class="slider" data-type="bars" data-key="spacing"></div>
+            <div class="label min">0</div>
+            <div class="label max">1</div>
           </div>
-          <div class="slider" data-type="bars" data-key="spacing"></div>
-          <div class="label min">0</div>
-          <div class="label max">1</div>
-        </div>
-      </section>
+        </section>
 
 
-      <!-- Bar Stroke -->
-      <section class="control_subcontainer">
+        <!-- Bar Stroke -->
+        <section class="control_subcontainer">
 
-        <!-- Bar stroke color picker -->
-        <div class="input_subtitle">Colors</div>
+          <!-- Bar stroke color picker -->
+          <div class="input_subtitle">Colors</div>
 
-        <!-- Color picker stuff -->
-        <div class="strokecolor">
-          <span class="small"> Stroke: &nbsp; </span>
-          <div class="strokecp cpcontainer">
-            <div class="cp input-group colorpicker-component" data-type="bars" data-key="stroke">
-              <input type="text" value="#00AABB" />
+          <!-- Color picker stuff -->
+          <div class="strokecolor">
+            <span class="small"> Stroke: &nbsp; </span>
+            <div class="strokecp cpcontainer">
+              <div class="cp input-group colorpicker-component" data-type="bars" data-key="stroke">
+                <input type="text" value="#333" />
+                <span class="input-group-addon"><i></i></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bar fill color picker -->
+          <div class="fillcolor">
+            <span class="small"> Fill: &nbsp; </span>
+            <div class="fillcp cpcontainer">
+              <div class="cp input-group colorpicker-component" data-type="bars" data-key="fill">
+                <input type="text" value="#333" />
+                <span class="input-group-addon"><i></i></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bar Labels -->
+        <section class="control_subcontainer">
+          <div class="input_subtitle">Bar Labels</div>
+          <input type="radio" name="bar_label_toggle" value="Show" data-type="bars" data-key="visibility" data-label="true"> <span class="small"> Show &nbsp; </span>
+          <input type="radio" name="bar_label_toggle" value="Hide" data-type="bars" data-key="visibility" data-label="true" checked> <span class="small"> Hide</span>
+
+          <div class="font_and_size">
+            <div class="font">
+              <div class="style_input font_picker dropdown">
+                <span>Helvetica Neue</span>
+                <i class="fa fa-angle-up"></i>
+                <i class="fa fa-angle-down"></i>
+              </div>
+              <div class="options">
+                <div class="option">option 1</div>
+                <div class="option">option 2</div>
+                <div class="option">option 3</div>
+                <div class="option">option 4</div>
+                <div class="option">option 5</div>
+                <div class="option">option 6</div>
+                <div class="option">option 7</div>
+                <div class="option">option 8</div>
+                <div class="option">option 9</div>
+                <div class="option">option 10</div>
+                <div class="option">option 11</div>
+                <div class="option">option 12</div>
+                <div class="option">option 13</div>
+                <div class="option">option 14</div>
+                <div class="option">option 15</div>
+              </div>
+            </div>
+
+            <div class="size">
+              <div class="style_input size_picker dropdown" data-type="bars" data-key="font-size" data-label="true">
+                <span>12</span>
+                <i class="fa fa-angle-up"></i>
+                <i class="fa fa-angle-down"></i>
+              </div>
+              <div class="options">
+                <div class="option">8</div>
+                <div class="option">9</div>
+                <div class="option">10</div>
+                <div class="option">11</div>
+                <div class="option">12</div>
+                <div class="option">13</div>
+                <div class="option">14</div>
+                <div class="option">18</div>
+                <div class="option">20</div>
+                <div class="option">24</div>
+                <div class="option">36</div>
+                <div class="option">48</div>
+                <div class="option">64</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Color picker stuff -->
+          <div class="labelcolor cpcontainer">
+            <div class="cp input-group colorpicker-component" data-type="bars" data-key="fill" data-label="true">
+              <input type="text" value="#333" />
               <span class="input-group-addon"><i></i></span>
             </div>
           </div>
-        </div>
 
-        <!-- Bar fill color picker -->
-        <div class="fillcolor">
-          <span class="small"> Fill: &nbsp; </span>
-          <div class="fillcp cpcontainer">
-            <div class="cp input-group colorpicker-component" data-type="bars" data-key="fill">
-              <input type="text" value="#00AABB" />
-              <span class="input-group-addon"><i></i></span>
+          <!-- XX -->
+        </section>
+      </div>
+
+      <!-- Grid Styling -->
+      <div class="control_container not_selected grid_styling">
+        <h3 class="title special">Grid Styling <i class="fa fa-chevron-down"></i></h3>
+
+        <!-- Grid Lines Toggle -->
+        <section class="control_subcontainer grid_toggle">
+          <div class="input_subtitle">Lines</div>
+          <input type="radio" name="grid_toggle" value="Show" data-type="grid" data-key="visibility" checked> <span class="small"> Show &nbsp; </span>
+          <input type="radio" name="grid_toggle" value="Hide" data-type="grid" data-key="visibility" > <span class="small"> Hide</span>
+        </section>
+
+        <!-- Grid Line Opacity -->
+        <section class="control_subcontainer">
+          <div class="input_subtitle">Opacity</div>
+          <div class="slider_container">
+            <div class="slider_reading">
+              25%
+            </div>
+            <div class="slider" data-type="grid" data-key="opacity"></div>
+            <div class="label min">0</div>
+            <div class="label max">1</div>
+          </div>
+        </section>
+
+        <!-- Grid Width -->
+        <section class="control_subcontainer">
+          <div class="input_subtitle">Width</div>
+          <input class="style_input" value="1px" data-type="grid" data-key="stroke-width"></input>
+        </section>
+      </div>
+
+      <!-- Axis Styling -->
+      <div class="control_container not_selected axis_styling last">
+        <h3 class="title special">Axis Styling <i class="fa fa-chevron-down"></i></h3>
+
+        <!-- Axis Color -->
+        <section class="control_subcontainer">
+          <div class="axiscolor">
+            <span class="small"> Axis Color: &nbsp; </span>
+            <div class="axiscp cpcontainer">
+              <div class="cp input-group colorpicker-component" data-type="axis" data-key="line_color">
+                <input type="text" value="#333" />
+                <span class="input-group-addon"><i></i></span>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- Bar Labels -->
-      <section class="control_subcontainer">
-        <div class="input_subtitle">Bar Labels</div>
-        <input type="radio" name="bar_label_toggle" value="Show" data-type="bars" data-key="visibility" data-label="true"> <span class="small"> Show &nbsp; </span>
-        <input type="radio" name="bar_label_toggle" value="Hide" data-type="bars" data-key="visibility" data-label="true" checked> <span class="small"> Hide</span>
+        </section>
 
-        <div class="font_and_size">
-          <div class="font">
-            <div class="style_input font_picker dropdown">
-              <span>Helvetica Neue</span>
-              <i class="fa fa-angle-up"></i>
-              <i class="fa fa-angle-down"></i>
+        <!-- Axis Marks (numbers) -->
+        <section class="control_subcontainer">
+          <div class="input_subtitle">Tick Labels</div>
+
+         <!-- Font and Size -->
+          <div class="font_and_size">
+            <div class="font">
+              <div class="style_input font_picker dropdown" value="Arial" data-type="axis" data-key="tick_label_font">
+                <span>Helvetica Neue</span>
+                <i class="fa fa-angle-up"></i>
+                <i class="fa fa-angle-down"></i>
+              </div>
+              <div class="options">
+                <div class="option">option 1</div>
+                <div class="option">option 2</div>
+                <div class="option">option 3</div>
+                <div class="option">option 4</div>
+                <div class="option">option 5</div>
+                <div class="option">option 6</div>
+                <div class="option">option 7</div>
+                <div class="option">option 8</div>
+                <div class="option">option 9</div>
+                <div class="option">option 10</div>
+                <div class="option">option 11</div>
+                <div class="option">option 12</div>
+                <div class="option">option 13</div>
+                <div class="option">option 14</div>
+                <div class="option">option 15</div>
+              </div>
             </div>
-            <div class="options">
-              <div class="option">option 1</div>
-              <div class="option">option 2</div>
-              <div class="option">option 3</div>
-              <div class="option">option 4</div>
-              <div class="option">option 5</div>
-              <div class="option">option 6</div>
-              <div class="option">option 7</div>
-              <div class="option">option 8</div>
-              <div class="option">option 9</div>
-              <div class="option">option 10</div>
-              <div class="option">option 11</div>
-              <div class="option">option 12</div>
-              <div class="option">option 13</div>
-              <div class="option">option 14</div>
-              <div class="option">option 15</div>
+
+            <div class="size">
+              <div class="style_input size_picker dropdown" data-type="axis" data-key="tick_label_font_size">
+                <span>12</span>
+                <i class="fa fa-angle-up"></i>
+                <i class="fa fa-angle-down"></i>
+              </div>
+              <div class="options">
+                <div class="option">8</div>
+                <div class="option">9</div>
+                <div class="option">10</div>
+                <div class="option">11</div>
+                <div class="option">12</div>
+                <div class="option">13</div>
+                <div class="option">14</div>
+                <div class="option">18</div>
+                <div class="option">20</div>
+                <div class="option">24</div>
+                <div class="option">36</div>
+                <div class="option">48</div>
+                <div class="option">64</div>
+              </div>
             </div>
           </div>
 
-          <div class="size">
-            <div class="style_input size_picker dropdown" data-type="bars" data-key="font-size" data-label="true">
-              <span>12</span>
-              <i class="fa fa-angle-up"></i>
-              <i class="fa fa-angle-down"></i>
-            </div>
-            <div class="options">
-              <div class="option">8</div>
-              <div class="option">9</div>
-              <div class="option">10</div>
-              <div class="option">11</div>
-              <div class="option">12</div>
-              <div class="option">13</div>
-              <div class="option">14</div>
-              <div class="option">18</div>
-              <div class="option">20</div>
-              <div class="option">24</div>
-              <div class="option">36</div>
-              <div class="option">48</div>
-              <div class="option">64</div>
+          <!-- Color of tick font -->
+          <div class="tickcolor">
+            <div class="tickcp cpcontainer">
+              <div class="cp input-group colorpicker-component" data-type="axis" data-key="tick_label_color">
+                <input type="text" value="#333" />
+                <span class="input-group-addon"><i></i></span>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <!-- Color picker stuff -->
-        <div class="labelcolor cpcontainer">
-          <div class="cp input-group colorpicker-component" data-type="bars" data-key="fill" data-label="true">
-            <input type="text" value="#00AABB" />
-            <span class="input-group-addon"><i></i></span>
+        <!-- Axis Labels -->
+        <section class="control_subcontainer axis_labels">
+          <div class="input_subtitle">Axis Labels</div>
+          <div class="xylabels">
+            <span class="small"> X-Axis: &nbsp; </span>
+            <input class="style_input xylabel" value="X Label" data-type="axis" data-key="x_label"></input>
           </div>
-        </div>
 
-        <!-- XX -->
-      </section>
+          <div class="xylabels">
+            <span class="small"> Y-Axis: &nbsp; </span>
+            <input class="style_input xylabel" value="Y Label" data-type="axis" data-key="y_label"></input>
+          </div>
+
+          <!-- Font and size of XY Labels -->
+          <div class="font_and_size">
+            <div class="font">
+              <div class="style_input font_picker dropdown" data-type="axis" data-key="label_font">
+                <span>Helvetica Neue</span>
+                <i class="fa fa-angle-up"></i>
+                <i class="fa fa-angle-down"></i>
+              </div>
+              <div class="options">
+                <div class="option">option 1</div>
+                <div class="option">option 2</div>
+                <div class="option">option 3</div>
+                <div class="option">option 4</div>
+                <div class="option">option 5</div>
+                <div class="option">option 6</div>
+                <div class="option">option 7</div>
+                <div class="option">option 8</div>
+                <div class="option">option 9</div>
+                <div class="option">option 10</div>
+                <div class="option">option 11</div>
+                <div class="option">option 12</div>
+                <div class="option">option 13</div>
+                <div class="option">option 14</div>
+                <div class="option">option 15</div>
+              </div>
+            </div>
+
+            <div class="size">
+              <div class="style_input size_picker dropdown" data-type="axis" data-key="label_font_size">
+                <span>12</span>
+                <i class="fa fa-angle-up"></i>
+                <i class="fa fa-angle-down"></i>
+              </div>
+              <div class="options">
+                <div class="option">8</div>
+                <div class="option">9</div>
+                <div class="option">10</div>
+                <div class="option">11</div>
+                <div class="option">12</div>
+                <div class="option">13</div>
+                <div class="option">14</div>
+                <div class="option">18</div>
+                <div class="option">20</div>
+                <div class="option">24</div>
+                <div class="option">36</div>
+                <div class="option">48</div>
+                <div class="option">64</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- XY Label Color -->
+          <div class="tickcolor">
+            <div class="tickcp cpcontainer">
+              <div class="cp input-group colorpicker-component" data-type="axis" data-key="label_color">
+                <input type="text" value="#333" />
+                <span class="input-group-addon"><i></i></span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
 
-    <!-- Grid Styling -->
-    <div class="control_container not_selected grid_styling">
-      <h3 class="title special">Grid Styling <i class="fa fa-chevron-down"></i></h3>
-
-      <!-- Grid Lines Toggle -->
-      <section class="control_subcontainer grid_toggle">
-        <div class="input_subtitle">Lines</div>
-        <input type="radio" name="grid_toggle" value="Show" data-type="grid" data-key="visibility" checked> <span class="small"> Show &nbsp; </span>
-        <input type="radio" name="grid_toggle" value="Hide" data-type="grid" data-key="visibility" > <span class="small"> Hide</span>
-      </section>
-
-      <!-- Grid Line Opacity -->
-      <section class="control_subcontainer">
-        <div class="input_subtitle">Opacity</div>
-        <div class="slider_container">
-          <div class="slider_reading">
-            25%
-          </div>
-          <div class="slider" data-type="grid" data-key="opacity"></div>
-          <div class="label min">0</div>
-          <div class="label max">1</div>
-        </div>
-      </section>
-
-      <!-- Grid Width -->
-      <section class="control_subcontainer">
-        <div class="input_subtitle">Width</div>
-        <input class="style_input" value="1px" data-type="grid" data-key="stroke-width"></input>
-      </section>
-    </div>
-
-    <!-- Axis Styling -->
-    <div class="control_container not_selected axis_styling last">
-      <h3 class="title special">Axis Styling <i class="fa fa-chevron-down"></i></h3>
-
-      <!-- Axis Color -->
-      <section class="control_subcontainer">
-        <div class="axiscolor">
-          <span class="small"> Axis Color: &nbsp; </span>
-          <div class="axiscp cpcontainer">
-            <div class="cp input-group colorpicker-component" data-type="axis" data-key="line_color">
-              <input type="text" value="#00AABB" />
-              <span class="input-group-addon"><i></i></span>
-            </div>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- Axis Marks (numbers) -->
-      <section class="control_subcontainer">
-        <div class="input_subtitle">Tick Labels</div>
-
-       <!-- Font and Size -->
-        <div class="font_and_size">
-          <div class="font">
-            <div class="style_input font_picker dropdown" value="Arial" data-type="axis" data-key="tick_label_font">
-              <span>Helvetica Neue</span>
-              <i class="fa fa-angle-up"></i>
-              <i class="fa fa-angle-down"></i>
-            </div>
-            <div class="options">
-              <div class="option">option 1</div>
-              <div class="option">option 2</div>
-              <div class="option">option 3</div>
-              <div class="option">option 4</div>
-              <div class="option">option 5</div>
-              <div class="option">option 6</div>
-              <div class="option">option 7</div>
-              <div class="option">option 8</div>
-              <div class="option">option 9</div>
-              <div class="option">option 10</div>
-              <div class="option">option 11</div>
-              <div class="option">option 12</div>
-              <div class="option">option 13</div>
-              <div class="option">option 14</div>
-              <div class="option">option 15</div>
-            </div>
-          </div>
-
-          <div class="size">
-            <div class="style_input size_picker dropdown" data-type="axis" data-key="tick_label_font_size">
-              <span>12</span>
-              <i class="fa fa-angle-up"></i>
-              <i class="fa fa-angle-down"></i>
-            </div>
-            <div class="options">
-              <div class="option">8</div>
-              <div class="option">9</div>
-              <div class="option">10</div>
-              <div class="option">11</div>
-              <div class="option">12</div>
-              <div class="option">13</div>
-              <div class="option">14</div>
-              <div class="option">18</div>
-              <div class="option">20</div>
-              <div class="option">24</div>
-              <div class="option">36</div>
-              <div class="option">48</div>
-              <div class="option">64</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Color of tick font -->
-        <div class="tickcolor">
-          <div class="tickcp cpcontainer">
-            <div class="cp input-group colorpicker-component" data-type="axis" data-key="tick_label_color">
-              <input type="text" value="#00AABB" />
-              <span class="input-group-addon"><i></i></span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Axis Labels -->
-      <section class="control_subcontainer axis_labels">
-        <div class="input_subtitle">Axis Labels</div>
-        <div class="xylabels">
-          <span class="small"> X-Axis: &nbsp; </span>
-          <input class="style_input xylabel" value="X Label" data-type="axis" data-key="x_label"></input>
-        </div>
-
-        <div class="xylabels">
-          <span class="small"> Y-Axis: &nbsp; </span>
-          <input class="style_input xylabel" value="Y Label" data-type="axis" data-key="y_label"></input>
-        </div>
-
-        <!-- Font and size of XY Labels -->
-        <div class="font_and_size">
-          <div class="font">
-            <div class="style_input font_picker dropdown" data-type="axis" data-key="label_font">
-              <span>Helvetica Neue</span>
-              <i class="fa fa-angle-up"></i>
-              <i class="fa fa-angle-down"></i>
-            </div>
-            <div class="options">
-              <div class="option">option 1</div>
-              <div class="option">option 2</div>
-              <div class="option">option 3</div>
-              <div class="option">option 4</div>
-              <div class="option">option 5</div>
-              <div class="option">option 6</div>
-              <div class="option">option 7</div>
-              <div class="option">option 8</div>
-              <div class="option">option 9</div>
-              <div class="option">option 10</div>
-              <div class="option">option 11</div>
-              <div class="option">option 12</div>
-              <div class="option">option 13</div>
-              <div class="option">option 14</div>
-              <div class="option">option 15</div>
-            </div>
-          </div>
-
-          <div class="size">
-            <div class="style_input size_picker dropdown" data-type="axis" data-key="label_font_size">
-              <span>12</span>
-              <i class="fa fa-angle-up"></i>
-              <i class="fa fa-angle-down"></i>
-            </div>
-            <div class="options">
-              <div class="option">8</div>
-              <div class="option">9</div>
-              <div class="option">10</div>
-              <div class="option">11</div>
-              <div class="option">12</div>
-              <div class="option">13</div>
-              <div class="option">14</div>
-              <div class="option">18</div>
-              <div class="option">20</div>
-              <div class="option">24</div>
-              <div class="option">36</div>
-              <div class="option">48</div>
-              <div class="option">64</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- XY Label Color -->
-        <div class="tickcolor">
-          <div class="tickcp cpcontainer">
-            <div class="cp input-group colorpicker-component" data-type="axis" data-key="label_color">
-              <input type="text" value="#00AABB" />
-              <span class="input-group-addon"><i></i></span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
+  </section> <!-- End of chart_super_container -->
 
   <script src="js/d3.min.js"></script>
   <script src="js/jquery-2.2.3.min.js"></script>
