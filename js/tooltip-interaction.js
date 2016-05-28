@@ -1,5 +1,5 @@
 function showDetails(d, i) {
-  console.log(d);
+  if(!hover_active) return;
   var content = '<p class="main">' + d.label + '</span></p>';
   content += '<hr class="tooltip-hr">'
   content += '<p class="main">' + d.value + '</span></p>'
@@ -8,6 +8,7 @@ function showDetails(d, i) {
 };
 
 function hideDetails(d, i) {
+  if(!hover_active) return;
   tooltip.hideTooltip();
   return d3.select(this).style("stroke", "black").style("stroke-width", 1.0);
 };

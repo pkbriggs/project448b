@@ -51,6 +51,7 @@ var xAxis = null;
 // code dealing with colors
 var color_scale = d3.scale.ordinal();
 var num_chart_colors = 0;
+var hover_active = false;
 
 // tooltip used to display details
 tooltip = Tooltip("vis-tooltip", 230);
@@ -227,8 +228,9 @@ function createChart(container) {
       .attr("width", xScale.rangeBand())
       .attr("y", function(d) { return yScale(d["value"]); })
       .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); })
-        .on("mouseover", showDetails)
-        .on("mouseout", hideDetails);
+
+    bars.on("mouseover", showDetails)
+      .on("mouseout", hideDetails);
 
     // Add text underneath the x-axis
     bars.enter()
