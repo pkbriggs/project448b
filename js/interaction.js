@@ -52,6 +52,8 @@ var xAxis = null;
 var color_scale = d3.scale.ordinal();
 var num_chart_colors = 0;
 
+// tooltip used to display details
+tooltip = Tooltip("vis-tooltip", 230);
 
 function createSVG() {
   // Add an svg element to the DOM
@@ -188,11 +190,13 @@ function createChart(container) {
       .enter()
       .append("circle")
       .attr("class", "chart_dot")
-      .attr("fill", "none")
+      .attr("fill", "transparent")
       .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
       .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
       .attr("cy", function(d) { return yScale(d["value"]); })
-      .attr("r", "3");
+      .attr("r", "3")
+        .on("mouseover", showDetails)
+        .on("mouseout", hideDetails);
 
     // Add data-labels on top of points in line chart
     lines.selectAll(".chart_bar_label")
@@ -223,6 +227,8 @@ function createChart(container) {
       .attr("width", xScale.rangeBand())
       .attr("y", function(d) { return yScale(d["value"]); })
       .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); })
+        .on("mouseover", showDetails)
+        .on("mouseout", hideDetails);
 
     // Add text underneath the x-axis
     bars.enter()
