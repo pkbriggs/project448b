@@ -177,6 +177,8 @@ function createChart(container) {
       .enter().append("g")
         .attr("class", "data_point");
 
+    console.log(lines.data());
+
     // Add actual lines as one path svg element
     lines.append("path")
       .attr("class", "chart_line")
@@ -198,6 +200,15 @@ function createChart(container) {
       .attr("r", "3")
         .on("mouseover", showDetails)
         .on("mouseout", hideDetails);
+
+    container.selectAll(".chart_dot").on('click', function (d, i) {
+      d3.event.preventDefault();
+      var actual_index = i % chart_data.length;
+      var actual_node = chart_data[actual_index];
+      var key_for_line = this.parentNode.__data__.name;
+
+      showEditDataContainer(actual_node, actual_index, key_for_line);
+    });
 
     // Add data-labels on top of points in line chart
     lines.selectAll(".chart_bar_label")
@@ -232,18 +243,9 @@ function createChart(container) {
     bars.on("mouseover", showDetails)
       .on("mouseout", hideDetails);
 
-    container.selectAll(".chart_bar").on('dblclick', function (d, i) {
+    container.selectAll(".chart_bar").on('click', function (d, i) {
       d3.event.preventDefault();
-      
-      // update the input fields with the clicked on bar's data 
-      $("#edit_input_label").val(d.label);
-      $("#edit_input_value").val(d.value);
-      $("#edit_data_container").show();
-
-      // set the current obj and index inside the edit_data_container
-      $("#edit_data_container").data("obj", d);
-      $("#edit_data_container").data("index", i);
-      $("#edit_data_container").data("open", "true");
+      showEditDataContainer(d, i, "value");
     });
 
     // Add text underneath the x-axis

@@ -16,22 +16,12 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 
   // Edge case #1
   if (type == "bars" && key == "spacing") {
-    redrawXAxis();  // Redraw x-axis
-
-    container.selectAll(".chart_bar_label")  // Re-draw bar labels
-      .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; });
+    redrawXAxis();  // Re-draw x-axis and bars
 
     if(chart_type === "line") {
-      var line = d3.svg.line()  // Redo line drawing function to account for changes
-  			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-  			.y(function(d) { return yScale(d["value"]); });
-
-      container.selectAll(".chart_line")  // Re-draw lines
-        .attr("d", function(d) { return line(d.values); });
-
-      container.selectAll(".chart_dot")  // Re-draw points
-        .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2;})
-        .attr("cy", function(d) { return yScale(d["value"]); });
+      updateLineData();  // Re-draw the lines/dots/line labels
+    } else {
+      redrawBars();  // Re-draw the bars/bar labels
     }
   }
 
@@ -102,10 +92,64 @@ function redrawXAxis() {
   xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
   xAxis = d3.svg.axis().scale(xScale).outerTickSize(1).tickPadding(5).orient("bottom");
 
-  container.selectAll(".x_axis").transition().duration(150).call(xAxis);  // Re-draw axis
-  container.selectAll(".chart_bar")  // Re-draw bars
+  container.selectAll(".x_axis").call(xAxis);  // Re-draw axis
+}
+
+// helper function that re-draws the bars
+function redrawBars() {
+  // re-draw the bar labels
+  redrawBarLabels();  
+  // update the actual bars
+  container.selectAll(".chart_bar").data(chart_data)
+    .attr("y", function(d) { return yScale(d["value"]); })
     .attr("x", function(d, i) { return xScale(d["label"]); })
-    .attr("width", xScale.rangeBand());
+    .attr("width", xScale.rangeBand())
+    .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); });
+}
+
+// helper funtion to update data behind the line chart
+function updateLineData() {
+  var line_data = color_scale.domain().map(function(name) {
+    return {
+      name: name,
+      values: chart_data.map(function(d) {
+        return {label: d.label, value: +d[name]};
+      })
+    };
+  });
+
+  var line = d3.svg.line()  // Redo line drawing function to account for changes
+    .x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
+    .y(function(d) { return yScale(d["value"]); });
+
+  var lines = container.selectAll(".chart_line").data(line_data)
+    .attr("d", function(d) { return line(d.values); });  
+  var points = container.selectAll(".data_point").data(line_data);
+
+  redrawDotsAndLabels(points); // update the dots/line-labels
+}
+
+// helper function that re-draws the dots and data labels
+function redrawDotsAndLabels(points) {
+  points.selectAll(".chart_dot")  // Re-draw points
+    .data(function(d){ return d.values; })
+    .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
+    .attr("cy", function(d) { return yScale(d["value"]); })
+
+  points.selectAll(".chart_bar_label")  // re-draw line-labels
+    .data(function(d){ return d.values; })
+    .text(function(d) { return d["value"]; })
+    .attr("y", function(d) { return yScale(d["value"]) - 7; })
+    .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; });
+}
+
+// helper function that re-draws the data labels above the points on the chart
+function redrawBarLabels() {
+  // update the data labels
+  container.selectAll(".chart_bar_label")
+    .text(function(d) { return d["value"]; })
+    .attr("y", function(d) { return yScale(d["value"]) - 7; })
+    .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; });
 }
 
 /*
@@ -118,26 +162,25 @@ function setupEditDataContainer() {
   $("#edit_data_change_btn").click(function(event) {
     var obj_to_change = $("#edit_data_container").data("obj");
     var index = $("#edit_data_container").data("index");
+    var key_for_line = $("#edit_data_container").data("key");
 
     // set obj to new variables from the edit_data_container
-    obj_to_change.label = $("#edit_input_label").val()
-    obj_to_change.value = $("#edit_input_value").val()
+    obj_to_change.label = $("#edit_input_label").val();
+    if(chart_type === "bar") {
+      obj_to_change.value = $("#edit_input_value").val();
+    } else {
+      obj_to_change[key_for_line] = parseInt($("#edit_input_value").val());
+    }
     chart_data[index] = obj_to_change;
 
+    redrawXAxis();  // update the axis to reflect changes to the labels
     if(chart_type === "bar") {
-      // update the bar chart - redraw the actual bars
-      container.selectAll(".chart_bar").data(chart_data).transition().duration(300)
-        .attr("y", function(d) { return yScale(d["value"]); })
-        .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); });
-
-      // update the bar labels
-      container.selectAll(".chart_bar_label").transition().duration(300)
-        .text(function(d) { return d["value"]; })
-        .attr("y", function(d) { return yScale(d["value"]) - 7; });
-
-      // update the axis to reflect changes to the labels
-      redrawXAxis();
+      redrawBars();  // update the bars
+    } else {
+      updateLineData();
     }
+
+    hideEditDataContainer();  // hide it when we are done
   });
 
   // handler to close the edit data container if you click outside of it
@@ -145,11 +188,35 @@ function setupEditDataContainer() {
     var clicked = $(event.target);
     if(!clicked.is("#edit_data_container") && !clicked.parents().is("#edit_data_container")) {
       // case: we hide the edit_data_container if we click outside of it
-      if($("#edit_data_container").data("open") === "true") {
-        // case: we hide the edit_data_container if it is already open
-        $("#edit_data_container").data("open", "false");
-        $("#edit_data_container").hide();
+      if(!clicked.is(".chart_dot") && !clicked.is(".chart_bar")) {
+        // case: we hide the edit_data_container if we click outside of a chart dot or line
+        if($("#edit_data_container").data("open") === "true") {
+          // case: we hide the edit_data_container if it is already open
+          hideEditDataContainer();
+        }
       }
     }
   });
 }
+
+// helper function that hides the edit_data_container
+function hideEditDataContainer() {
+  $("#edit_data_container").data("open", "false");
+  $("#edit_data_container").hide();
+}
+
+// function that shows the edit_data_container and populates it
+// with the necessary values from the clicked on point
+function showEditDataContainer(d, i, key_for_line) {
+  // update the input fields with the clicked on bar's data 
+  $("#edit_input_label").val(d.label);
+  $("#edit_input_value").val(d[key_for_line]);
+  $("#edit_data_container").show();
+
+  // set the current obj and index inside the edit_data_container
+  $("#edit_data_container").data("obj", d);
+  $("#edit_data_container").data("index", i);
+  $("#edit_data_container").data("key", key_for_line);
+  $("#edit_data_container").data("open", "true");
+}
+
