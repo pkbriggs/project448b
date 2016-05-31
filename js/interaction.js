@@ -52,6 +52,7 @@ var xAxis = null;
 var color_scale = d3.scale.ordinal();
 var num_chart_colors = 0;
 var hover_active = false;
+var edit_data_active = false;
 
 // tooltip used to display details
 tooltip = Tooltip("vis-tooltip", 230);
@@ -177,8 +178,6 @@ function createChart(container) {
       .enter().append("g")
         .attr("class", "data_point");
 
-    console.log(lines.data());
-
     // Add actual lines as one path svg element
     lines.append("path")
       .attr("class", "chart_line")
@@ -201,13 +200,23 @@ function createChart(container) {
         .on("mouseover", showDetails)
         .on("mouseout", hideDetails);
 
+    // Add dots to line chart
     container.selectAll(".chart_dot").on('click', function (d, i) {
       d3.event.preventDefault();
       var actual_index = i % chart_data.length;
       var actual_node = chart_data[actual_index];
       var key_for_line = this.parentNode.__data__.name;
+      var selected_dot = $(this);
+      $(".chart_line, .chart_dot").css("opacity", 1);  // reset opacity
+      // highlight the dot we are editing
+      $(".chart_dot").each(function( index ) {
+        if($(this).is(selected_dot) === false) {
+          $(this).css("opacity", 0.3);
+        } 
+      });
+      $(".chart_line").css("opacity", 0.3);
 
-      showEditDataContainer(actual_node, actual_index, key_for_line);
+      showEditDataContainer(d3.event, actual_node, actual_index, key_for_line);
     });
 
     // Add data-labels on top of points in line chart
@@ -245,7 +254,15 @@ function createChart(container) {
 
     container.selectAll(".chart_bar").on('click', function (d, i) {
       d3.event.preventDefault();
-      showEditDataContainer(d, i, "value");
+      var selected_bar = $(this);
+      $(".chart_bar").css("opacity", 1);  // reset opacity
+      // highlight the bar we are editing
+      $(".chart_bar").each(function( index ) {
+        if($(this).is(selected_bar) === false) {
+          $(this).css("opacity", 0.3);
+        } 
+      });
+      showEditDataContainer(d3.event, d, i, "value");
     });
 
     // Add text underneath the x-axis

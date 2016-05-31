@@ -52,9 +52,9 @@ input[type=radio] {
 	position: absolute;
 	left: 225px;
 	width: 600px;
-	width: -webkit-calc(100% - 226px);
-	width: -moz-calc(100% - 225px);
-	width: calc(100% - 225px);
+	width: -webkit-calc(100% - 500px);
+	width: -moz-calc(100% - 500px);
+	width: calc(100% - 500px);
 }
 
 .vis_controls {
@@ -201,6 +201,6 @@ hr.tooltip-hr {
 #edit_data_container {
 	position: absolute;
 	display: none;
-	background-color: #E2E2E2;
-	padding: 8px;
+	background-color: rgba(226, 226, 226, 0.8);
+	padding: 10px;
 }

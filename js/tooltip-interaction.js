@@ -1,5 +1,5 @@
 function showDetails(d, i) {
-  if(!hover_active) return;
+  if(!hover_active || edit_data_active) return;
   var content = '<p class="main">' + d.label + '</span></p>';
   content += '<hr class="tooltip-hr">'
   content += '<p class="main">' + d.value + '</span></p>'

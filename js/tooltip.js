@@ -13,15 +13,15 @@ function Tooltip(tooltipId, width){
     $("#"+tooltipId).show();
     $("#"+tooltipId).css("opacity", "1");
 
-    updatePosition(event);
+    updatePosition(event, tooltipId);
   }
 
   function hideTooltip(){
     $("#"+tooltipId).hide();
   }
 
-  function updatePosition(event){
-    var ttid = "#"+tooltipId;
+  function updatePosition(event, dom_id){
+    var ttid = "#"+dom_id;
     var xOffset = 20;
     var yOffset = 10;
 
@@ -39,6 +39,7 @@ function Tooltip(tooltipId, width){
     if (tttop < windowY + yOffset){
       tttop = curY + yOffset;
     } 
+
     $(ttid).css('top', tttop + 'px').css('left', ttleft + 'px');
   }
 

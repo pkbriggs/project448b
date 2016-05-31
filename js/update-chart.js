@@ -14,7 +14,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     }
   }
 
-  // Edge case #1
+  // Edge case #1 - changing spacing for chart (both bar/line)
   if (type == "bars" && key == "spacing") {
     redrawXAxis();  // Re-draw x-axis and bars
 
@@ -159,7 +159,7 @@ function redrawBarLabels() {
 function setupEditDataContainer() {
   // handler to take the data currently in the edit_data_container
   // and edit the chart corresondly
-  $("#edit_data_change_btn").click(function(event) {
+  $(".edit_input").keyup(function(event) {
     var obj_to_change = $("#edit_data_container").data("obj");
     var index = $("#edit_data_container").data("index");
     var key_for_line = $("#edit_data_container").data("key");
@@ -180,7 +180,7 @@ function setupEditDataContainer() {
       updateLineData();
     }
 
-    hideEditDataContainer();  // hide it when we are done
+    // hideEditDataContainer();  // hide it when we are done
   });
 
   // handler to close the edit data container if you click outside of it
@@ -201,13 +201,17 @@ function setupEditDataContainer() {
 
 // helper function that hides the edit_data_container
 function hideEditDataContainer() {
+  tooltip.hideTooltip();
   $("#edit_data_container").data("open", "false");
   $("#edit_data_container").hide();
+  $(".chart_bar, .chart_line, .chart_dot").css("opacity", "1");
+  edit_data_active = false;
 }
 
 // function that shows the edit_data_container and populates it
 // with the necessary values from the clicked on point
-function showEditDataContainer(d, i, key_for_line) {
+function showEditDataContainer(mouse_event, d, i, key_for_line) {
+  tooltip.hideTooltip();
   // update the input fields with the clicked on bar's data 
   $("#edit_input_label").val(d.label);
   $("#edit_input_value").val(d[key_for_line]);
@@ -218,5 +222,7 @@ function showEditDataContainer(d, i, key_for_line) {
   $("#edit_data_container").data("index", i);
   $("#edit_data_container").data("key", key_for_line);
   $("#edit_data_container").data("open", "true");
+  tooltip.updatePosition(mouse_event, "edit_data_container");
+  edit_data_active = true;
 }
 
