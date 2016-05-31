@@ -196,3 +196,11 @@ hr.tooltip-hr {
 .tooltip .name {
   font-weight:bold;
 }
+
+/* Edit data container style*/
+#edit_data_container {
+	position: absolute;
+	display: none;
+	background-color: #E2E2E2;
+	padding: 8px;
+}

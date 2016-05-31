@@ -232,6 +232,20 @@ function createChart(container) {
     bars.on("mouseover", showDetails)
       .on("mouseout", hideDetails);
 
+    container.selectAll(".chart_bar").on('dblclick', function (d, i) {
+      d3.event.preventDefault();
+      
+      // update the input fields with the clicked on bar's data 
+      $("#edit_input_label").val(d.label);
+      $("#edit_input_value").val(d.value);
+      $("#edit_data_container").show();
+
+      // set the current obj and index inside the edit_data_container
+      $("#edit_data_container").data("obj", d);
+      $("#edit_data_container").data("index", i);
+      $("#edit_data_container").data("open", "true");
+    });
+
     // Add text underneath the x-axis
     bars.enter()
       .append("text")
@@ -244,6 +258,8 @@ function createChart(container) {
       .attr("y", function(d) { return yScale(d["value"]) - 7; })
       .attr("visibility", "hidden");
   }
+
+  setupEditDataContainer();
 }
 
 $(document).ready(function() {

@@ -1,3 +1,10 @@
+/*
+ * Main function that updates values in the global map as well as redraws
+ * different parts of the graph. If you wanted to change the opacity of the
+ # grid lines, you could call:
+ *
+ * updateChartConfigValue("grid", "opacity", "0.4", false)
+ */
 function updateChartConfigValue(type, key, value, is_bar_label) {
   if(type !== "change_color_scale") {
     if(is_bar_label === true) {
@@ -9,19 +16,10 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 
   // Edge case #1
   if (type == "bars" && key == "spacing") {
-    // Re-scale x-axis to change spacing - foundation for all spacing changes
-    xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
-    xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
-    xAxis = d3.svg.axis().scale(xScale).outerTickSize(1).tickPadding(5).orient("bottom");
+    redrawXAxis();  // Redraw x-axis
 
-    container.selectAll(".x_axis").call(xAxis);  // Re-draw axis
-    container.selectAll(".chart_bar")  // Re-draw bars
-      .attr("x", function(d, i) { return xScale(d["label"]); })
-      .attr("width", xScale.rangeBand());
-
-    container.selectAll(".chart_bar_label")  // Red-draw bar labels
-      .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-      .attr("y", function(d) { return yScale(d["value"]) - 7; });
+    container.selectAll(".chart_bar_label")  // Re-draw bar labels
+      .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; });
 
     if(chart_type === "line") {
       var line = d3.svg.line()  // Redo line drawing function to account for changes
@@ -95,4 +93,63 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
         .attr("fill", function(d, i){ return color_scale(i)})
     }
   }
+}
+
+// helper function that redraws the x-axis
+function redrawXAxis() {
+  // Re-scale x-axis to change spacing - foundation for all spacing changes
+  xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
+  xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
+  xAxis = d3.svg.axis().scale(xScale).outerTickSize(1).tickPadding(5).orient("bottom");
+
+  container.selectAll(".x_axis").transition().duration(150).call(xAxis);  // Re-draw axis
+  container.selectAll(".chart_bar")  // Re-draw bars
+    .attr("x", function(d, i) { return xScale(d["label"]); })
+    .attr("width", xScale.rangeBand());
+}
+
+/*
+ * Function contains handlers to setup the edit_data_container, allowing users to
+ * edit chart data in a popup modal
+ */
+function setupEditDataContainer() {
+  // handler to take the data currently in the edit_data_container
+  // and edit the chart corresondly
+  $("#edit_data_change_btn").click(function(event) {
+    var obj_to_change = $("#edit_data_container").data("obj");
+    var index = $("#edit_data_container").data("index");
+
+    // set obj to new variables from the edit_data_container
+    obj_to_change.label = $("#edit_input_label").val()
+    obj_to_change.value = $("#edit_input_value").val()
+    chart_data[index] = obj_to_change;
+
+    if(chart_type === "bar") {
+      // update the bar chart - redraw the actual bars
+      container.selectAll(".chart_bar").data(chart_data).transition().duration(300)
+        .attr("y", function(d) { return yScale(d["value"]); })
+        .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); });
+
+      // update the bar labels
+      container.selectAll(".chart_bar_label").transition().duration(300)
+        .text(function(d) { return d["value"]; })
+        .attr("y", function(d) { return yScale(d["value"]) - 7; });
+
+      // update the axis to reflect changes to the labels
+      redrawXAxis();
+    }
+  });
+
+  // handler to close the edit data container if you click outside of it
+  $(document).click(function(event) {
+    var clicked = $(event.target);
+    if(!clicked.is("#edit_data_container") && !clicked.parents().is("#edit_data_container")) {
+      // case: we hide the edit_data_container if we click outside of it
+      if($("#edit_data_container").data("open") === "true") {
+        // case: we hide the edit_data_container if it is already open
+        $("#edit_data_container").data("open", "false");
+        $("#edit_data_container").hide();
+      }
+    }
+  });
 }
