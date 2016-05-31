@@ -32,12 +32,12 @@ var chart_config = {
     "line_color": "#333",
     "tick_label_color": "#333",
     "tick_label_font": "Arial",
-    "tick_label_font_size": 14,
+    "tick_label_font_size": 12,
     "x_label": "X Label",
     "y_label": "Y Label",
     "label_color": "#333",
     "label_font": "Arial",
-    "label_font_size": 14
+    "label_font_size": 16
   }
 };
 
