@@ -43,6 +43,10 @@ var chart_config = {
     "label_color": "#333",
     "label_font": "Arial",
     "label_font_size": 16
+  },
+  "graph": {
+    "width": CHART_WIDTH,
+    "height": CHART_HEIGHT
   }
 };
 
@@ -53,6 +57,7 @@ var chart_data = null;
 var xScale = null;
 var yScale = null;
 var xAxis = null;
+var yAxis = null;
 // code dealing with colors
 var color_scale = d3.scale.ordinal();
 var num_chart_colors = 0;
@@ -63,6 +68,8 @@ var edit_data_active = false;
 tooltip = Tooltip("vis-tooltip", 230);
 
 function createSVG() {
+  $("#graph_width_input").val(CHART_WIDTH.toFixed(2));
+  $("#graph_height_input").val(CHART_HEIGHT.toFixed(2));
   // Add an svg element to the DOM
   var svg = d3.select(".vis_container").append("svg")
     .attr("width", CANVAS_WIDTH)
@@ -119,7 +126,7 @@ function createChart(container) {
       .outerTickSize(1)
       .tickPadding(5)
       .orient("bottom");
-  var yAxis = d3.svg.axis().scale(yScale)
+  yAxis = d3.svg.axis().scale(yScale)
       .orient("left")
       .outerTickSize(1)
       .tickPadding(5)
@@ -301,7 +308,6 @@ function setupHandlersToHideStylingSections() {
     var parent = $(this).parent();
     var style_control_container_class = parent.data("target");
     var visible_status = parent.data("open");
-    console.log(visible_status, style_control_container_class);
 
     if(visible_status === "open") {
       $("." + style_control_container_class).fadeOut(250);

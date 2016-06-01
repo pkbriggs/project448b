@@ -87,14 +87,6 @@
           <input class="style_input" value="1px" data-type="bars" data-key="stroke-width"></input>
         </section>
 
-        <!-- Hover Interaction over data -->
-        <section class="control_subcontainer">
-          <div class="input_subtitle">Hover Interaction</div>
-          <input type="radio" name="hover_toggle" value="Show"> <span class="small"> Show &nbsp; </span>
-          <input type="radio" name="hover_toggle" value="Hide" checked> <span class="small"> Hide</span>
-        </section>
-
-
         <!-- Bar Stroke -->
         <section class="control_subcontainer">
 
@@ -179,6 +171,7 @@
         </section>
       </div>
 
+      <div class="control_container_spacer"></div>
       <!-- Grid Styling -->
       <h3 class="title special" data-target="grid_styling" data-open="closed">
         Grid Styling <i class="fa fa-chevron-right toggle_control_vis"></i>
@@ -211,11 +204,12 @@
         </section>
       </div>
 
+      <div class="control_container_spacer"></div>
       <!-- Axis Styling -->
       <h3 class="title special" data-target="axis_styling" data-open="closed">
         Axis Styling <i class="fa fa-chevron-right toggle_control_vis"></i>
       </h3>
-      <div class="control_container not_selected axis_styling last">
+      <div class="control_container not_selected axis_styling">
         <!-- Axis Color -->
         <section class="control_subcontainer">
           <div class="axiscolor">
@@ -343,6 +337,32 @@
               </div>
             </div>
           </div>
+        </section>
+      </div>
+
+      <div class="control_container_spacer"></div>
+      <!-- General Graph Styling -->
+      <h3 class="title special" data-target="graph_styling" data-open="closed">
+        Graph Styling <i class="fa fa-chevron-right toggle_control_vis"></i>
+      </h3>
+      <div class="control_container not_selected graph_styling last">
+        <!-- Hover Interaction -->
+        <section class="control_subcontainer">
+          <div class="input_subtitle">Hover Interaction</div>
+          <input type="radio" name="hover_toggle" value="Show"> <span class="small"> Show &nbsp; </span>
+          <input type="radio" name="hover_toggle" value="Hide" checked> <span class="small"> Hide</span>
+        </section>
+
+        <!-- Graph Height -->
+        <section class="control_subcontainer">
+          <div class="input_subtitle">Graph Width</div>
+          <input class="style_input" value="" id="graph_width_input" data-type="graph" data-key="width"></input>
+        </section>
+
+        <!-- Graph Width -->
+        <section class="control_subcontainer">
+          <div class="input_subtitle">Graph Height</div>
+          <input class="style_input" value="" id="graph_height_input" data-type="graph" data-key="height"></input>
         </section>
       </div>
     </div>
