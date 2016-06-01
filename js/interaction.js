@@ -169,7 +169,8 @@ function createChart(container) {
     .call(xAxisGrid);
 
   if(chart_type === "line") {
-    $(".bar_styling .title").text("Line Styling");
+    $(".bar_styling .title span").text("Line Styling");
+    $("#data_label_title").text("Line Labels")
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
@@ -198,7 +199,7 @@ function createChart(container) {
       .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
       .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
       .attr("cy", function(d) { return yScale(d["value"]); })
-      .attr("r", "3")
+      .attr("r", "2")
         .on("mouseover", showDetails)
         .on("mouseout", hideDetails);
 
@@ -284,17 +285,39 @@ function createChart(container) {
   setupEditDataContainer();
 }
 
+function setupHandlersToHideStylingSections() {
+  $(".toggle_control_vis").click(function(event) {
+    var parent = $(this).parent();
+    var style_control_container_class = parent.data("target");
+    var visible_status = parent.data("open");
+    console.log(visible_status, style_control_container_class);
+
+    if(visible_status === "open") {
+      $("." + style_control_container_class).fadeOut(250);
+      parent.data("open", "closed");
+      $(this).removeClass("fa-chevron-down");
+      $(this).addClass("fa-chevron-right");
+    } else {
+      $("." + style_control_container_class).fadeIn(250);
+      parent.data("open", "open");
+      $(this).addClass("fa-chevron-down");
+      $(this).removeClass("fa-chevron-right");
+    }
+    
+  });
+}
+
 $(document).ready(function() {
   $(".chart_image_container").click(function(event) {
     chart_type = $(this).data("type");
     chart_data = setupChartData(chart_type);
 
-    $("#select_chart_container").css("display", "none");
+    $("#select_chart_container").fadeOut(250);
 
     // Need to add animation here!
-    $("#chart_super_container").css("display", "block");
+    $("#chart_super_container").fadeIn(250);
     $("#chart_super_container").css("position", "relative");
-    
+    setupHandlersToHideStylingSections();
     var container = createSVG();
     createChart(container);
   });
