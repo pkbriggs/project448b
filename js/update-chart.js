@@ -36,6 +36,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
           container.selectAll(".chart_dot").transition().attr("stroke", value);
         } else {
           container.selectAll(".chart_line").transition().attr(key, value);
+          if(key === "stroke-width") container.selectAll(".chart_dot").transition().attr("r", value*1.5);
         }
       }
     } else {
@@ -148,6 +149,9 @@ function redrawDotsAndLabels(points) {
     .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
     .attr("cy", function(d) { return yScale(d["value"]); })
 
+  // Change color of tick labels
+  container.selectAll(".x_axis .tick, .y_axis .tick").transition().attr("fill", chart_config["axis"]["tick_label_color"]);
+
   points.selectAll(".chart_bar_label")  // re-draw line-labels
     .data(function(d){ return d.values; })
     .text(function(d) { return d["value"]; })
@@ -237,4 +241,3 @@ function showEditDataContainer(mouse_event, d, i, key_for_line) {
   tooltip.updatePosition(mouse_event, "edit_data_container");
   edit_data_active = true;
 }
-

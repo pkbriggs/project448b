@@ -24,6 +24,7 @@ var chart_config = {
     "label_fill": "#333",
     "label_font": "Arial",
     "label_font_size": 10
+    "stroke-width": 1
     // "y_label": "Drinks Consumed"
   },
   "grid": {
@@ -178,6 +179,7 @@ function createChart(container) {
     .call(xAxisGrid);
 
   if(chart_type === "line") {
+    $(".bar_styling .title").text("Line Styling");
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
@@ -202,7 +204,7 @@ function createChart(container) {
       .enter()
       .append("circle")
       .attr("class", "chart_dot")
-      .attr("fill", "transparent")
+      .attr("fill", function(d){ return color_scale(this.parentNode.__data__.name )} )
       .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
       .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
       .attr("cy", function(d) { return yScale(d["value"]); })
@@ -210,7 +212,7 @@ function createChart(container) {
         .on("mouseover", showDetails)
         .on("mouseout", hideDetails);
 
-    // Add dots to line chart
+    // Add edit_data interaction upon click
     container.selectAll(".chart_dot").on('click', function (d, i) {
       d3.event.preventDefault();
       var actual_index = i % chart_data.length;
@@ -244,6 +246,7 @@ function createChart(container) {
       .attr("visibility", "hidden");
 
   } else {
+    $("#line-stroke-width").hide()  // hide line stroke width
     // create the chart bars, tie them to the data set
     var bars = container.selectAll(".chart_bar")
       .data(chart_data);
