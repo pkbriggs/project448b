@@ -304,21 +304,23 @@ function createChart(container) {
 }
 
 function setupHandlersToHideStylingSections() {
-  $(".toggle_control_vis").click(function(event) {
-    var parent = $(this).parent();
+  $(".title").click(function(event) {
+    var parent = $(this);
+    var child = $(this).find(".toggle_control_vis");
+
     var style_control_container_class = parent.data("target");
     var visible_status = parent.data("open");
 
     if(visible_status === "open") {
       $("." + style_control_container_class).fadeOut(250);
       parent.data("open", "closed");
-      $(this).removeClass("fa-chevron-down");
-      $(this).addClass("fa-chevron-right");
+      child.removeClass("fa-chevron-down");
+      child.addClass("fa-chevron-right");
     } else {
       $("." + style_control_container_class).fadeIn(250);
       parent.data("open", "open");
-      $(this).addClass("fa-chevron-down");
-      $(this).removeClass("fa-chevron-right");
+      child.addClass("fa-chevron-down");
+      child.removeClass("fa-chevron-right");
     }
     
   });
