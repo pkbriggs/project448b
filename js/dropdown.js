@@ -17,12 +17,15 @@ $(function() {
 		var $dropdown = $target.parent().prev();
 		$dropdown.toggleClass("active");
 		var $selection = $dropdown.find("span");
-		console.log($selection);
+		// console.log($selection);
 		$selection.text(option);
 		var type = $dropdown.data("type");
 		var key = $dropdown.data("key");
 		var is_bar_label = ($dropdown.data("label") !== undefined) ? true : false;
-		console.log(type, key, option, is_bar_label);
+		var callback = $dropdown.data("callback");
+		if (callback && callback === "load_font")
+			loadFont(option);
+		// console.log(type, key, option, is_bar_label);
 		updateChartConfigValue(type, key, option, is_bar_label);
 	});
 });

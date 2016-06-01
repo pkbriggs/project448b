@@ -39,6 +39,10 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
         }
       }
     } else {
+      if (key == "label_font") {
+        container.selectAll(".chart_bar_label").transition().attr("font-family", value); // doesn't do anything?
+        $(".chart_bar_label").css("font-family", value);
+      }
       container.selectAll(".chart_bar_label").transition().attr(key, value);
     }
 
@@ -53,6 +57,10 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     } else if (key === "tick_label_color") {
       container.selectAll(".x_axis .tick, .y_axis .tick").transition().attr("fill", value);
 
+    } else if (key === "tick_label_font") {
+      container.selectAll(".x_axis .tick text, .y_axis .tick text").transition().attr("font-family", value); // doesn't do anything?
+      $(".x_axis .tick text, .y_axis .tick text").css("font-family", value);
+
     } else if (key === "tick_label_font_size") {
       container.selectAll(".x_axis .tick text, .y_axis .tick text").transition().attr("font-size", value);
 
@@ -64,6 +72,10 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 
     } else if (key === "label_color") {
       container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("fill", value);
+
+    } else if (key === "label_font") {
+      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("font-family", value); // doesn't do anything?
+      $(".y_axis .axis_label, .x_axis .axis_label").css("font-family", value);
 
     } else if (key === "label_font_size") {
       container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("font-size", value);
@@ -98,7 +110,7 @@ function redrawXAxis() {
 // helper function that re-draws the bars
 function redrawBars() {
   // re-draw the bar labels
-  redrawBarLabels();  
+  redrawBarLabels();
   // update the actual bars
   container.selectAll(".chart_bar").data(chart_data)
     .attr("y", function(d) { return yScale(d["value"]); })
@@ -123,7 +135,7 @@ function updateLineData() {
     .y(function(d) { return yScale(d["value"]); });
 
   var lines = container.selectAll(".chart_line").data(line_data)
-    .attr("d", function(d) { return line(d.values); });  
+    .attr("d", function(d) { return line(d.values); });
   var points = container.selectAll(".data_point").data(line_data);
 
   redrawDotsAndLabels(points); // update the dots/line-labels
@@ -212,7 +224,7 @@ function hideEditDataContainer() {
 // with the necessary values from the clicked on point
 function showEditDataContainer(mouse_event, d, i, key_for_line) {
   tooltip.hideTooltip();
-  // update the input fields with the clicked on bar's data 
+  // update the input fields with the clicked on bar's data
   $("#edit_input_label").val(d.label);
   $("#edit_input_value").val(d[key_for_line]);
   $("#edit_data_container").show();
