@@ -32,6 +32,43 @@ input[type=radio] {
 	width: 17px;
 }
 
+header {
+	background-color: #4D9FC4;
+	padding: 5px 2px 5px 35px;
+	color: white;
+}
+
+.tools {
+	position: relative;
+	float: right;
+	font-weight: 600;
+	font-size: 18px;
+}
+
+.tool {
+	display: inline-block;
+	margin-top: 5px;
+	padding: 2px 35px;
+	height: 30px;
+	border-left: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.tool span {
+	opacity: 1;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+}
+
+.tool span:hover {
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+.tool i {
+	padding-right: 3px;
+}
+
 .bold {
 	font-weight: 700;
 }
@@ -48,6 +85,11 @@ input[type=radio] {
 	font-size: 12px !important;
 }
 
+.sitename {
+	font-weight: 900;
+	font-size: 30px;
+}
+
 .vis_container {
 	position: absolute;
 	left: 230px;
@@ -61,7 +103,7 @@ input[type=radio] {
 	/* position */
 	position: fixed;
 	left: 0;
-	top: 0;
+	top: 52px;
 	width: 210px;
 	height: 100%;
 	overflow-y: scroll;
