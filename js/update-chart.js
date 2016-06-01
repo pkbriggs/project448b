@@ -111,6 +111,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     redrawGrid();
     redrawAxisLabels();
     redrawBars();
+    updateLineData();
   }
 }
 
