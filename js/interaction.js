@@ -170,7 +170,8 @@ function createChart(container) {
 
   if(chart_type === "line") {
     $(".bar_styling .title span").text("Line Styling");
-    $("#data_label_title").text("Line Labels")
+    $("#data_label_title").text("Line Labels");
+    $($(".cp").colorpicker()[0]).colorpicker('setValue', "#333");
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
