@@ -5,6 +5,10 @@
 	border-bottom: 1px solid #D9D9D9;
 }
 
+.axis_styling, .grid_styling {
+	display: none;
+}
+
 .control_container.last {
 	border-bottom: none;
 }
