@@ -34,8 +34,10 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
         // Changes all the colors on the bar to one color: FIX!
         if(key === "fill") {
           container.selectAll(".chart_dot").transition().attr("stroke", value);
+          container.selectAll(".chart_dot").transition().attr("fill", value);
         } else {
           container.selectAll(".chart_line").transition().attr(key, value);
+          if(key === "stroke-width") container.selectAll(".chart_dot").transition().attr("r", value*1.5);
         }
       }
     } else {
@@ -66,9 +68,11 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 
     } else if (key === "x_label") {
       container.selectAll(".x_axis .axis_label").transition().text(value);
+      redrawAxisLabels();
 
     } else if (key === "y_label") {
       container.selectAll(".y_axis .axis_label").transition().text(value);
+      redrawAxisLabels();
 
     } else if (key === "label_color") {
       container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("fill", value);
@@ -94,23 +98,62 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       container.selectAll(".chart_bar")  // Re-color bars
         .attr("fill", function(d, i){ return color_scale(i)})
     }
+  } else if (type === "graph") {
+    if(key === "width") {
+      CHART_WIDTH = parseInt(value);
+    } else if (key === "height") {
+      CHART_HEIGHT = parseInt(value);
+    }
+
+    // redraw everything
+    redrawYAxis("");
+    redrawXAxis();
+    redrawGrid();
+    redrawAxisLabels();
+    redrawBars();
+    updateLineData();
   }
 }
 
 // helper function that redraws the x-axis
 function redrawXAxis() {
-  // Re-scale x-axis to change spacing - foundation for all spacing changes
+  // Re-scale x-axis
   xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
   xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
   xAxis = d3.svg.axis().scale(xScale).outerTickSize(1).tickPadding(5).orient("bottom");
 
-  container.selectAll(".x_axis").call(xAxis);  // Re-draw axis
+  container.selectAll(".x_axis").attr("transform", "translate(0," + CHART_HEIGHT + ")").call(xAxis);  // Re-draw axis
+}
+
+// helper function that redraws the y-axis
+function redrawYAxis(line_data) {
+  // Re-scale y-axis
+  yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
+  if(chart_type === "bar") {
+    yScale.domain([0, d3.max(chart_data, function(d) { return d["value"]; })]);
+  } else {
+    yScale.domain([0,d3.max(line_data, function(c) { return d3.max(c.values, function(v) { return v["value"]; }); })]);
+  }
+  yAxis = d3.svg.axis().scale(yScale).outerTickSize(1).tickPadding(5).ticks(5).orient("left");
+
+  container.selectAll(".y_axis").call(yAxis);  // Re-draw axis
+}
+
+// helper function to redraw the grid
+function redrawGrid() {
+  var yAxisGrid = yAxis.tickSize(CHART_WIDTH, 0).orient("right").tickFormat("");
+  container.selectAll(".y_grid").call(yAxisGrid);  // Re-draw axis
+}
+
+// helper function to redraw the axis labels
+function redrawAxisLabels() {
+  container.selectAll(".x_axis_label").attr("dx", CHART_WIDTH/2 - $(".x_axis_label").width()/2)
+  container.selectAll(".y_axis_label").attr("dx", -CHART_HEIGHT/2 + $(".y_axis_label").width()/2)
 }
 
 // helper function that re-draws the bars
 function redrawBars() {
-  // re-draw the bar labels
-  redrawBarLabels();
+  redrawBarLabels();  // re-draw the bar labels
   // update the actual bars
   container.selectAll(".chart_bar").data(chart_data)
     .attr("y", function(d) { return yScale(d["value"]); })
@@ -129,7 +172,7 @@ function updateLineData() {
       })
     };
   });
-
+  redrawYAxis(line_data);
   var line = d3.svg.line()  // Redo line drawing function to account for changes
     .x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
     .y(function(d) { return yScale(d["value"]); });
@@ -147,6 +190,9 @@ function redrawDotsAndLabels(points) {
     .data(function(d){ return d.values; })
     .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
     .attr("cy", function(d) { return yScale(d["value"]); })
+
+  // Change color of tick labels
+  container.selectAll(".x_axis .tick, .y_axis .tick").transition().attr("fill", chart_config["axis"]["tick_label_color"]);
 
   points.selectAll(".chart_bar_label")  // re-draw line-labels
     .data(function(d){ return d.values; })
@@ -187,6 +233,7 @@ function setupEditDataContainer() {
 
     redrawXAxis();  // update the axis to reflect changes to the labels
     if(chart_type === "bar") {
+      redrawYAxis("");
       redrawBars();  // update the bars
     } else {
       updateLineData();
@@ -237,4 +284,3 @@ function showEditDataContainer(mouse_event, d, i, key_for_line) {
   tooltip.updatePosition(mouse_event, "edit_data_container");
   edit_data_active = true;
 }
-

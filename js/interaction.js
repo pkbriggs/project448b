@@ -23,7 +23,8 @@ var chart_config = {
     "label_visiblity": false,
     "label_fill": "#333",
     "label_font": "Arial",
-    "label_font_size": 10
+    "label_font_size": 10,
+    "stroke-width": 1
     // "y_label": "Drinks Consumed"
   },
   "grid": {
@@ -42,6 +43,10 @@ var chart_config = {
     "label_color": "#333",
     "label_font": "Arial",
     "label_font_size": 16
+  },
+  "graph": {
+    "width": CHART_WIDTH,
+    "height": CHART_HEIGHT
   }
 };
 
@@ -52,6 +57,7 @@ var chart_data = null;
 var xScale = null;
 var yScale = null;
 var xAxis = null;
+var yAxis = null;
 // code dealing with colors
 var color_scale = d3.scale.ordinal();
 var num_chart_colors = 0;
@@ -62,6 +68,8 @@ var edit_data_active = false;
 tooltip = Tooltip("vis-tooltip", 230);
 
 function createSVG() {
+  $("#graph_width_input").val(CHART_WIDTH.toFixed(2));
+  $("#graph_height_input").val(CHART_HEIGHT.toFixed(2));
   // Add an svg element to the DOM
   var svg = d3.select(".vis_container").append("svg")
     .attr("width", CANVAS_WIDTH)
@@ -118,7 +126,7 @@ function createChart(container) {
       .outerTickSize(1)
       .tickPadding(5)
       .orient("bottom");
-  var yAxis = d3.svg.axis().scale(yScale)
+  yAxis = d3.svg.axis().scale(yScale)
       .orient("left")
       .outerTickSize(1)
       .tickPadding(5)
@@ -131,8 +139,7 @@ function createChart(container) {
       .call(xAxis)
     .append("text") // label for the x axis
       .style("text-anchor", "center")
-      .attr("class", "axis_label")
-      .attr("dx", CHART_WIDTH/2.2)
+      .attr("class", "x_axis_label axis_label")
       .text(chart_config["axis"]["x_label"])
       .attr("dy", "3.4em");
 
@@ -141,12 +148,13 @@ function createChart(container) {
       .attr("class", "y_axis")
       .call(yAxis)
     .append("text") // label for the y axis
-      .attr("class", "axis_label")
+      .attr("class", "y_axis_label axis_label")
       .attr("transform", "rotate(-90)")
       .attr("dy", "-3.5em")
-      .attr("dx", -CHART_HEIGHT/2.5)
       .style("text-anchor", "end")
       .text(chart_config["axis"]["y_label"]);
+
+  redrawAxisLabels();
 
   // Code to add the grid lines
   var numberOfTicks = 10;
@@ -178,6 +186,9 @@ function createChart(container) {
     .call(xAxisGrid);
 
   if(chart_type === "line") {
+    $(".bar_styling .title span").text("Line Styling");
+    $("#data_label_title").text("Line Labels");
+    $($(".cp").colorpicker()[0]).colorpicker('setValue', "#333");
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
@@ -202,15 +213,15 @@ function createChart(container) {
       .enter()
       .append("circle")
       .attr("class", "chart_dot")
-      .attr("fill", "transparent")
+      .attr("fill", function(d){ return color_scale(this.parentNode.__data__.name )} )
       .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
       .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
       .attr("cy", function(d) { return yScale(d["value"]); })
-      .attr("r", "3")
+      .attr("r", "2")
         .on("mouseover", showDetails)
         .on("mouseout", hideDetails);
 
-    // Add dots to line chart
+    // Add edit_data interaction upon click
     container.selectAll(".chart_dot").on('click', function (d, i) {
       d3.event.preventDefault();
       var actual_index = i % chart_data.length;
@@ -244,6 +255,7 @@ function createChart(container) {
       .attr("visibility", "hidden");
 
   } else {
+    $("#line-stroke-width").hide()  // hide line stroke width
     // create the chart bars, tie them to the data set
     var bars = container.selectAll(".chart_bar")
       .data(chart_data);
@@ -289,6 +301,27 @@ function createChart(container) {
   }
 
   setupEditDataContainer();
+}
+
+function setupHandlersToHideStylingSections() {
+  $(".toggle_control_vis").click(function(event) {
+    var parent = $(this).parent();
+    var style_control_container_class = parent.data("target");
+    var visible_status = parent.data("open");
+
+    if(visible_status === "open") {
+      $("." + style_control_container_class).fadeOut(250);
+      parent.data("open", "closed");
+      $(this).removeClass("fa-chevron-down");
+      $(this).addClass("fa-chevron-right");
+    } else {
+      $("." + style_control_container_class).fadeIn(250);
+      parent.data("open", "open");
+      $(this).addClass("fa-chevron-down");
+      $(this).removeClass("fa-chevron-right");
+    }
+    
+  });
 }
 
 // TODO: note source - http://techslides.com/save-svg-as-an-image
@@ -346,12 +379,13 @@ $(document).ready(function() {
     chart_type = $(this).data("type");
     chart_data = setupChartData(chart_type);
 
-    $("#select_chart_container").css("display", "none");
+    $("#select_chart_container").fadeOut(250);
 
     // Need to add animation here!
-    $("#chart_super_container").css("display", "block");
+    $("#chart_super_container").fadeIn(250);
     $("#chart_super_container").css("position", "relative");
 
+    setupHandlersToHideStylingSections();
     var container = createSVG();
     createChart(container);
     enableSaveButton();

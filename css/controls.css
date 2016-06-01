@@ -1,8 +1,16 @@
 .control_container {
 	position: relative;
 	padding-bottom: 15px;
-	margin-bottom: 8px;
-	border-bottom: 1px solid #D9D9D9;
+	margin-bottom: 0px;
+}
+
+.control_container_spacer {
+	display: block;
+	padding-top: 10px;
+}
+
+.axis_styling, .grid_styling, .graph_styling {
+	display: none;
 }
 
 .control_container.last {
@@ -11,6 +19,7 @@
 
 .title {
 	font-weight: 700;
+	margin-top: 10px;
 	margin-bottom: 8px;
 }
 
