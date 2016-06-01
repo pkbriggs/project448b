@@ -50,11 +50,11 @@ input[type=radio] {
 
 .vis_container {
 	position: absolute;
-	left: 225px;
+	left: 230px;
 	width: 600px;
-	width: -webkit-calc(100% - 500px);
-	width: -moz-calc(100% - 500px);
-	width: calc(100% - 500px);
+	width: -webkit-calc(100% - 230px);
+	width: -moz-calc(100% - 230px);
+	width: calc(100% - 230px);
 }
 
 .vis_controls {
@@ -62,7 +62,7 @@ input[type=radio] {
 	position: fixed;
 	left: 0;
 	top: 0;
-	width: 208px;
+	width: 210px;
 	height: 100%;
 	overflow-y: scroll;
 
