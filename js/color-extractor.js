@@ -1,7 +1,6 @@
 
 var NUM_COLORS_IN_PALETTE = 5;
 
-
 function getDominantColorFromImage(image) {
   var colorThief = new ColorThief();
   return colorThief.getColor(image);
@@ -13,6 +12,18 @@ function getColorPaletteFromImage(image, numColors) {
   return colorThief.getPalette(image, numColors);
 }
 
+function deleteOldElement(class_name, is_image) {
+  // delete existing element if it exists
+    var old_element = $("." + class_name);
+    if(old_element[0] !== undefined) {
+      if(is_image) {
+        old_element[0].remove();
+      } else {
+        old_element.empty().remove();
+      }
+    }
+}
+
 function loadAndRenderUploadedImage(image, callback) {
   // generate a new FileReader object
   var reader = new FileReader();
@@ -20,6 +31,9 @@ function loadAndRenderUploadedImage(image, callback) {
   // inject an image with the src url
   reader.onload = function(event) {
     var image_url = event.target.result;
+
+    // delete existing image if it exists
+    deleteOldElement("uploaded_image_preview", true);
 
     // create an image with the source URL we got; call the callback when it is done loading
     var img = new Image();
@@ -35,10 +49,28 @@ function loadAndRenderUploadedImage(image, callback) {
   reader.readAsDataURL(image);
 }
 
+function getCorrectNumColors(colorPalette) {
+  var result = [];
+  // iterate over the colors abstracted from the image and add them to an array
+  // until we don't need any more colors.
+  for(var i = 0; i < colorPalette.length; i++) {
+    if(i > num_chart_colors) break;
+    var curColorArray = colorPalette[i];
+    var rgbColor = "rgb(" + curColorArray[0] + ", " + curColorArray[1] + "," + curColorArray[2] + ")";
+    result.push(rgbColor);
+  }
+  return result;
+}
+
 function getColorsFromImage(image) {
+
   // get the dominant color from the image and update the dominant color div (to show the user)
   var dominantColor = getDominantColorFromImage(image);
-  $(".image_dominant_color").css("background-color", "rgb(" + dominantColor[0] + ", " + dominantColor[1] + "," + dominantColor[2] + ")");
+  dominantColor = "rgb(" + dominantColor[0] + ", " + dominantColor[1] + "," + dominantColor[2] + ")";
+  $(".image_dominant_color").css("background-color", dominantColor);
+
+  // delete existing color blocks container if it exists
+  deleteOldElement("image_color_palette_color", false);
 
   // get the color palette from the image and add a div for each color (to show the user)
   var colorPalette = getColorPaletteFromImage(image);
@@ -48,6 +80,11 @@ function getColorsFromImage(image) {
     colorBlock.style.backgroundColor = "rgb(" + color[0] + ", " + color[1] + "," + color[2] + ")";
     $(".image_color_palette_container")[0].appendChild(colorBlock);
   });
+
+  // use colors taken from graph to color lines/bars on the graph
+  var new_colors = getCorrectNumColors(colorPalette);
+  setColorScale(color_scale.domain(), new_colors);
+  updateChartConfigValue("change_color_scale", "", "", false)
 }
 
 // when a user begins dragging something over the drag area

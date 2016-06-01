@@ -52,17 +52,17 @@ input[type=radio] {
 	position: absolute;
 	left: 225px;
 	width: 600px;
-	width: -webkit-calc(100% - 226px);
-	width: -moz-calc(100% - 225px);
-	width: calc(100% - 225px);
+	width: -webkit-calc(100% - 500px);
+	width: -moz-calc(100% - 500px);
+	width: calc(100% - 500px);
 }
 
 .vis_controls {
 	/* position */
-	position: static;
+	position: fixed;
 	left: 0;
 	top: 0;
-	width: 195px;
+	width: 205px;
 	height: 100%;
 	overflow-y: scroll;
 
@@ -110,15 +110,97 @@ input[type=radio] {
 	max-height: 300px;
 }
 
+.image_picker_preview_container img {
+	display: block;
+	margin: 5px auto;
+}
+
 .image_dominant_color {
 	width: 100px;
 	height: 100px;
-	margin-bottom: 10px;
-	margin-top: 10px;
+	margin: 10px auto;
+	display: block;
 }
 
 .image_color_palette_color {
 	display: inline-block;
 	width: 50px;
 	height: 50px;
+}
+
+.x_axis .tick line, .y_axis .tick line {
+	stroke: #333;
+}
+
+/* style for first step in workflow */
+.chart_image_container {
+	width: 200px;
+	height: 200px;
+	margin: 10px;
+	float: left;
+	background-image: url("../img/dirk_bar.jpg");
+	background-size: cover;
+	color: white;
+	opacity: 0.8;
+}
+
+.chart_image_container:hover {
+	opacity: 1;
+	cursor: pointer;
+} 
+
+#select_chart_container {
+	width: 100%;
+	height: 100%;
+}
+
+#chart_super_container {
+	display: none;
+}
+
+/* tooltip style */
+
+.tooltip {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  -moz-border-radius:3px;
+  border-radius: 3px;
+  border: 2px solid #DDD;
+  background: #fff;
+  opacity: 1;
+  color: #000;
+  padding: 10px;
+  width: 200px;
+  font-size: 15px;
+  z-index: 120;
+}
+
+.tooltip p.main {
+  font-size: 15px;
+  text-align: center;
+  padding:0;
+  margin:0;
+}
+
+hr.tooltip-hr {
+  padding:3px 0 0 0;
+  margin:3px 0 3px 0;
+}
+
+.tooltip .title {
+  font-size: 20px;
+  line-height: 24px;
+}
+ 
+.tooltip .name {
+  font-weight:bold;
+}
+
+/* Edit data container style*/
+#edit_data_container {
+	position: absolute;
+	display: none;
+	background-color: rgba(226, 226, 226, 0.8);
+	padding: 10px;
 }

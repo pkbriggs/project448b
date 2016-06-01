@@ -32,42 +32,30 @@ var chart_config = {
     "line_color": "#333",
     "tick_label_color": "#333",
     "tick_label_font": "Arial",
-    "tick_label_font_size": 14,
+    "tick_label_font_size": 12,
     "x_label": "X Label",
     "y_label": "Y Label",
     "label_color": "#333",
     "label_font": "Arial",
-    "label_font_size": 14
+    "label_font_size": 16
   }
 };
 
 // this data and the max/min are hardcoded right now, but these eventually need to be dynamic
-var chart_data = [
-  {
-    "value": 40,
-    "label": "fruits"
-  },
-  {
-    "value": 60,
-    "label": "vegetables"
-  },
-  {
-    "value": 25,
-    "label": 1966
-  },
-  {
-    "value": 70,
-    "label": "onomatopoeia"
-  },
-  {
-    "value": 66,
-    "label": "hi"
-  }
-];
+var chart_type = null;
+var chart_data = null;
+
 var xScale = null;
 var yScale = null;
 var xAxis = null;
+// code dealing with colors
+var color_scale = d3.scale.ordinal();
+var num_chart_colors = 0;
+var hover_active = false;
+var edit_data_active = false;
 
+// tooltip used to display details
+tooltip = Tooltip("vis-tooltip", 230);
 
 function createSVG() {
   // Add an svg element to the DOM
@@ -83,6 +71,11 @@ function createSVG() {
   return container;
 }
 
+function setColorScale(domain, colors) {
+  // Helper function that sets the color scale
+  color_scale.domain(domain);
+  color_scale.range(colors);
+}
 
 function createChart(container) {
   // give the contain some margins
@@ -92,19 +85,36 @@ function createChart(container) {
   xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
   yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
 
+  // We only use this array of maps when we are in "line" mode
+  var line_data = color_scale.domain().map(function(name) {
+    return {
+      name: name,
+      values: chart_data.map(function(d) {
+        return {label: d.label, value: +d[name]};
+      })
+    };
+  });
+
   xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
-  yScale.domain([0, d3.max(chart_data, function(d) { return d["value"]; })]);
 
-  xAxis = d3.svg.axis()
-      .scale(xScale)
+  if(chart_type === "bar") {
+    yScale.domain([0, d3.max(chart_data, function(d) { return d["value"]; })]);
+  } else {
+    // With many lines, we need to grab the min/max values for the y-axis
+    yScale.domain([0,d3.max(line_data, function(c) { return d3.max(c.values, function(v) { return v["value"]; }); })]);
+  }
+
+  xAxis = d3.svg.axis().scale(xScale)
+      .outerTickSize(1)
+      .tickPadding(5)
       .orient("bottom");
-
-  var yAxis = d3.svg.axis()
-      .scale(yScale)
+  var yAxis = d3.svg.axis().scale(yScale)
       .orient("left")
-      .ticks(10);
+      .outerTickSize(1)
+      .tickPadding(5)
+      .ticks(5);
 
-  // x axis
+  // Add x-axis to the grid along with the x-axis label
   container.append("g")
       .attr("class", "x_axis")
       .attr("transform", "translate(0," + CHART_HEIGHT + ")")
@@ -116,7 +126,7 @@ function createChart(container) {
       .text(chart_config["axis"]["x_label"])
       .attr("dy", "3.4em");
 
-  // y axis
+  // Add y-axis to the grid along with the y-axis label
   container.append("g")
       .attr("class", "y_axis")
       .call(yAxis)
@@ -128,19 +138,18 @@ function createChart(container) {
       .style("text-anchor", "end")
       .text(chart_config["axis"]["y_label"]);
 
-  // Add Grid lines:
+  // Code to add the grid lines
   var numberOfTicks = 10;
-
   var yAxisGrid = yAxis.ticks(numberOfTicks)
     .tickSize(CHART_WIDTH, 0)
     .tickFormat("")
     .orient("right");
-
   var xAxisGrid = xAxis.ticks(numberOfTicks)
     .tickSize(-CHART_HEIGHT, 0)
     .tickFormat("")
     .orient("top");
 
+  // Add horizontal grid lines to the chart
   container.append("g")
     .attr('class', "y_grid grid")
     .attr('stroke', "grey")
@@ -149,40 +158,71 @@ function createChart(container) {
     .attr('visibility', 'visible')
     .call(yAxisGrid);
 
+  // Add vertical grid lines to the chart, but hide them by default
   container.append("g")
     .attr('class', "x_grid grid hidden")
     .attr('stroke', "dimgrey")
     .attr('opacity', "0")
     .attr('stroke-width', "1")
-    .attr('visibility', 'visible')
+    .attr('visibility', 'hidden')
     .call(xAxisGrid);
 
-  var chart_type = $("#chart_info").data("type")
   if(chart_type === "line") {
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
   			.y(function(d) { return yScale(d["value"]); });
 
-    container.append("svg:path")
+    var lines = container.selectAll(".chart_line")
+      .data(line_data)
+      .enter().append("g")
+        .attr("class", "data_point");
+
+    // Add actual lines as one path svg element
+    lines.append("path")
       .attr("class", "chart_line")
-      .attr("d", line(chart_data))
+      .attr("d", function(d) { return line(d.values); })
       .attr("fill", "none")
       .attr("stroke-width", "1")
-      .attr("stroke", "steelblue");
+      .attr("stroke", function(d) { return color_scale(d.name); });
 
-    var circles = container.selectAll(".chart_dot")
-      .data(chart_data);
-
-    circles.enter()
+    // Add points to line chart
+    lines.selectAll(".chart_dot")
+      .data(function(d){ return d.values })
+      .enter()
       .append("circle")
       .attr("class", "chart_dot")
-      .attr("fill", "steelblue")
+      .attr("fill", "transparent")
+      .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
       .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
       .attr("cy", function(d) { return yScale(d["value"]); })
-      .attr("r", "3");
+      .attr("r", "3")
+        .on("mouseover", showDetails)
+        .on("mouseout", hideDetails);
 
-    circles.enter()
+    // Add dots to line chart
+    container.selectAll(".chart_dot").on('click', function (d, i) {
+      d3.event.preventDefault();
+      var actual_index = i % chart_data.length;
+      var actual_node = chart_data[actual_index];
+      var key_for_line = this.parentNode.__data__.name;
+      var selected_dot = $(this);
+      $(".chart_line, .chart_dot").css("opacity", 1);  // reset opacity
+      // highlight the dot we are editing
+      $(".chart_dot").each(function( index ) {
+        if($(this).is(selected_dot) === false) {
+          $(this).css("opacity", 0.3);
+        } 
+      });
+      $(".chart_line").css("opacity", 0.3);
+
+      showEditDataContainer(d3.event, actual_node, actual_index, key_for_line);
+    });
+
+    // Add data-labels on top of points in line chart
+    lines.selectAll(".chart_bar_label")
+      .data(function(d){ return d.values })
+      .enter()
       .append("text")
       .attr("class", "chart_bar_label")
       .text(function(d) { return d["value"]; })
@@ -198,17 +238,34 @@ function createChart(container) {
     var bars = container.selectAll(".chart_bar")
       .data(chart_data);
 
-    // when the bars are first created, do these things
+    // Add actual bars to the chart
     bars.enter()
       .append("rect")
       .attr("class", "chart_bar")
-      .attr("fill", chart_config["bars"]["fill"])
+      .attr("fill", function(d, i){ return color_scale(i)})
       .attr("stroke", chart_config["bars"]["stroke"])
       .attr("x", function(d, i) { return xScale(d["label"]); })
       .attr("width", xScale.rangeBand())
       .attr("y", function(d) { return yScale(d["value"]); })
       .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); })
 
+    bars.on("mouseover", showDetails)
+      .on("mouseout", hideDetails);
+
+    container.selectAll(".chart_bar").on('click', function (d, i) {
+      d3.event.preventDefault();
+      var selected_bar = $(this);
+      $(".chart_bar").css("opacity", 1);  // reset opacity
+      // highlight the bar we are editing
+      $(".chart_bar").each(function( index ) {
+        if($(this).is(selected_bar) === false) {
+          $(this).css("opacity", 0.3);
+        } 
+      });
+      showEditDataContainer(d3.event, d, i, "value");
+    });
+
+    // Add text underneath the x-axis
     bars.enter()
       .append("text")
       .attr("class", "chart_bar_label")
@@ -220,97 +277,23 @@ function createChart(container) {
       .attr("y", function(d) { return yScale(d["value"]) - 7; })
       .attr("visibility", "hidden");
   }
+
+  setupEditDataContainer();
 }
-
-function updateChartConfigValue(type, key, value, is_bar_label) {
-  if(is_bar_label === true) {
-    chart_config[type]["label_" + key] = value;
-  } else {
-    chart_config[type][key] = value;
-  }
-  var chart_type = $("#chart_info").data("type")
-
-  // special cases
-  if (type == "bars" && key == "spacing") { // TODO: Clean me up
-    xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
-    xScale.domain(chart_data.map(function(d, i) { return d["label"]; }));
-    xAxis = d3.svg.axis()
-        .scale(xScale)
-        .orient("bottom");
-
-    container.selectAll(".x_axis").call(xAxis);  // Re-draw axis
-    container.selectAll(".chart_bar")  // Re-draw bars
-      .attr("x", function(d, i) { return xScale(d["label"]); })
-      .attr("width", xScale.rangeBand())
-
-    container.selectAll(".chart_bar_label")  // Red-draw bar labels
-      .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-      .attr("y", function(d) { return yScale(d["value"]) - 7; })
-
-    if(chart_type === "line") {
-      var line = d3.svg.line()
-  			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-  			.y(function(d) { return yScale(d["value"]); });
-
-      container.selectAll(".chart_line")  // Re-draw lines
-        .attr("d", line(chart_data))
-
-      container.selectAll(".chart_dot")  // Re-draw points
-        .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
-        .attr("cy", function(d) { return yScale(d["value"]); })
-    }
-
-    // Add ability to change the spacing of the line chart!
-  }
-
-  // general cases
-  if (type === "bars") {
-    if(!is_bar_label) {
-      if(chart_type === "bar") {
-        container.selectAll(".chart_bar").transition().attr(key, value);
-      } else {
-        if(key === "fill") {
-          container.selectAll(".chart_dot").transition().attr(key, value);
-        } else {
-          container.selectAll(".chart_line").transition().attr(key, value);
-        }
-      }
-    } else {
-      container.selectAll(".chart_bar_label").transition().attr(key, value);
-    }
-
-  } else if (type === "grid") {
-    container.selectAll(".y_grid").transition().attr(key, value);
-
-  } else if (type === "axis") {
-    if(key === "line_color") {
-      container.selectAll(".x_axis path, .y_axis path").transition().attr("fill", value);
-
-    } else if (key === "tick_label_color") {
-      container.selectAll(".x_axis .tick, .y_axis .tick").transition().attr("fill", value);
-
-    } else if (key === "tick_label_font_size") {
-      container.selectAll(".x_axis .tick text, .y_axis .tick text").transition().attr("font-size", value);
-
-    } else if (key === "x_label") {
-      container.selectAll(".x_axis .axis_label").transition().text(value);
-
-    } else if (key === "y_label") {
-      container.selectAll(".y_axis .axis_label").transition().text(value);
-
-    } else if (key === "label_color") {
-      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("fill", value);
-
-    } else if (key === "label_font_size") {
-      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("font-size", value);
-    }
-
-  }
-}
-
 
 $(document).ready(function() {
-  var container = createSVG();
-  // var chart_bars = createChartBars(container);
-  createChart(container);
+  $(".chart_image_container").click(function(event) {
+    chart_type = $(this).data("type");
+    chart_data = setupChartData(chart_type);
+
+    $("#select_chart_container").css("display", "none");
+
+    // Need to add animation here!
+    $("#chart_super_container").css("display", "block");
+    $("#chart_super_container").css("position", "relative");
+    
+    var container = createSVG();
+    createChart(container);
+  });
+  
 });

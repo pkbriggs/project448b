@@ -18,7 +18,14 @@ $(function() {
 		var type = $(this).data("type");
 		var key = $(this).data("key");
 		var is_bar_label = ($(this).data("label") !== undefined) ? true : false;
-
+		if(type === undefined) {  // Hover interaction
+			if($(this).val() === "Show") {
+				hover_active = true;
+			} else {
+				hover_active = false;
+			}
+			return;
+		}
 		// Call function to update bar chart
 		updateChartConfigValue(type, key, to_show, is_bar_label);
 	});
