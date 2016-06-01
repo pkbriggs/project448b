@@ -84,6 +84,17 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       container.selectAll(".chart_bar")  // Re-color bars
         .attr("fill", function(d, i){ return color_scale(i)})
     }
+  } else if (type === "graph") {
+    console.log(value);
+    if(key === "width") {
+      CHART_WIDTH = parseInt(value);
+    } else if (key === "height") {
+      CHART_HEIGHT = parseInt(value);
+    }
+
+    // redraw everything
+    redrawXAxis();
+    redrawGrid();
   }
 }
 
@@ -95,6 +106,13 @@ function redrawXAxis() {
   xAxis = d3.svg.axis().scale(xScale).outerTickSize(1).tickPadding(5).orient("bottom");
 
   container.selectAll(".x_axis").call(xAxis);  // Re-draw axis
+}
+
+// helper function to redraw the grid
+function redrawGrid() {
+  var yAxisGrid = yAxis.tickSize(CHART_WIDTH, 0)
+
+  container.selectAll(".y_grid").call(yAxisGrid);  // Re-draw axis
 }
 
 // helper function that re-draws the bars
