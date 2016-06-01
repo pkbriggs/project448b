@@ -23,7 +23,7 @@ var chart_config = {
     "label_visiblity": false,
     "label_fill": "#333",
     "label_font": "Arial",
-    "label_font_size": 10
+    "label_font_size": 10,
     "stroke-width": 1
     // "y_label": "Drinks Consumed"
   },
