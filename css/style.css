@@ -147,7 +147,7 @@ input[type=radio] {
 .chart_image_container:hover {
 	opacity: 1;
 	cursor: pointer;
-} 
+}
 
 #select_chart_container {
 	width: 100%;
@@ -156,6 +156,7 @@ input[type=radio] {
 
 #chart_super_container {
 	display: none;
+  height: 100%;
 }
 
 /* tooltip style */
@@ -192,7 +193,7 @@ hr.tooltip-hr {
   font-size: 20px;
   line-height: 24px;
 }
- 
+
 .tooltip .name {
   font-weight:bold;
 }
@@ -203,4 +204,21 @@ hr.tooltip-hr {
 	display: none;
 	background-color: rgba(226, 226, 226, 0.8);
 	padding: 10px;
+}
+
+/* save-related styles */
+.chart_save_container {
+  border: 1px solid #333;
+  padding: 5px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.save_button {
+  padding: 10px;
+  margin: 10px;
+  background: #efefef;
+  border: 1px solid #d0d0d0;
+  cursor: pointer;
 }

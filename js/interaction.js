@@ -2,11 +2,14 @@
 // declaring constants
 var CANVAS_WIDTH = $(window).width() - 500;
 var CANVAS_HEIGHT = $(window).height() * 0.8;
+var OUTPUT_FILENAME = "chart.png";
+var OUTPUT_FILETYPE = "image/png";
+var CHART_BACKGROUND_COLOR = "white";
 
 var CHART_MARGINS = {
-  top: 80,
-  bottom: 80,
-  left: 80,
+  top: 50,
+  bottom: 90,
+  left: 100,
   right: 80
 };
 var CHART_WIDTH = CANVAS_WIDTH - CHART_MARGINS.left - CHART_MARGINS.right;
@@ -61,11 +64,21 @@ function createSVG() {
   // Add an svg element to the DOM
   var svg = d3.select(".vis_container").append("svg")
     .attr("width", CANVAS_WIDTH)
-    .attr("height", CANVAS_HEIGHT)
-    .attr("background", "red");
+    .attr("height", CANVAS_HEIGHT);
+
+  svg.append("rect")
+      .attr("width", "100%")
+      .attr("height", "100%")
+      .attr("fill", CHART_BACKGROUND_COLOR);
 
   // create a container for all of our elements
   var container = svg.append("g");
+
+  // give the contain some margins
+  container
+    .attr("transform", "translate(" + CHART_MARGINS.left + "," + CHART_MARGINS.top + ")");
+
+
   window.container = container;
 
   return container;
@@ -78,10 +91,6 @@ function setColorScale(domain, colors) {
 }
 
 function createChart(container) {
-  // give the contain some margins
-  container
-    .attr("transform", "translate(" + CHART_MARGINS.left + "," + CHART_MARGINS.top + ")");
-
   xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
   yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
 
@@ -212,7 +221,7 @@ function createChart(container) {
       $(".chart_dot").each(function( index ) {
         if($(this).is(selected_dot) === false) {
           $(this).css("opacity", 0.3);
-        } 
+        }
       });
       $(".chart_line").css("opacity", 0.3);
 
@@ -260,7 +269,7 @@ function createChart(container) {
       $(".chart_bar").each(function( index ) {
         if($(this).is(selected_bar) === false) {
           $(this).css("opacity", 0.3);
-        } 
+        }
       });
       showEditDataContainer(d3.event, d, i, "value");
     });
@@ -281,6 +290,57 @@ function createChart(container) {
   setupEditDataContainer();
 }
 
+// TODO: note source - http://techslides.com/save-svg-as-an-image
+function enableSaveButton() {
+  d3.select(".save_button").on("click", function(){
+    // ensure the canvas we draw to is the correct size
+    $(".save_canvas")[0].width = CANVAS_WIDTH;
+    $(".save_canvas")[0].height = CANVAS_HEIGHT;
+
+    // get the HTML representing our chart's SVG
+    var html = d3.select("svg")
+          .attr("version", 1.1)
+          .attr("xmlns", "http://www.w3.org/2000/svg")
+          .node().parentNode.innerHTML;
+
+    var canvas = $(".save_canvas")[0];
+    var context = canvas.getContext("2d");
+
+    var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
+    var image = new Image;
+    image.src = imgsrc;
+    image.onload = function() {
+      context.drawImage(image, 0, 0);
+
+      // save and serve the canvas as an actual filename
+      binaryblob();
+
+      var a = document.createElement("a");
+      a.download = OUTPUT_FILENAME;
+      a.href = canvas.toDataURL(OUTPUT_FILETYPE);
+      a.click();
+    };
+
+  });
+}
+
+function binaryblob(){
+  var byteString = atob($(".save_canvas")[0].toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")); //wtf is atob?? https://developer.mozilla.org/en-US/docs/Web/API/Window.atob
+  var ab = new ArrayBuffer(byteString.length);
+  var ia = new Uint8Array(ab);
+  for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    var dataView = new DataView(ab);
+  var blob = new Blob([dataView], {type: "image/png"});
+  var DOMURL = self.URL || self.webkitURL || self;
+  var newurl = DOMURL.createObjectURL(blob);
+
+  var img = '<img src="'+newurl+'">';
+  d3.select("#img").html(img);
+}
+
+
 $(document).ready(function() {
   $(".chart_image_container").click(function(event) {
     chart_type = $(this).data("type");
@@ -291,9 +351,10 @@ $(document).ready(function() {
     // Need to add animation here!
     $("#chart_super_container").css("display", "block");
     $("#chart_super_container").css("position", "relative");
-    
+
     var container = createSVG();
     createChart(container);
+    enableSaveButton();
   });
-  
+
 });
