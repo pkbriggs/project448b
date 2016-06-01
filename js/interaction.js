@@ -128,8 +128,7 @@ function createChart(container) {
       .call(xAxis)
     .append("text") // label for the x axis
       .style("text-anchor", "center")
-      .attr("class", "axis_label")
-      .attr("dx", CHART_WIDTH/2.2)
+      .attr("class", "x_axis_label axis_label")
       .text(chart_config["axis"]["x_label"])
       .attr("dy", "3.4em");
 
@@ -138,12 +137,13 @@ function createChart(container) {
       .attr("class", "y_axis")
       .call(yAxis)
     .append("text") // label for the y axis
-      .attr("class", "axis_label")
+      .attr("class", "y_axis_label axis_label")
       .attr("transform", "rotate(-90)")
       .attr("dy", "-3.5em")
-      .attr("dx", -CHART_HEIGHT/2.5)
       .style("text-anchor", "end")
       .text(chart_config["axis"]["y_label"]);
+
+  redrawAxisLabels();
 
   // Code to add the grid lines
   var numberOfTicks = 10;
