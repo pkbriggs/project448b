@@ -124,27 +124,14 @@
 
           <div class="font_and_size">
             <div class="font">
-              <div class="style_input font_picker dropdown">
+              <div class="style_input font_picker dropdown" data-type="bars" data-key="label_font" data-callback="load_font" data-label="true">
                 <span>Helvetica Neue</span>
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
               </div>
-              <div class="options">
-                <div class="option">option 1</div>
-                <div class="option">option 2</div>
-                <div class="option">option 3</div>
-                <div class="option">option 4</div>
-                <div class="option">option 5</div>
-                <div class="option">option 6</div>
-                <div class="option">option 7</div>
-                <div class="option">option 8</div>
-                <div class="option">option 9</div>
-                <div class="option">option 10</div>
-                <div class="option">option 11</div>
-                <div class="option">option 12</div>
-                <div class="option">option 13</div>
-                <div class="option">option 14</div>
-                <div class="option">option 15</div>
+              <div class="font_options options">
+                <!-- the list of fonts is added in here dynamically -->
+                <!-- <div class="option">option 1</div> -->
               </div>
             </div>
 
@@ -154,7 +141,7 @@
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
               </div>
-              <div class="options">
+              <div class="font_options options">
                 <div class="option">8</div>
                 <div class="option">9</div>
                 <div class="option">10</div>
@@ -240,27 +227,14 @@
          <!-- Font and Size -->
           <div class="font_and_size">
             <div class="font">
-              <div class="style_input font_picker dropdown" value="Arial" data-type="axis" data-key="tick_label_font">
+              <div class="style_input font_picker dropdown" value="Arial" data-type="axis" data-key="tick_label_font"  data-callback="load_font">
                 <span>Helvetica Neue</span>
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
               </div>
-              <div class="options">
-                <div class="option">option 1</div>
-                <div class="option">option 2</div>
-                <div class="option">option 3</div>
-                <div class="option">option 4</div>
-                <div class="option">option 5</div>
-                <div class="option">option 6</div>
-                <div class="option">option 7</div>
-                <div class="option">option 8</div>
-                <div class="option">option 9</div>
-                <div class="option">option 10</div>
-                <div class="option">option 11</div>
-                <div class="option">option 12</div>
-                <div class="option">option 13</div>
-                <div class="option">option 14</div>
-                <div class="option">option 15</div>
+              <div class="font_options options">
+                <!-- the list of fonts is added in here dynamically -->
+                <!-- <div class="option">option 1</div> -->
               </div>
             </div>
 
@@ -270,7 +244,7 @@
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
               </div>
-              <div class="options">
+              <div class="font_options options">
                 <div class="option">8</div>
                 <div class="option">9</div>
                 <div class="option">10</div>
@@ -315,27 +289,14 @@
           <!-- Font and size of XY Labels -->
           <div class="font_and_size">
             <div class="font">
-              <div class="style_input font_picker dropdown" data-type="axis" data-key="label_font">
+              <div class="style_input font_picker dropdown" data-type="axis" data-key="label_font" data-callback="load_font">
                 <span>Helvetica Neue</span>
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
               </div>
-              <div class="options">
-                <div class="option">option 1</div>
-                <div class="option">option 2</div>
-                <div class="option">option 3</div>
-                <div class="option">option 4</div>
-                <div class="option">option 5</div>
-                <div class="option">option 6</div>
-                <div class="option">option 7</div>
-                <div class="option">option 8</div>
-                <div class="option">option 9</div>
-                <div class="option">option 10</div>
-                <div class="option">option 11</div>
-                <div class="option">option 12</div>
-                <div class="option">option 13</div>
-                <div class="option">option 14</div>
-                <div class="option">option 15</div>
+              <div class="font_options options">
+                <!-- the list of fonts is added in here dynamically -->
+                <!-- <div class="option">option 1</div> -->
               </div>
             </div>
 
@@ -345,7 +306,7 @@
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
               </div>
-              <div class="options">
+              <div class="font_options options">
                 <div class="option">8</div>
                 <div class="option">9</div>
                 <div class="option">10</div>
@@ -393,6 +354,7 @@
   <script src="js/jquery-2.2.3.min.js"></script>
   <script src="js/setup-chart-data.js"></script>
   <script src="js/tooltip.js"></script>
+  <script src="js/font-selector.js"></script>
   <script src="js/interaction.js"></script>
   <script src="js/tooltip-interaction.js"></script>
   <script src="js/update-chart.js"></script>

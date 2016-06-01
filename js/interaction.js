@@ -22,6 +22,7 @@ var chart_config = {
     "stroke": "#333",
     "label_visiblity": false,
     "label_fill": "#333",
+    "label_font": "Arial",
     "label_font_size": 10
     // "y_label": "Drinks Consumed"
   },
@@ -340,7 +341,6 @@ function binaryblob(){
   d3.select("#img").html(img);
 }
 
-
 $(document).ready(function() {
   $(".chart_image_container").click(function(event) {
     chart_type = $(this).data("type");
@@ -355,6 +355,7 @@ $(document).ready(function() {
     var container = createSVG();
     createChart(container);
     enableSaveButton();
+    initFontSelector();
   });
 
 });
