@@ -107,6 +107,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     // redraw everything
     redrawXAxis();
     redrawGrid();
+    redrawBars();
   }
 }
 
