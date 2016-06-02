@@ -10,8 +10,9 @@ $(function() {
 });
 
 // For switching up the preview
-$(function($lastSelection) {
+$(function() {
 	var $options = $(".header_options");
+	var $lastSelection;
 	$options.click(function(event) {
 		var $target = $(event.target);
 		selection = $target.text();
