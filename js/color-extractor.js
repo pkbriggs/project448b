@@ -64,8 +64,14 @@ function getCorrectNumColors(colorPalette) {
 
 // function that runs through the new colors and updates the 
 function updateColorControls(new_colors) {
-
-} 
+    for(var i=0; i < new_colors.length; i++) {
+      if(chart_type === "bar") {
+        $($(".multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
+      } else {
+        $($("#multi_strokecolorpicker_container .multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
+      }
+    }
+}
 
 function getColorsFromImage(image) {
 
@@ -90,6 +96,7 @@ function getColorsFromImage(image) {
   var new_colors = getCorrectNumColors(colorPalette);
   setColorScale(color_scale.domain(), new_colors);
   updateChartConfigValue("change_color_scale", "", "", false);
+  updateColorControls(new_colors);
 }
 
 // when a user begins dragging something over the drag area

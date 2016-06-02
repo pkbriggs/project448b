@@ -300,6 +300,7 @@ function createChart(container) {
   }
 
   setupEditDataContainer();
+  
   // Add title to the Graph
   container.append("text")
     .attr("class", "chart_title")
