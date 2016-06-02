@@ -36,6 +36,7 @@ header {
 	background-color: #4D9FC4;
 	padding: 3px 2px 3px 35px;
 	color: white;
+	z-index: 2;
 }
 
 .tools {
@@ -48,9 +49,16 @@ header {
 .tool {
 	display: inline-block;
 	margin-top: 5px;
-	padding: 2px 35px;
+	padding-top: 3px;
+/*	padding: 2px 35px; */	
+	text-align: center;
+	width: 200px;
 	height: 30px;
 	border-left: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.tool.save {
+	width: 150px;
 }
 
 .tool span {
