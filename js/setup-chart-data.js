@@ -60,7 +60,7 @@ function setupChartData(chart_type) {
         "val_one": 70,
         "val_two": 60,
         "val_three": 15,
-        "val_four": 13,
+        "val_four": 5,
       }
     ];
     setColorScale(["val_one", "val_two", "val_three", "val_four"], ["#333", "#333", "#333", "#333", "#333"]);
