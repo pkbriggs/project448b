@@ -103,6 +103,15 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       CHART_WIDTH = parseInt(value);
     } else if (key === "height") {
       CHART_HEIGHT = parseInt(value);
+    } else {
+      if(key === "title") {
+        container.selectAll(".chart_title").text(value);
+        redrawAxisLabels();
+      } else if (key === "font") {
+        $(".chart_title").css("font-family", value);
+      } else {
+        container.selectAll(".chart_title").attr(key, value);
+      }
     }
 
     // redraw everything
@@ -148,8 +157,9 @@ function redrawGrid() {
 
 // helper function to redraw the axis labels
 function redrawAxisLabels() {
-  container.selectAll(".x_axis_label").attr("dx", CHART_WIDTH/2 - $(".x_axis_label").width()/2)
-  container.selectAll(".y_axis_label").attr("dx", -CHART_HEIGHT/2 + $(".y_axis_label").width()/2)
+  container.selectAll(".x_axis_label").attr("dx", CHART_WIDTH/2 - $(".x_axis_label").width()/2);
+  container.selectAll(".y_axis_label").attr("dx", -CHART_HEIGHT/2 + $(".y_axis_label").width()/2);
+  container.select(".chart_title").attr("x", CHART_WIDTH/2.0 - $(".chart_title").width()/2.0);
 }
 
 // helper function that re-draws the bars
