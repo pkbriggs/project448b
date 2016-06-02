@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/controls.css">
   <link rel="stylesheet" href="css/dropdown.css">
+  <link rel="stylesheet" href="css/header-dropdown.css">
   <link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">
   <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/sliders.css">
@@ -27,24 +28,47 @@
   <header>
     <span class="sitename">RE-CHART</span>
     <div class="tools">
-      <div class="tool">
-        <span>
-          <i class="fa fa-bolt"></i>
-          Set Preset Theme
+      <div class="tool save">
+        <span class="save_button">
+          <i class="fa fa-save"></i>
+          Save
         </span>
+        <canvas class="save_canvas" width="1" height="1" style="display:none"></canvas> <!-- hidden canvas used for saving the chart in the backend -->
+      </div>
+      <div class="tool">
+         <div class="style_input theme_picker header_dd_display" data-type="bars" data-key="" data-callback="" data-label="">
+           <span>
+            <i class="fa fa-bolt"></i>
+            Set Preset Theme
+          </span>
+        </div>
+        <div class="header_dd">
+          <div class="header_options">
+            <div class="header_option">8</div>
+            <div class="header_option">9</div>
+            <div class="header_option">10</div>
+            <div class="header_option">11</div>
+            <div class="header_option">12</div>
+            <div class="header_option">13</div>
+            <div class="header_option">14</div>
+            <div class="header_option">18</div>
+            <div class="header_option">20</div>
+            <div class="header_option">24</div>
+            <div class="header_option">36</div>
+            <div class="header_option">48</div>
+            <div class="header_option">64</div>
+          </div>
+          <div class="submit">
+            <div class="cancel">Cancel</div>
+            <div class="select">Select</div>
+          </div>
+        </div>
       </div>
       <div class="tool">
         <span>
           <i class="fa fa-paint-brush"></i>
           Set Color Scheme
         </span>
-      </div>
-      <div class="tool">
-        <span class="save_button">
-          <i class="fa fa-save"></i>
-          Save
-        </span>
-        <canvas class="save_canvas" width="1" height="1" style="display:none"></canvas> <!-- hidden canvas used for saving the chart in the backend -->
       </div>
     </div>
   </header>
@@ -552,6 +576,7 @@
   <script src="js/update-chart.js"></script>
   <script src="js/viz-controls.js"></script>
   <script src="js/dropdown.js"></script>
+  <script src="js/header-dropdown.js"></script>
   <script src="js/bootstrap-colorpicker.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script src="js/sliders.js"></script>
