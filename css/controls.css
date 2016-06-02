@@ -85,6 +85,10 @@
 	margin-top: 3px;
 }
 
+#multi_colorpicker_container .input-group {
+	margin-bottom: 3px;
+}
+
 .input-group input {
 	border-top-right-radius: 0 !important;
 	border-bottom-right-radius: 0 !important;
