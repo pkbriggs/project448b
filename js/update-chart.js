@@ -98,6 +98,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       container.selectAll(".chart_bar")  // Re-color bars
         .attr("fill", function(d, i){ return color_scale(i)})
     }
+    
   } else if (type === "graph") {
     if(key === "width") {
       CHART_WIDTH = parseInt(value);

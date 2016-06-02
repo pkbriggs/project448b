@@ -62,6 +62,11 @@ function getCorrectNumColors(colorPalette) {
   return result;
 }
 
+// function that runs through the new colors and updates the 
+function updateColorControls(new_colors) {
+
+} 
+
 function getColorsFromImage(image) {
 
   // get the dominant color from the image and update the dominant color div (to show the user)
@@ -84,7 +89,7 @@ function getColorsFromImage(image) {
   // use colors taken from graph to color lines/bars on the graph
   var new_colors = getCorrectNumColors(colorPalette);
   setColorScale(color_scale.domain(), new_colors);
-  updateChartConfigValue("change_color_scale", "", "", false)
+  updateChartConfigValue("change_color_scale", "", "", false);
 }
 
 // when a user begins dragging something over the drag area
