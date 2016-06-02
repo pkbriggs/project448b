@@ -191,7 +191,7 @@ function createChart(container) {
     $("#data_styling_title span").text("Line Styling");
     $("#data_label_title").text("Line Labels");
     $("#fill_color_toggles").hide();
-    $($("#uniform_stroke_cp").colorpicker()[0]).colorpicker('setValue', "#333333");
+    $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', "#333333");
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })

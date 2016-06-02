@@ -11,16 +11,16 @@ $(function() {
 		updateChartConfigValue(type, key, val_of_input, is_bar_label);
 	});
 
-	function switchColorMode(selected_radio_btn, unique_selector, uniform_selector) {
+	function switchColorMode(selected_radio_btn, multi_selector, single_selector) {
 		var selected_val = $(selected_radio_btn).val();
-		if(selected_val === "uniform") {
-			$(unique_selector).fadeOut(250, function() {
-				$(uniform_selector).fadeIn(250);
+		if(selected_val === "single") {
+			$(multi_selector).fadeOut(250, function() {
+				$(single_selector).fadeIn(250);
 			});
 			using_single_color = true;
 		} else {
-			$(uniform_selector).fadeOut(250, function() {
-				$(unique_selector).fadeIn(250);
+			$(single_selector).fadeOut(250, function() {
+				$(multi_selector).fadeIn(250);
 			});
 			using_single_color = false;
 		}
@@ -32,13 +32,13 @@ $(function() {
 
 		if($(this)[0].name === "bar_fill_color_toggle") {
 			// happens in bar chart mode
-			switchColorMode($(this)[0], "#unique_colorpicker_container", "#uniform_colorpicker_container");
+			switchColorMode($(this)[0], "#multi_colorpicker_container", "#single_colorpicker_container");
 			return;
 		}
 
 		if($(this)[0].name === "bar_stroke_color_toggle") {
 			// happens in line chart mode
-			switchColorMode($(this)[0], "#unique_strokecolorpicker_container", "#uniform_strokecolorpicker_container");
+			switchColorMode($(this)[0], "#multi_strokecolorpicker_container", "#single_strokecolorpicker_container");
 			return;
 		}
 		var to_show = ($(this).val() === "Show") ? "visible" : "hidden";
