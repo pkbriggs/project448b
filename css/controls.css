@@ -71,7 +71,7 @@
 	width: 100%;
 }
 
-#unique_colorpicker_container {
+#unique_colorpicker_container, #unique_strokecolorpicker_container {
 	display: none;
 }
 
