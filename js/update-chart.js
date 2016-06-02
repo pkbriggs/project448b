@@ -157,15 +157,15 @@ function redrawYAxis(line_data) {
 
 // helper function to redraw the grid
 function redrawGrid() {
-  var yAxisGrid = yAxis.tickSize(CHART_WIDTH, 0).orient("right").tickFormat("");
+  var yAxisGrid = yAxis.ticks(10).tickSize(CHART_WIDTH, 0).orient("right").tickFormat("");
   container.selectAll(".y_grid").call(yAxisGrid);  // Re-draw axis
 }
 
 // helper function to redraw the axis labels
 function redrawAxisLabels() {
-  container.selectAll(".x_axis_label").attr("dx", CHART_WIDTH/2 - $(".x_axis_label").width()/2);
+  container.selectAll(".x_axis_label").attr("dx", CHART_WIDTH/2 - $(".x_axis_label").width()/2 - 5);
   container.selectAll(".y_axis_label").attr("dx", -CHART_HEIGHT/2 + $(".y_axis_label").width()/2);
-  container.select(".chart_title").attr("x", CHART_WIDTH/2.0 - $(".chart_title").width()/2.0);
+  container.select(".chart_title").attr("x", CHART_WIDTH/2.0 - $(".chart_title").width()/2.0 - 15);
 }
 
 // helper function that re-draws the bars

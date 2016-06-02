@@ -198,6 +198,7 @@ function createChart(container) {
     $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', "#333333");
     $($(".slider")[0]).slider("value", 100);
     $($(".slider_reading")[0]).text("100%");
+    $("#spacing_title").text("Chart Width");
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
