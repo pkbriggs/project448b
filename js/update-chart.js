@@ -16,11 +16,15 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 
   // Edge case #1 - changing spacing for chart (both bar/line)
   if (type == "bars" && key == "spacing") {
-    redrawXAxis();  // Re-draw x-axis and bars
-
+    
     if(chart_type === "line") {
-      updateLineData();  // Re-draw the lines/dots/line labels
+      type = "graph";
+      key = "width";
+      console.log(value);
+      value = ORIG_CHART_WIDTH * value;
+      console.log(value);
     } else {
+      redrawXAxis();  // Re-draw x-axis and bars
       redrawBars();  // Re-draw the bars/bar labels
     }
   }
@@ -101,7 +105,9 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     
   } else if (type === "graph") {
     if(key === "width") {
+      console.log("Dirk");
       CHART_WIDTH = parseInt(value);
+      $("#graph_width_input").val(CHART_WIDTH);
     } else if (key === "height") {
       CHART_HEIGHT = parseInt(value);
     } else {
@@ -116,7 +122,6 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     }
 
     // redraw everything
-    redrawYAxis("");
     redrawXAxis();
     redrawGrid();
     redrawAxisLabels();
