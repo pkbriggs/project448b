@@ -34,7 +34,7 @@ input[type=radio] {
 
 header {
 	background-color: #4D9FC4;
-	padding: 5px 2px 5px 35px;
+	padding: 3px 2px 3px 35px;
 	color: white;
 }
 
@@ -42,7 +42,7 @@ header {
 	position: relative;
 	float: right;
 	font-weight: 600;
-	font-size: 18px;
+	font-size: 16px;
 }
 
 .tool {
@@ -103,9 +103,12 @@ header {
 	/* position */
 	position: fixed;
 	left: 0;
-	top: 52px;
+	top: 48px;
 	width: 210px;
 	height: 100%;
+	height: -webkit-calc(100% - 48px);
+	height: -moz-calc(100% - 48px);
+	height: calc(100% - 48px);
 	overflow-y: scroll;
 
 	/* content */

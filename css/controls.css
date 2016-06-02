@@ -64,11 +64,8 @@
 
 .fillcp, .strokecp {
 	float: right;
-	width: 70%;
-}
-
-.fullcp {
-	width: 100%;
+	/*width: 70%;*/
+	margin-bottom: 12px;
 }
 
 #multi_colorpicker_container, #multi_strokecolorpicker_container {
@@ -83,6 +80,14 @@
 
 .tickcp {
 	margin-top: 3px;
+}
+
+#multi_colorpicker_container .fillcp, #multi_colorpicker_container .strokecp {
+	margin-bottom: 3px;
+}
+
+#multi_colorpicker_container .fillcp.last, #multi_colorpicker_container .strokecp  {
+	margin-bottom: 12px;
 }
 
 .input-group input {
