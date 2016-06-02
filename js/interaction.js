@@ -61,6 +61,7 @@ var yAxis = null;
 // code dealing with colors
 var color_scale = d3.scale.ordinal();
 var num_chart_colors = 0;
+var using_single_color = true;
 var hover_active = false;
 var edit_data_active = false;
 

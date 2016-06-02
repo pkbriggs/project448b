@@ -109,25 +109,68 @@
         <section class="control_subcontainer">
 
           <!-- Bar stroke color picker -->
-          <div class="input_subtitle">Colors</div>
+          <div class="input_subtitle">Fill Color</div>
+          <input type="radio" name="bar_color_toggle" value="uniform" checked> <span class="small"> Uniform &nbsp; </span>
+          <input type="radio" name="bar_color_toggle" value="unique"> <span class="small"> Unique</span>
 
-          <!-- Color picker stuff -->
-          <div class="strokecolor">
-            <span class="small"> Stroke: &nbsp; </span>
-            <div class="strokecp cpcontainer">
-              <div class="cp input-group colorpicker-component" data-type="bars" data-key="stroke">
-                <input type="text" value="transparent" />
-                <span class="input-group-addon"><i></i></span>
+          <!-- Uniform Bar fill color picker -->
+          <div id="uniform_colorpicker_container">
+            <div class="fillcolor">
+              <div class="fillcp cpcontainer fullcp">
+                <div class="cp input-group colorpicker-component" data-type="bars" data-key="fill">
+                  <input type="text" value="#333" />
+                  <span class="input-group-addon"><i></i></span>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Bar fill color picker -->
-          <div class="fillcolor">
-            <span class="small"> Fill: &nbsp; </span>
-            <div class="fillcp cpcontainer">
-              <div class="cp input-group colorpicker-component" data-type="bars" data-key="fill">
-                <input type="text" value="#333" />
+          <!-- Unique Bar fill color picker -->
+          <div id="unique_colorpicker_container">
+            <div class="fillcolor">
+              <div class="fillcp cpcontainer fullcp">
+                <div class="cp input-group colorpicker-component unique_cp" data-num="0">
+                  <input type="text" value="#333" />
+                  <span class="input-group-addon"><i></i></span>
+                </div>
+              </div>
+
+              <div class="fillcp cpcontainer fullcp">
+                <div class="cp input-group colorpicker-component unique_cp" data-num="1">
+                  <input type="text" value="#333" />
+                  <span class="input-group-addon"><i></i></span>
+                </div>
+              </div>
+
+              <div class="fillcp cpcontainer fullcp">
+                <div class="cp input-group colorpicker-component unique_cp" data-num="2">
+                  <input type="text" value="#333" />
+                  <span class="input-group-addon"><i></i></span>
+                </div>
+              </div>
+
+              <div class="fillcp cpcontainer fullcp">
+                <div class="cp input-group colorpicker-component unique_cp" data-num="3">
+                  <input type="text" value="#333" />
+                  <span class="input-group-addon"><i></i></span>
+                </div>
+              </div>
+
+              <div class="fillcp cpcontainer fullcp">
+                <div class="cp input-group colorpicker-component unique_cp" data-num="4">
+                  <input type="text" value="#333" />
+                  <span class="input-group-addon"><i></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Color picker stuff -->
+          <div class="input_subtitle">Stroke Color</div>
+          <div class="strokecolor">
+            <div class="strokecp cpcontainer fullcp">
+              <div class="cp input-group colorpicker-component" data-type="bars" data-key="stroke">
+                <input type="text" value="transparent" />
                 <span class="input-group-addon"><i></i></span>
               </div>
             </div>
