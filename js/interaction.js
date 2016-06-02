@@ -46,7 +46,10 @@ var chart_config = {
   },
   "graph": {
     "width": CHART_WIDTH,
-    "height": CHART_HEIGHT
+    "height": CHART_HEIGHT,
+    "font": "Arial",
+    "font-size": "20",
+    "color": "#333"
   }
 };
 
@@ -297,6 +300,14 @@ function createChart(container) {
   }
 
   setupEditDataContainer();
+  // Add title to the Graph
+  container.append("text")
+    .attr("class", "chart_title")
+    .attr("y", 0 - (CHART_MARGINS.top / 2))
+    .attr("font-size", "20px") 
+    .text("My Graph");
+
+  redrawAxisLabels();
 }
 
 function setupHandlersToHideStylingSections() {
