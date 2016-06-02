@@ -67,6 +67,14 @@
 	width: 70%;
 }
 
+.fullcp {
+	width: 100%;
+}
+
+#unique_colorpicker_container {
+	display: none;
+}
+
 .axiscp {
 	float: right;
 	width: 60%;

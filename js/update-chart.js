@@ -216,9 +216,6 @@ function redrawSvgAndContainer() {
   var actual_chart_height = d3.select(".actual_chart").node().getBoundingClientRect().height;
   var actual_chart_width = d3.select(".actual_chart").node().getBoundingClientRect().width;
 
-  console.log($(".actual_chart"));
-  console.log(actual_chart_height, actual_chart_width);
-
   d3.select("svg").attr("height", actual_chart_height + 40);
   d3.select("svg").attr("width", actual_chart_width);
 
