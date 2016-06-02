@@ -18,8 +18,8 @@ var CHART_HEIGHT = CANVAS_HEIGHT - CHART_MARGINS.top - CHART_MARGINS.bottom;
 var chart_config = {
   "bars": {
     "spacing": 0.3, // amount of spacing between each bar (between 0 and 1)
-    "fill": "green",
-    "stroke": "#333",
+    "fill": "#333",
+    "stroke": "transparent",
     "label_visiblity": false,
     "label_fill": "#333",
     "label_font": "Arial",
