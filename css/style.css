@@ -247,20 +247,3 @@ hr.tooltip-hr {
 	background-color: rgba(226, 226, 226, 0.8);
 	padding: 10px;
 }
-
-/* save-related styles */
-.chart_save_container {
-  border: 1px solid #333;
-  padding: 5px;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
-
-.save_button {
-  padding: 10px;
-  margin: 10px;
-  background: #efefef;
-  border: 1px solid #d0d0d0;
-  cursor: pointer;
-}

@@ -40,10 +40,11 @@
         </span>
       </div>
       <div class="tool">
-        <span>
+        <span class="save_button">
           <i class="fa fa-save"></i>
           Save
         </span>
+        <canvas class="save_canvas" width="1" height="1" style="display:none"></canvas> <!-- hidden canvas used for saving the chart in the backend -->
       </div>
     </div>
   </header>
@@ -77,12 +78,6 @@
       <div class="image_color_palette_container">
         <!-- a div will be appended here for each of the colors in the palette. they each have the class "image_color_palette_color" -->
       </div>
-    </div>
-
-    <!-- Save functionality -->
-    <div class="chart_save_container">
-      <div class="save_button">Save as Image</div>
-      <canvas class="save_canvas" width="1" height="1" style="display:none"></canvas>
     </div>
 
     <div class="vis_controls">
