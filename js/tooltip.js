@@ -22,8 +22,8 @@ function Tooltip(tooltipId, width){
 
   function updatePosition(event, dom_id){
     var ttid = "#"+dom_id;
-    var xOffset = 20;
-    var yOffset = 10;
+    var xOffset = 10;
+    var yOffset = 5;
 
     var toolTipW = $(ttid).width();
     var toolTipeH = $(ttid).height();
@@ -33,6 +33,7 @@ function Tooltip(tooltipId, width){
     var curY = event.pageY;
     var ttleft = ((curX) < $(window).width() / 2) ? curX - toolTipW - xOffset*2 : curX + xOffset;
     if (ttleft < windowX + xOffset){
+      console.log("Dirk");
       ttleft = windowX + xOffset;
     } 
     var tttop = ((curY - windowY + yOffset*2 + toolTipeH) > $(window).height()) ? curY - toolTipeH - yOffset*2 : curY + yOffset;

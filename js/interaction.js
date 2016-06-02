@@ -18,8 +18,8 @@ var CHART_HEIGHT = CANVAS_HEIGHT - CHART_MARGINS.top - CHART_MARGINS.bottom;
 var chart_config = {
   "bars": {
     "spacing": 0.3, // amount of spacing between each bar (between 0 and 1)
-    "fill": "green",
-    "stroke": "#333",
+    "fill": "#333",
+    "stroke": "transparent",
     "label_visiblity": false,
     "label_fill": "#333",
     "label_font": "Arial",
@@ -61,6 +61,7 @@ var yAxis = null;
 // code dealing with colors
 var color_scale = d3.scale.ordinal();
 var num_chart_colors = 0;
+var using_single_color = true;
 var hover_active = false;
 var edit_data_active = false;
 
@@ -81,13 +82,14 @@ function createSVG() {
       .attr("fill", CHART_BACKGROUND_COLOR);
 
   // create a container for all of our elements
-  var container = svg.append("g");
+  var container = svg.append("g").attr("class", "actual_chart");
 
   // give the contain some margins
   container
     .attr("transform", "translate(" + CHART_MARGINS.left + "," + CHART_MARGINS.top + ")");
 
-
+  var space_to_add_at_top = ($("#chart_super_container").height() - $(".vis_container").height() - $("header").height()) / 2.0;
+  $(".vis_container").css("margin-top", space_to_add_at_top);
   window.container = container;
 
   return container;
@@ -186,9 +188,10 @@ function createChart(container) {
     .call(xAxisGrid);
 
   if(chart_type === "line") {
-    $(".bar_styling .title span").text("Line Styling");
+    $("#data_styling_title span").text("Line Styling");
     $("#data_label_title").text("Line Labels");
-    $($(".cp").colorpicker()[0]).colorpicker('setValue', "#333");
+    $("#fill_color_toggles").hide();
+    $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', "#333333");
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
@@ -228,14 +231,9 @@ function createChart(container) {
       var actual_node = chart_data[actual_index];
       var key_for_line = this.parentNode.__data__.name;
       var selected_dot = $(this);
-      $(".chart_line, .chart_dot").css("opacity", 1);  // reset opacity
-      // highlight the dot we are editing
-      $(".chart_dot").each(function( index ) {
-        if($(this).is(selected_dot) === false) {
-          $(this).css("opacity", 0.3);
-        }
-      });
-      $(".chart_line").css("opacity", 0.3);
+
+      unHighlightDots(); // reset opacity
+      highlightDot(selected_dot);
 
       showEditDataContainer(d3.event, actual_node, actual_index, key_for_line);
     });
@@ -256,6 +254,7 @@ function createChart(container) {
 
   } else {
     $("#line-stroke-width").hide()  // hide line stroke width
+    $("#stroke_color_toggles").hide();
     // create the chart bars, tie them to the data set
     var bars = container.selectAll(".chart_bar")
       .data(chart_data);
@@ -277,13 +276,10 @@ function createChart(container) {
     container.selectAll(".chart_bar").on('click', function (d, i) {
       d3.event.preventDefault();
       var selected_bar = $(this);
-      $(".chart_bar").css("opacity", 1);  // reset opacity
-      // highlight the bar we are editing
-      $(".chart_bar").each(function( index ) {
-        if($(this).is(selected_bar) === false) {
-          $(this).css("opacity", 0.3);
-        }
-      });
+
+      unHighlightBars();  // reset opacity
+      highlightBar(selected_bar);
+
       showEditDataContainer(d3.event, d, i, "value");
     });
 
@@ -304,21 +300,23 @@ function createChart(container) {
 }
 
 function setupHandlersToHideStylingSections() {
-  $(".toggle_control_vis").click(function(event) {
-    var parent = $(this).parent();
+  $(".title").click(function(event) {
+    var parent = $(this);
+    var child = $(this).find(".toggle_control_vis");
+
     var style_control_container_class = parent.data("target");
     var visible_status = parent.data("open");
 
     if(visible_status === "open") {
       $("." + style_control_container_class).fadeOut(250);
       parent.data("open", "closed");
-      $(this).removeClass("fa-chevron-down");
-      $(this).addClass("fa-chevron-right");
+      child.removeClass("fa-chevron-down");
+      child.addClass("fa-chevron-right");
     } else {
       $("." + style_control_container_class).fadeIn(250);
       parent.data("open", "open");
-      $(this).addClass("fa-chevron-down");
-      $(this).removeClass("fa-chevron-right");
+      child.addClass("fa-chevron-down");
+      child.removeClass("fa-chevron-right");
     }
     
   });

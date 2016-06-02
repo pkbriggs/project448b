@@ -34,7 +34,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
         // Changes all the colors on the bar to one color: FIX!
         if(key === "fill") {
           container.selectAll(".chart_dot").transition().attr("stroke", value);
-          container.selectAll(".chart_dot").transition().attr("fill", value);
+          container.selectAll(".chart_dot").attr("fill", value);
         } else {
           container.selectAll(".chart_line").transition().attr(key, value);
           if(key === "stroke-width") container.selectAll(".chart_dot").transition().attr("r", value*1.5);
@@ -112,6 +112,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     redrawAxisLabels();
     redrawBars();
     updateLineData();
+    redrawSvgAndContainer();
   }
 }
 
@@ -208,6 +209,21 @@ function redrawBarLabels() {
     .text(function(d) { return d["value"]; })
     .attr("y", function(d) { return yScale(d["value"]) - 7; })
     .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; });
+}
+
+// function that re-draws the svg and re-centers it
+function redrawSvgAndContainer() {
+  var actual_chart_height = d3.select(".actual_chart").node().getBoundingClientRect().height;
+  var actual_chart_width = d3.select(".actual_chart").node().getBoundingClientRect().width;
+
+  d3.select("svg").attr("height", actual_chart_height + 40);
+  d3.select("svg").attr("width", actual_chart_width);
+
+  $(".vis_container").attr("height", actual_chart_height + 40);
+  $(".vis_container").attr("width", actual_chart_width);
+
+  var space_to_add_at_top = ($("#chart_super_container").height() - $(".vis_container").height() - $("header").height()) / 2.0;
+  $(".vis_container").css("margin-top", space_to_add_at_top);
 }
 
 /*
