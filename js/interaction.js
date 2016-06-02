@@ -13,6 +13,7 @@ var CHART_MARGINS = {
   right: 80
 };
 var CHART_WIDTH = CANVAS_WIDTH - CHART_MARGINS.left - CHART_MARGINS.right;
+var ORIG_CHART_WIDTH = CHART_WIDTH;
 var CHART_HEIGHT = CANVAS_HEIGHT - CHART_MARGINS.top - CHART_MARGINS.bottom;
 
 var chart_config = {
@@ -195,6 +196,9 @@ function createChart(container) {
     $("#data_label_title").text("Line Labels");
     $("#fill_color_toggles").hide();
     $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', "#333333");
+    $($(".slider")[0]).slider("value", 100);
+    $($(".slider_reading")[0]).text("100%");
+    $("#spacing_title").text("Chart Width");
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
@@ -300,6 +304,7 @@ function createChart(container) {
   }
 
   setupEditDataContainer();
+  
   // Add title to the Graph
   container.append("text")
     .attr("class", "chart_title")

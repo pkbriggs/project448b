@@ -62,6 +62,17 @@ function getCorrectNumColors(colorPalette) {
   return result;
 }
 
+// function that runs through the new colors and updates the 
+function updateColorControls(new_colors) {
+    for(var i=0; i < new_colors.length; i++) {
+      if(chart_type === "bar") {
+        $($(".multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
+      } else {
+        $($("#multi_strokecolorpicker_container .multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
+      }
+    }
+}
+
 function getColorsFromImage(image) {
 
   // get the dominant color from the image and update the dominant color div (to show the user)
@@ -84,7 +95,8 @@ function getColorsFromImage(image) {
   // use colors taken from graph to color lines/bars on the graph
   var new_colors = getCorrectNumColors(colorPalette);
   setColorScale(color_scale.domain(), new_colors);
-  updateChartConfigValue("change_color_scale", "", "", false)
+  updateChartConfigValue("change_color_scale", "", "", false);
+  updateColorControls(new_colors);
 }
 
 // when a user begins dragging something over the drag area

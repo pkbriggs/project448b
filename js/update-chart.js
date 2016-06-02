@@ -16,11 +16,15 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 
   // Edge case #1 - changing spacing for chart (both bar/line)
   if (type == "bars" && key == "spacing") {
-    redrawXAxis();  // Re-draw x-axis and bars
-
+    
     if(chart_type === "line") {
-      updateLineData();  // Re-draw the lines/dots/line labels
+      type = "graph";
+      key = "width";
+      console.log(value);
+      value = ORIG_CHART_WIDTH * value;
+      console.log(value);
     } else {
+      redrawXAxis();  // Re-draw x-axis and bars
       redrawBars();  // Re-draw the bars/bar labels
     }
   }
@@ -98,9 +102,12 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       container.selectAll(".chart_bar")  // Re-color bars
         .attr("fill", function(d, i){ return color_scale(i)})
     }
+    
   } else if (type === "graph") {
     if(key === "width") {
+      console.log("Dirk");
       CHART_WIDTH = parseInt(value);
+      $("#graph_width_input").val(CHART_WIDTH);
     } else if (key === "height") {
       CHART_HEIGHT = parseInt(value);
     } else {
@@ -115,7 +122,6 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     }
 
     // redraw everything
-    redrawYAxis("");
     redrawXAxis();
     redrawGrid();
     redrawAxisLabels();
@@ -151,15 +157,15 @@ function redrawYAxis(line_data) {
 
 // helper function to redraw the grid
 function redrawGrid() {
-  var yAxisGrid = yAxis.tickSize(CHART_WIDTH, 0).orient("right").tickFormat("");
+  var yAxisGrid = yAxis.ticks(10).tickSize(CHART_WIDTH, 0).orient("right").tickFormat("");
   container.selectAll(".y_grid").call(yAxisGrid);  // Re-draw axis
 }
 
 // helper function to redraw the axis labels
 function redrawAxisLabels() {
-  container.selectAll(".x_axis_label").attr("dx", CHART_WIDTH/2 - $(".x_axis_label").width()/2);
+  container.selectAll(".x_axis_label").attr("dx", CHART_WIDTH/2 - $(".x_axis_label").width()/2 - 5);
   container.selectAll(".y_axis_label").attr("dx", -CHART_HEIGHT/2 + $(".y_axis_label").width()/2);
-  container.select(".chart_title").attr("x", CHART_WIDTH/2.0 - $(".chart_title").width()/2.0);
+  container.select(".chart_title").attr("x", CHART_WIDTH/2.0 - $(".chart_title").width()/2.0 - 15);
 }
 
 // helper function that re-draws the bars
