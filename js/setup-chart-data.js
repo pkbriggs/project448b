@@ -23,7 +23,7 @@ function setupChartData(chart_type) {
         "label": "hi"
       }
     ];
-    setColorScale([0, 1, 2, 3, 4], ["#333"]);
+    setColorScale([0, 1, 2, 3, 4], ["#333", "#333", "#333", "#333", "#333"]);
     num_chart_colors = 5;
   } else {
     var chart_data = [
@@ -63,7 +63,7 @@ function setupChartData(chart_type) {
         "val_four": 13,
       }
     ];
-    setColorScale(["val_one", "val_two", "val_three", "val_four"], ["#333"]);
+    setColorScale(["val_one", "val_two", "val_three", "val_four"], ["#333", "#333", "#333", "#333", "#333"]);
     num_chart_colors = 4;
   }
 
