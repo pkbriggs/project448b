@@ -34,7 +34,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
         // Changes all the colors on the bar to one color: FIX!
         if(key === "fill") {
           container.selectAll(".chart_dot").transition().attr("stroke", value);
-          container.selectAll(".chart_dot").transition().attr("fill", value);
+          container.selectAll(".chart_dot").attr("fill", value);
         } else {
           container.selectAll(".chart_line").transition().attr(key, value);
           if(key === "stroke-width") container.selectAll(".chart_dot").transition().attr("r", value*1.5);

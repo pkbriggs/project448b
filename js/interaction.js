@@ -188,9 +188,10 @@ function createChart(container) {
     .call(xAxisGrid);
 
   if(chart_type === "line") {
-    $(".bar_styling .title span").text("Line Styling");
+    $("#data_styling_title span").text("Line Styling");
     $("#data_label_title").text("Line Labels");
-    $($(".cp").colorpicker()[0]).colorpicker('setValue', "#333");
+    $("#fill_color_toggles").hide();
+    $($("#uniform_stroke_cp").colorpicker()[0]).colorpicker('setValue', "#333333");
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
@@ -253,6 +254,7 @@ function createChart(container) {
 
   } else {
     $("#line-stroke-width").hide()  // hide line stroke width
+    $("#stroke_color_toggles").hide();
     // create the chart bars, tie them to the data set
     var bars = container.selectAll(".chart_bar")
       .data(chart_data);
