@@ -13,7 +13,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       chart_config[type][key] = value;
     }
   }
-
+  var origin_graph_width_request = "input_field";
   // Edge case #1 - changing spacing for chart (both bar/line)
   if (type == "bars" && key == "spacing") {
 
@@ -21,6 +21,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       type = "graph";
       key = "width";
       value = ORIG_CHART_WIDTH * value;
+      origin_graph_width_request = "spacing";
     } else {
       redrawXAxis();  // Re-draw x-axis and bars
       redrawBars();  // Re-draw the bars/bar labels
@@ -104,6 +105,9 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     if(key === "width") {
       CHART_WIDTH = parseInt(value);
       $("#graph_width_input").val(CHART_WIDTH);
+      if(origin_graph_width_request === "input_field") {
+        ORIG_CHART_WIDTH = CHART_WIDTH;
+      }
     } else if (key === "height") {
       CHART_HEIGHT = parseInt(value);
     } else {
@@ -362,7 +366,11 @@ function applyLineOrBarStyleToControls(config) {
   $($(".slider")[0]).slider("value", config["bars"]["spacing"] * 100);
   $($(".slider_reading")[0]).text(config["bars"]["spacing"] * 100 +"%");
   // line/bar stroke color
-  $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["stroke"]);
+  if(chart_type === "line" && config["bars"]["stroke"] === "transparent"){
+    $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["#333"]);
+  } else {
+    $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["stroke"]); 
+  }
   // line/bar fill color
   $($("#single_fill_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["fill"]);
   // line/bar label color

@@ -84,7 +84,9 @@ var themes = {
 			"tick_label_font_size": 14,
 			"label_color": "#333",
 			"label_font": "Lato",
-			"label_font_size": 16
+			"label_font_size": 16,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": CHART_WIDTH,
@@ -118,7 +120,9 @@ var themes = {
 			"tick_label_font_size": 14,
 			"label_color": "#333",
 			"label_font": "Didact Gothic",
-			"label_font_size": 16
+			"label_font_size": 16,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": CHART_WIDTH,
@@ -152,7 +156,9 @@ var themes = {
 			"tick_label_font_size": 14,
 			"label_color": "#333",
 			"label_font": "IM Fell French Canon",
-			"label_font_size": 16
+			"label_font_size": 16,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": 475,
@@ -185,7 +191,9 @@ var themes = {
 			"tick_label_font_size": 14,
 			"label_color": "#333",
 			"label_font": "PT Sans",
-			"label_font_size": 16
+			"label_font_size": 16,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": 475,
@@ -218,7 +226,9 @@ var themes = {
 			"tick_label_font_size": 14,
 			"label_color": "#333",
 			"label_font": "Coming Soon",
-			"label_font_size": 16
+			"label_font_size": 16,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": 500,
@@ -251,7 +261,9 @@ var themes = {
 			"tick_label_font_size": 16,
 			"label_color": "#333",
 			"label_font": "Josefin Sans",
-			"label_font_size": 18
+			"label_font_size": 18,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": 500,
