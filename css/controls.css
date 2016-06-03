@@ -64,7 +64,6 @@
 
 .fillcp, .strokecp {
 	float: right;
-	/*width: 70%;*/
 	margin-bottom: 12px;
 }
 
@@ -82,11 +81,11 @@
 	margin-top: 3px;
 }
 
-#multi_colorpicker_container .fillcp, #multi_colorpicker_container .strokecp {
+#multi_colorpicker_container .fillcp, #multi_strokecolorpicker_container .strokecp {
 	margin-bottom: 3px;
 }
 
-#multi_colorpicker_container .fillcp.last, #multi_colorpicker_container .strokecp  {
+#multi_colorpicker_container .fillcp.last, #multi_strokecolorpicker_container .strokecp.last  {
 	margin-bottom: 12px;
 }
 
