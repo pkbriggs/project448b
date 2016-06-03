@@ -6,7 +6,12 @@ $(function() {
 	$dropdown.click(function(event) {
 		var $target = $(event.target);
 		if($target.parent().hasClass("active")) {
-			restyleGraph(current_theme);
+			$(".vis_controls_blanket").fadeOut(250);
+			restyleGraph(chart_config);
+		} else {
+			$(".vis_controls_blanket").fadeIn(250);
+			// we need to resave the progress here!
+			current_theme = JSON.parse(JSON.stringify(chart_config));
 		}
 		if (!$target.hasClass("header_dd_display")) {
 			$target = $target.parent();
@@ -37,9 +42,7 @@ $(function() {
 $(function() {
 	var $select = $(".header_dd .submit .select");
 	$select.click(function(event) {
-		// select the given theme
-		current_theme = JSON.parse(JSON.stringify(new_theme));
-
+		$(".vis_controls_blanket").fadeOut(250);
 		// to hide the dd again
 		var $dropdown = $(event.target).parent().parent().prev();
 		$dropdown.toggleClass("active");
@@ -49,6 +52,7 @@ $(function() {
 $(function() {
 	var $cancel = $(".header_dd .submit .cancel");
 	$cancel.click(function(event) {
+		$(".vis_controls_blanket").fadeOut(250);
 		// cancel and revert to how it was
 		restyleGraph(current_theme);
 		

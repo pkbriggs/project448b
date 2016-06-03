@@ -22,6 +22,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       key = "width";
       value = ORIG_CHART_WIDTH * value;
       origin_graph_width_request = "spacing";
+      $("#graph_width_input").val(value);
     } else {
       redrawXAxis();  // Re-draw x-axis and bars
       redrawBars();  // Re-draw the bars/bar labels
@@ -104,7 +105,6 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
   } else if (type === "graph") {
     if(key === "width") {
       CHART_WIDTH = parseInt(value);
-      $("#graph_width_input").val(CHART_WIDTH);
       if(origin_graph_width_request === "input_field") {
         ORIG_CHART_WIDTH = CHART_WIDTH;
       }

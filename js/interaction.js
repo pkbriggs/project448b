@@ -412,7 +412,7 @@ function binaryblob(){
 }
 
 $(document).ready(function() {
-  $(".chart_image_container").click(function(event) {
+  $(".chart_example_image_container").click(function(event) {
     chart_type = $(this).data("type");
     chart_data = setupChartData(chart_type);
 
