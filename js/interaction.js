@@ -30,7 +30,7 @@ var chart_config = {
   },
   "grid": {
     "visiblity": true,
-    "opacity": 0.8,
+    "opacity": 0.25,
     "stroke_width": 1
     // frequency?
   },
@@ -50,7 +50,8 @@ var chart_config = {
     "height": CHART_HEIGHT,
     "font": "Arial",
     "font-size": "20",
-    "color": "#333"
+    "color": "#333",
+    "title": "My Graph"
   }
 };
 
