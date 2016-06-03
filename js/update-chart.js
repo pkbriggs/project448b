@@ -36,10 +36,12 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
         container.selectAll(".chart_bar").attr(key, value);
       } else {
         // Changes all the colors on the bar to one color: FIX!
-        if(key === "fill") {
+        if(key === "stroke") {
           container.selectAll(".chart_dot").attr("stroke", value);
           container.selectAll(".chart_dot").attr("fill", value);
-        } else {
+        }
+
+        if(key !== "fill") {
           container.selectAll(".chart_line").attr(key, value);
           if(key === "stroke-width") container.selectAll(".chart_dot").attr("r", value*1.5);
         }
@@ -99,6 +101,8 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
         .attr("fill", function(d, i) { return color_scale(d.name); }); // TODO: Fix me
       container.selectAll(".chart_dot")  // Re-color points
         .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
+      container.selectAll(".chart_dot")  // Re-color points
+        .attr("fill", function(d){ return color_scale(this.parentNode.__data__.name )})
     } else {
       container.selectAll(".chart_bar")  // Re-color bars
         .attr("fill", function(d, i){ return color_scale(i)})
@@ -111,6 +115,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       if(origin_graph_width_request === "input_field") {
         ORIG_CHART_WIDTH = CHART_WIDTH;
       }
+      updateLegendPosition();
     } else if (key === "height") {
       CHART_HEIGHT = parseInt(value);
     } else {
@@ -133,6 +138,22 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     updateLineData();
     redrawSvgAndContainer();
   }
+}
+
+function updateLegendPosition() {
+  container.selectAll('.legend')
+    .attr('transform', function(d, i) {
+      var horz = CHART_WIDTH + LEGEND_MARGIN;
+      var vert = (legendRectSize + legendSpacing) * i;
+      return 'translate(' + horz + ',' + vert + ')';
+    });
+
+  container.selectAll('.legend_text')
+    .attr('transform', function(d, i) {
+      var horz = (CHART_WIDTH + LEGEND_MARGIN) + legendRectSize + legendSpacing*1.5;
+      var vert = (legendRectSize + legendSpacing) * i + legendRectSize*(3/4);
+      return 'translate(' + horz + ',' + vert + ')';
+    });
 }
 
 // helper function that redraws the x-axis
@@ -409,8 +430,10 @@ function applyLineOrBarStyleToControls(config) {
   } else {
     $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["stroke"]);
   }
-  // line/bar fill color
-  $($("#single_fill_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["fill"]);
+  if(chart_type === "bar") {
+    // line/bar fill color
+    $($("#single_fill_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["fill"]);
+  }
   // line/bar label color
   $($("#bar-label-cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["label_fill"]);
   // line/bar label font-size

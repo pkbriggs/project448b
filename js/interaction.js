@@ -7,6 +7,8 @@ var SVG_HEIGHT = CANVAS_HEIGHT;
 var OUTPUT_FILENAME = "chart.png";
 var OUTPUT_FILETYPE = "image/png";
 var CHART_BACKGROUND_COLOR = "white";
+var legendRectSize = 18;
+var legendSpacing = 4;
 
 var CHART_MARGINS = {
   top: 50,
@@ -216,11 +218,14 @@ function createChart(container) {
   if(chart_type === "line") {
     $("#data_styling_title span").text("Line Styling");
     $("#data_label_title").text("Line Labels");
+    $("#fill_color_toggles").prev().hide();
     $("#fill_color_toggles").hide();
+    $("#single_fill_cp").hide();
     $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', "#333333");
     $($(".slider")[0]).slider("value", 100);
     $($(".slider_reading")[0]).text("100%");
     $("#spacing_title").text("Chart Width");
+
     // Create lines if we are doing a line chart
     var line = d3.svg.line()
   			.x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
@@ -282,9 +287,6 @@ function createChart(container) {
       .attr("visibility", "hidden");
 
     // legend
-    var legendRectSize = 18;
-           var legendSpacing = 4;
-
     var legend = container.selectAll('.legend')
       .data(chart_data);
 
@@ -310,6 +312,7 @@ function createChart(container) {
 
     legend.enter()
       .append('text')
+      .attr("class", "legend_text")
       .attr('transform', function(d, i) {
         var horz = (CHART_WIDTH + LEGEND_MARGIN) + legendRectSize + legendSpacing*1.5;
         var vert = (legendRectSize + legendSpacing) * i + legendRectSize*(3/4);
