@@ -75,6 +75,9 @@ var edit_data_active = false;
 tooltip = Tooltip("vis-tooltip", 230);
 
 function createSVG() {
+  if (chart_type == "bar")
+    CANVAS_WIDTH -= LEGEND_WIDTH;
+
   $("#graph_width_input").val(CHART_WIDTH.toFixed(2));
   $("#graph_height_input").val(CHART_HEIGHT.toFixed(2));
   // Add an svg element to the DOM
