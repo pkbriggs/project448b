@@ -86,11 +86,9 @@ function getCorrectNumColors(colorPalette) {
 function updateColorControls(new_colors) {
   if (IS_SINGLE) {
     if(chart_type === "bar") {
-      // TODO: John: Make me work
-      // $($("#single_fill_cp").colorpicker()[0]).colorpicker('setValue', new_colors[i]);
+      $($("#single_fill_cp").colorpicker()[0]).colorpicker('setValue', new_colors[0]);
     } else { // line chart
-      // TODO: John: Make me work
-      // $($("#multi_strokecolorpicker_container .multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
+      $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', new_colors[0]);
     }
   } else {
     for (var i = 0; i < new_colors.length; i++) {
