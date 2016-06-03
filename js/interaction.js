@@ -18,12 +18,12 @@ var CHART_HEIGHT = CANVAS_HEIGHT - CHART_MARGINS.top - CHART_MARGINS.bottom;
 
 var chart_config = {
   "bars": {
-    "spacing": 0.3, // amount of spacing between each bar (between 0 and 1)
+    "spacing": 0.25, // amount of spacing between each bar (between 0 and 1)
     "fill": "#333",
     "stroke": "transparent",
     "label_visiblity": false,
     "label_fill": "#333",
-    "label_font": "Roboto",
+    "label_font": "Droid Sans",
     "label_font_size": 10,
     "stroke-width": 1
     // "y_label": "Drinks Consumed"
@@ -37,18 +37,18 @@ var chart_config = {
   "axis": {
     "line_color": "#333",
     "tick_label_color": "#333",
-    "tick_label_font": "Roboto",
+    "tick_label_font": "Droid Sans",
     "tick_label_font_size": 14,
     "x_label": "X Label",
     "y_label": "Y Label",
     "label_color": "#333",
-    "label_font": "Roboto",
+    "label_font": "Droid Sans",
     "label_font_size": 14
   },
   "graph": {
     "width": CHART_WIDTH,
     "height": CHART_HEIGHT,
-    "font": "Roboto",
+    "font": "Droid Sans",
     "font-size": "20",
     "color": "#333",
     "title": "My Graph"
@@ -112,6 +112,7 @@ function createChart(container) {
 
   var $tools = $("header .tools");
   $tools.css("display", "block");
+  loadFont("Droid Sans");
 
 
   // We only use this array of maps when we are in "line" mode

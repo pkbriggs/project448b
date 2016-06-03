@@ -77,6 +77,47 @@ var themes = {
 	}
 };
 
+var individual_colors = {
+	"8": {
+		"color_line": {
+			"used": true,
+			"0": "#404081",
+			"1": "#333",
+			"2": "#444",
+			"3": "#AAA",
+			"4": "#E2E2E2"
+		},
+		"color_bar": {
+			"used": true,
+			"0": "#111",
+			"1": "#222",
+			"2": "#333",
+			"3": "#444",
+			"4": "#555",
+			"5": "#666"
+		}
+	},
+	"9": {
+		"color_line": {
+			"used": false,
+			"0": "",
+			"1": "",
+			"2": "",
+			"3": "",
+			"4": ""
+		},
+		"color_bar": {
+			"used": false,
+			"0": "",
+			"1": "",
+			"2": "",
+			"3": "",
+			"4": "",
+			"5": ""
+		}
+	}
+};
+
 var current_theme = JSON.parse(JSON.stringify(chart_config));
 var new_theme = null;
 
