@@ -44,6 +44,7 @@ header {
 	float: right;
 	font-weight: 600;
 	font-size: 16px;
+	display: none;
 }
 
 .tool {
@@ -61,19 +62,19 @@ header {
 	width: 150px;
 }
 
-.tool span {
+.tool .theme_picker span {
 	opacity: 1;
   transition: opacity .25s ease-in-out;
   -moz-transition: opacity .25s ease-in-out;
   -webkit-transition: opacity .25s ease-in-out;
 }
 
-.tool span:hover {
+.tool .theme_picker span:hover {
 	opacity: 0.5;
 	cursor: pointer;
 }
 
-.tool i {
+.tool .theme_picker i {
 	padding-right: 3px;
 }
 
@@ -129,26 +130,25 @@ header {
 
 /* uploaded image things */
 .image_upload_container {
-	border: 1px solid #333;
-	padding: 5px;
-	position: absolute;
-	right: 0;
-	top: 0;
-}
-
-.image_upload_container {
-	position: flex;
+	padding: 4px 5px 4px 4px;
+	margin-bottom: 37px;
 }
 
 .image_drag_and_drop_zone {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 200px;
-	height: 200px;
+	/*width: 200px;*/
+	width: 100%;
+	height: 150px;
 	border: 1px dashed #bbb;
 	transition: background-color 0.2s ease-in;
 }
+
+.image_upload_container input {
+	margin-top: 4px;
+}
+
 .image_drag_and_drop_zone.drag_in_progress {
 	background-color: #ececec;
 }
@@ -159,8 +159,8 @@ header {
 }
 
 .uploaded_image_preview {
-	max-width: 300px;
-	max-height: 300px;
+	max-width: 100%;
+  max-height: 300px;
 }
 
 .image_picker_preview_container img {
@@ -175,10 +175,43 @@ header {
 	display: block;
 }
 
+.extractor_color_toggles {
+	margin: 10px 0;
+}
+
+.image_color_palette_container {
+	display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+  display: -ms-flexbox;  /* TWEENER - IE 10 */
+  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+}
+
 .image_color_palette_color {
 	display: inline-block;
-	width: 50px;
 	height: 50px;
+	-webkit-box-flex: 1;   /* OLD - iOS 6-, Safari 3.1-6 */
+  width: 20%;            /* For old syntax, otherwise collapses. */
+  -webkit-flex: 1;       /* Safari 6.1+. iOS 7.1+, BB10 */
+  -ms-flex: 1;           /* IE 10 */
+  flex: 1;               /* NEW, Spec - Firefox, Chrome, Opera */
+}
+
+.image_color_palette_color div {
+	display: none;
+  margin: auto;
+  width: 15.5px;
+  margin-top: 11px;
+  font-size: 18px;
+  color: white;
+}
+
+.image_color_palette_color div.selected {
+	display: block !important;
+  margin: auto;
+  width: 15.5px;
+  margin-top: 11px;
+  font-size: 18px;
+  color: white;
 }
 
 .x_axis .tick line, .y_axis .tick line {

@@ -36,7 +36,7 @@
         <canvas class="save_canvas" width="1" height="1" style="display:none"></canvas> <!-- hidden canvas used for saving the chart in the backend -->
       </div>
       <div class="tool">
-         <div class="style_input theme_picker header_dd_display" data-type="bars" data-key="" data-callback="" data-label="">
+        <div class="theme_picker header_dd_display" data-type="bars" data-key="" data-callback="" data-label="">
            <span>
             <i class="fa fa-bolt"></i>
             Set Preset Theme
@@ -65,10 +65,39 @@
         </div>
       </div>
       <div class="tool">
-        <span>
-          <i class="fa fa-paint-brush"></i>
-          Set Color Scheme
-        </span>
+        <div class="theme_picker header_dd_display" data-type="bars" data-key="" data-callback="" data-label="">
+          <span>
+            <i class="fa fa-paint-brush"></i>
+            Set Color Scheme
+          </span>           
+        </div>
+        <div class="header_dd color_extractor">
+          
+          <div class="image_upload_container">
+            <div class="image_drag_and_drop_zone">
+              <div class="drag_and_drop_label">Drop an image here</div>
+            </div>
+            <input type="file" class="image_file_picker" />
+
+            <div class="image_picker_preview_container"></div>
+            
+            <div class="extractor_color_toggles">
+              <div class="semibold">Select Colors</div>
+              <input type="radio" name="palette-single" value="single"> <span class="small"> Single &nbsp; </span>
+              <input type="radio" name="palette-multi" value="multi" checked> <span class="small">Multi</span>
+            </div>
+
+            <!-- <div class="image_dominant_color"></div> -->
+            <div class="image_color_palette_container">
+              <!-- a div will be appended here for each of the colors in the palette. they each have the class "image_color_palette_color" -->
+            </div>
+          </div>
+
+          <div class="submit">
+            <div class="cancel">Cancel</div>
+            <div class="select">Select</div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -90,18 +119,6 @@
     <div id="chart_info" data-type="line" data-source="1"></div>
     <div class="vis_container">
       <!-- SVG stuff added here by JS -->
-    </div>
-
-    <div class="image_upload_container">
-      <div class="image_drag_and_drop_zone">
-        <div class="drag_and_drop_label">Drop an image here</div>
-      </div>
-      <input type="file" class="image_file_picker" />
-      <div class="image_picker_preview_container"></div>
-      <div class="image_dominant_color"></div>
-      <div class="image_color_palette_container">
-        <!-- a div will be appended here for each of the colors in the palette. they each have the class "image_color_palette_color" -->
-      </div>
     </div>
 
     <div class="vis_controls">
