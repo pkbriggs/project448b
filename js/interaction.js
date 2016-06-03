@@ -7,6 +7,8 @@ var SVG_HEIGHT = CANVAS_HEIGHT;
 var OUTPUT_FILENAME = "chart.png";
 var OUTPUT_FILETYPE = "image/png";
 var CHART_BACKGROUND_COLOR = "white";
+var legendRectSize = 18;
+var legendSpacing = 4;
 
 var CHART_MARGINS = {
   top: 50,
@@ -285,9 +287,6 @@ function createChart(container) {
       .attr("visibility", "hidden");
 
     // legend
-    var legendRectSize = 18;
-           var legendSpacing = 4;
-
     var legend = container.selectAll('.legend')
       .data(chart_data);
 
@@ -313,6 +312,7 @@ function createChart(container) {
 
     legend.enter()
       .append('text')
+      .attr("class", "legend_text")
       .attr('transform', function(d, i) {
         var horz = (CHART_WIDTH + LEGEND_MARGIN) + legendRectSize + legendSpacing*1.5;
         var vert = (legendRectSize + legendSpacing) * i + legendRectSize*(3/4);
