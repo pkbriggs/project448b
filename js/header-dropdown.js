@@ -109,6 +109,7 @@ var themes = {
 			"font": "Lato",
 			"font-size": 20,
 			"color": "#333",
+    		"title": "My Graph"
 		}
 	},
 
@@ -145,6 +146,7 @@ var themes = {
 			"font": "Didact Gothic",
 			"font-size": 20,
 			"color": "#333",
+			"title": "My Graph"
 		}
 	},
 
@@ -181,6 +183,7 @@ var themes = {
 			"font": "Cardo",
 			"font-size": 24,
 			"color": "#333",
+			"title": "My Graph"
 		}
 	},
 	"Neutrals": {
@@ -216,6 +219,7 @@ var themes = {
 			"font": "PT Sans",
 			"font-size": 24,
 			"color": "#333",
+			"title": "My Graph"
 		}
 	},
 	"Green": {
@@ -251,6 +255,7 @@ var themes = {
 			"font": "Coming Soon",
 			"font-size": 24,
 			"color": "#333",
+			"title": "My Graph"
 		}
 	},
 	"Sunset": {
@@ -286,6 +291,7 @@ var themes = {
 			"font": "Josefin Sans",
 			"font-size": 24,
 			"color": "#333",
+			"title": "My Graph"
 		}
 	},
 };
