@@ -336,7 +336,7 @@ function restyleGraph(preset_config) {
   restyleComponent(preset_config, "axis")
   // update the graph components
   restyleComponent(preset_config, "graph")
-
+  // make changes appear in the controls too!
   applyStyleToAllControls(preset_config);
 }
 
