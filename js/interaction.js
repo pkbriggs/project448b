@@ -375,6 +375,17 @@ function createChart(container) {
     .text(chart_config["graph"]["title"]);
 
   redrawAxisLabels();
+  console.log(themes["Default"]);
+
+  for(var key in themes) {
+    if(chart_type === "bar") {
+      themes[key]["axis"]["x_label"] = "Favorite Sport";
+      themes[key]["axis"]["y_label"] = "Number of Students";
+    } else {
+      themes[key]["axis"]["x_label"] = "City";
+      themes[key]["axis"]["y_label"] = "Average Rainfall (in inches)";
+    }
+  }
   restyleGraph(themes["Default"]);
 }
 

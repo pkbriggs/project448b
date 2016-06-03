@@ -27,8 +27,6 @@ function setupChartData(chart_type) {
     ];
     setColorScale([0, 1, 2, 3, 4], ["#333", "#333", "#333", "#333", "#333"]);
     num_chart_colors = 5;
-    chart_config["axis"]["x_label"] = "Favorite Sport";
-    chart_config["axis"]["y_label"] = "Number of Students";
   } else {
     var chart_data = [
       {
@@ -74,8 +72,6 @@ function setupChartData(chart_type) {
     ];
     setColorScale(["val_one", "val_two", "val_three", "val_four", "val_five"], ["#333", "#333", "#333", "#333", "#333"]);
     num_chart_colors = 5;
-    chart_config["axis"]["x_label"] = "City";
-    chart_config["axis"]["y_label"] = "Average Rainfall (in inches)";
   }
 
   return chart_data;
