@@ -51,7 +51,7 @@ header {
 	display: inline-block;
 	margin-top: 5px;
 	padding-top: 3px;
-/*	padding: 2px 35px; */	
+/*	padding: 2px 35px; */
 	text-align: center;
 	width: 200px;
 	height: 30px;
@@ -97,6 +97,7 @@ header {
 .sitename {
 	font-weight: 900;
 	font-size: 30px;
+  cursor: pointer;
 }
 
 .vis_container {
