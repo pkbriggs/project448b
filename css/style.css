@@ -101,12 +101,8 @@ header {
 }
 
 .vis_container {
-	position: absolute;
-	left: 230px;
-	width: 600px;
-	width: -webkit-calc(100% - 230px);
-	width: -moz-calc(100% - 230px);
-	width: calc(100% - 230px);
+	position: relative;
+	margin-left: 225px;
 }
 
 .vis_controls {

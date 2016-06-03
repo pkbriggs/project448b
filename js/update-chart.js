@@ -122,6 +122,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     }
 
     // redraw all the graph elements
+    redrawYAxis();
     redrawXAxis();
     redrawGrid();
     redrawAxisLabels();
@@ -142,7 +143,16 @@ function redrawXAxis() {
 }
 
 // helper function that redraws the y-axis
-function redrawYAxis(line_data) {
+function redrawYAxis() {
+  var line_data = color_scale.domain().map(function(name) {
+    return {
+      name: name,
+      values: chart_data.map(function(d) {
+        return {label: d.label, value: +d[name]};
+      })
+    };
+  });
+
   // Re-scale y-axis
   yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
   if(chart_type === "bar") {
@@ -189,7 +199,7 @@ function updateLineData() {
       })
     };
   });
-  redrawYAxis(line_data);
+
   var line = d3.svg.line()  // Redo line drawing function to account for changes
     .x(function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
     .y(function(d) { return yScale(d["value"]); });
@@ -231,15 +241,19 @@ function redrawBarLabels() {
 function redrawSvgAndContainer() {
   var actual_chart_height = d3.select(".actual_chart").node().getBoundingClientRect().height;
   var actual_chart_width = d3.select(".actual_chart").node().getBoundingClientRect().width;
+  console.log(actual_chart_width);
 
-  d3.select("svg").attr("height", actual_chart_height + 40);
-  d3.select("svg").attr("width", actual_chart_width);
+  d3.selectAll(".chart_svg").attr("height", actual_chart_height);
+  d3.selectAll(".chart_svg").attr("width", actual_chart_width);
 
-  $(".vis_container").attr("height", actual_chart_height + 40);
+  $(".vis_container").attr("height", actual_chart_height);
   $(".vis_container").attr("width", actual_chart_width);
 
-  var space_to_add_at_top = ($("#chart_super_container").height() - $(".vis_container").height() - $("header").height()) / 2.0;
+  var space_to_add_at_top = ($("#chart_super_container").height() - actual_chart_height - $("header").height()) / 2.0;
   $(".vis_container").css("margin-top", space_to_add_at_top);
+
+  var space_to_add_at_left = ($("#chart_super_container").width() - actual_chart_width + $(".vis_controls").width()) / 2.0;
+  $(".vis_container").css("margin-left", space_to_add_at_left);
 }
 
 /*
@@ -265,7 +279,7 @@ function setupEditDataContainer() {
 
     redrawXAxis();  // update the axis to reflect changes to the labels
     if(chart_type === "bar") {
-      redrawYAxis("");
+      redrawYAxis();
       redrawBars();  // update the bars
     } else {
       updateLineData();
