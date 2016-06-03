@@ -96,7 +96,7 @@ function createSVG() {
 
   var space_to_add_at_top = ($("#chart_super_container").height() - CANVAS_HEIGHT - $("header").height()) / 2.0;
   $(".vis_container").css("margin-top", space_to_add_at_top);
-  var space_to_add_at_left = ($("#chart_super_container").width() - CANVAS_WIDTH + $(".vis_controls").width()) / 2.0;
+  var space_to_add_at_left = ($("#chart_super_container").width() - CANVAS_WIDTH + $(".vis_controls").width()) / 3.0;
   $(".vis_container").css("margin-left", space_to_add_at_left);
 
   window.container = container;
