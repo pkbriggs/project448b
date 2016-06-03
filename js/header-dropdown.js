@@ -35,7 +35,7 @@ $(function() {
 		restyleGraph(themes[selection]);
 		new_theme = themes[selection];
 
-		if(individual_colors[selection]["colors"]["used"] === true) {
+		if(individual_colors[selection] !== undefined && individual_colors[selection]["colors"]["used"] === true) {
 			// we need to individually color the chart
 			individuallyColorChart(individual_colors[selection]["colors"]);
 		}
