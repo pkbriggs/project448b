@@ -42,7 +42,7 @@ function loadAndRenderUploadedImage(image, callback) {
     img.className = "uploaded_image_preview";
     $(img).on("load", function() {
       callback(img);
-      
+
       var $extractor_container = $(".image_upload_container");
       $extractor_container.css("height", "auto");
       var window_height = $(window).height() - 48;
@@ -51,7 +51,7 @@ function loadAndRenderUploadedImage(image, callback) {
       if (height > (window_height - 37))
         height = window_height - 37;
       $extractor_container.css("height", height + "px");
-      
+
       var dd = $(".header_dd.color_extractor");
       var dd_height = height + 37;
       if (dd_height > window_height)
@@ -68,30 +68,47 @@ function loadAndRenderUploadedImage(image, callback) {
 
 function getCorrectNumColors(colorPalette) {
   var result = [];
-  // iterate over the colors abstracted from the image and add them to an array
-  // until we don't need any more colors.
-  for(var i = 0; i < colorPalette.length; i++) {
-    if(i > num_chart_colors) break;
-    var curColorArray = colorPalette[i];
-    var rgbColor = "rgb(" + curColorArray[0] + ", " + curColorArray[1] + "," + curColorArray[2] + ")";
-    result.push(rgbColor);
-    console.log(colorPalette);
+
+  // cycle through the colors and add them repeatedly until we have exactly num_chart_colors colors
+  while (true) {
+    for (var i = 0; i < colorPalette.length; i++) {
+      if (result.length >= num_chart_colors) return result; // we have enough colors, stop!
+      var curColorArray = colorPalette[i];
+      var rgbColor = "rgb(" + curColorArray[0] + ", " + curColorArray[1] + "," + curColorArray[2] + ")";
+      result.push(rgbColor);
+    }
   }
-  return result;
+
+  // the result is returned inside the loop once we have enough colors
 }
 
-// function that runs through the new colors and updates the 
+// function that runs through the new colors and updates the
 function updateColorControls(new_colors) {
-    for(var i=0; i < new_colors.length; i++) {
-      if(chart_type === "bar") {
-        $($(".multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
-      } else {
-        $($("#multi_strokecolorpicker_container .multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
-      }
+  if (IS_SINGLE) {
+    if(chart_type === "bar") {
+      $($("#single_fill_cp").colorpicker()[0]).colorpicker('setValue', new_colors[0]);
+    } else { // line chart
+      $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', new_colors[0]);
     }
+  } else {
+    for (var i = 0; i < new_colors.length; i++) {
+      if(chart_type === "bar")
+        $($(".multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
+      else
+        $($("#multi_strokecolorpicker_container .multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
+    }
+  }
+}
+
+function deselectAllCheckedColors() {
+  var selected_colors = getPaletteColorsSelected();
+  $.each(selected_colors, function(index, color) {
+    $(color).removeClass("selected");
+  });
 }
 
 function pickSingleColor($target) {
+  deselectAllCheckedColors(); // deselect all checked boxes first, because we can't have multiple colors selected in single mode
   $target.find(".checkmark").toggleClass("selected");
 }
 
@@ -104,7 +121,7 @@ function initPaletteHandler() {
 
   $palette.click(function(event) {
     var $target = $(event.target);
-    
+
     while (!$target.hasClass("image_color_palette_color")) {
       $target = $target.parent();
     }
@@ -112,7 +129,9 @@ function initPaletteHandler() {
     if (IS_SINGLE) {
       pickSingleColor($target);
     } else
-      pickMultiColor($target);  
+      pickMultiColor($target);
+
+    applyColorPaletteToGraph(getCurrentColorPalette());
   });
 }
 
@@ -135,23 +154,46 @@ function getColorsFromImage(image) {
     var $selected = $(document.createElement("div"));
     $selected.html('<i class="fa fa-check-circle"></i>')
     $selected.addClass("checkmark");
+    $selected.data("red", color[0]);
+    $selected.data("green", color[1]);
+    $selected.data("blue", color[2]);
 
     if (IS_SINGLE) {
       if (index == 0) {
         $selected.addClass("selected");
       }
     } else {
-      $selected.addClass("selected"); 
+      $selected.addClass("selected");
     }
 
     colorBlock.appendChild($selected[0]);
     $(".image_color_palette_container")[0].appendChild(colorBlock);
+
+    $("input[value=multi]").prop("checked", true); // updates the color controls on the left so that it shows "Multi" as selected
+    switchColorMode($("input[value=multi]")[0], "#multi_colorpicker_container", "#single_colorpicker_container"); // updates the color controls on the left so that they show multiple color inputs
   });
 
   initPaletteHandler();
+  applyColorPaletteToGraph(getCurrentColorPalette());
+}
 
+function getCurrentColorPalette() {
+  var palette = [];
+  var selected_colors = getPaletteColorsSelected();
+
+  $.each(selected_colors, function(index, obj) {
+    var red = $(obj).data("red");
+    var green = $(obj).data("green");
+    var blue = $(obj).data("blue");
+    palette.push([red, green, blue]);
+  });
+
+  return palette;
+}
+
+function applyColorPaletteToGraph(palette) {
   // use colors taken from graph to color lines/bars on the graph
-  var new_colors = getCorrectNumColors(colorPalette);
+  var new_colors = getCorrectNumColors(palette);
   setColorScale(color_scale.domain(), new_colors);
   updateChartConfigValue("change_color_scale", "", "", false);
   updateColorControls(new_colors);
@@ -205,15 +247,45 @@ function initImageDropZone() {
   dropZone.addEventListener('drop', handleFileSelect, false);
 }
 
-function initColorToggle() {  
+function getPaletteColorsSelected() {
+  var colors = [];
+
+  $(".image_color_palette_color").each(function(index, color_block) {
+    var check_elem = $(color_block).find(".checkmark");
+    if (check_elem.hasClass("selected"))
+      colors.push(check_elem);
+  });
+
+  return colors;
+}
+
+function handleSingleColorPaletteSelected() {
+  var colors_selected = getPaletteColorsSelected();
+  if (colors_selected.length > 1) { // we have more than 1 color selected when we shouldn't
+    colors_selected.shift(); // removes the first element from the array, resulting in an array of the colors we need to deselect
+    $.each(colors_selected, function(index, color) {
+      $(color).removeClass("selected");
+    });
+  }
+}
+
+function initColorToggle() {
   $("input:radio[name=palette-single]").click(function() {
     IS_SINGLE = true;
     $("input:radio[name=palette-multi]").prop('checked', false);
+    handleSingleColorPaletteSelected();
+    $("input:radio[value=single]").prop('checked', true); // updates the color controls on the left so that it shows "Single" as selected
+    switchColorMode($(this)[0], "#multi_colorpicker_container", "#single_colorpicker_container"); // updates the color controls on the left so that they show a single color input
+    applyColorPaletteToGraph(getCurrentColorPalette());
   });
 
   $("input:radio[name=palette-multi]").click(function() {
     IS_SINGLE = false;
     $("input:radio[name=palette-single]").prop('checked', false);
+    // $("input:radio[name=bar_fill_color_toggle]").prop('checked', false);
+    $("input[value=multi]").prop("checked", true); // updates the color controls on the left so that it shows "Multi" as selected
+    switchColorMode($(this)[0], "#multi_colorpicker_container", "#single_colorpicker_container"); // updates the color controls on the left so that they show multiple color inputs
+    applyColorPaletteToGraph(getCurrentColorPalette());
   });
 }
 

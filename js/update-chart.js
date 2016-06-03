@@ -16,7 +16,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
 
   // Edge case #1 - changing spacing for chart (both bar/line)
   if (type == "bars" && key == "spacing") {
-    
+
     if(chart_type === "line") {
       type = "graph";
       key = "width";
@@ -99,7 +99,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       container.selectAll(".chart_bar")  // Re-color bars
         .attr("fill", function(d, i){ return color_scale(i)})
     }
-    
+
   } else if (type === "graph") {
     if(key === "width") {
       CHART_WIDTH = parseInt(value);
@@ -328,7 +328,7 @@ function restyleGraph(preset_config) {
       }
       updateChartConfigValue("bars", key, value, false);
     }
-  } 
+  }
 
   // Update the grid
   restyleComponent(preset_config, "grid")
@@ -344,7 +344,7 @@ function restyleComponent(preset_config, type) {
   for (var key in preset_config[type]) {
     var value = preset_config[type][key];
     updateChartConfigValue(type, key, value, false);
-  } 
+  }
 }
 
 function applyStyleToAllControls(config) {
@@ -353,9 +353,9 @@ function applyStyleToAllControls(config) {
   applyGridStyleToControls(config);
 
   applyAxisStyleToControls(config);
-  
+
   applyGraphStyleToControls(config);
-} 
+}
 
 function applyLineOrBarStyleToControls(config) {
   // line/bar spacing controls
@@ -418,7 +418,7 @@ function applyAxisStyleToControls(config) {
 }
 
 function applyGraphStyleToControls(config) {
-  // graph title 
+  // graph title
   $("#graph-title-input").val(config["graph"]["title"]);
   // graph title font size
   $("#graph-title-font-size-options span").text(config["graph"]["font-size"]);

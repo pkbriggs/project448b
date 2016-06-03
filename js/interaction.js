@@ -309,12 +309,12 @@ function createChart(container) {
   }
 
   setupEditDataContainer();
-  
+
   // Add title to the Graph
   container.append("text")
     .attr("class", "chart_title")
     .attr("y", 0 - (CHART_MARGINS.top / 2))
-    .attr("font-size", "20px") 
+    .attr("font-size", "20px")
     .text("My Graph");
 
   redrawAxisLabels();
@@ -339,7 +339,7 @@ function setupHandlersToHideStylingSections() {
       child.addClass("fa-chevron-down");
       child.removeClass("fa-chevron-right");
     }
-    
+
   });
 }
 
@@ -377,6 +377,23 @@ function enableSaveButton() {
   });
 }
 
+function initSiteNameClickHandler() {
+  $(".sitename").click(function() {
+    swal({
+      title: "Unsaved work",
+      text: "Are you sure you want to abandon your chart? Any unsaved changes will be lost.",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, I already saved",
+      closeOnConfirm: false
+    },
+    function() {
+      location.reload();
+    });
+  });
+}
+
 function binaryblob(){
   var byteString = atob($(".save_canvas")[0].toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")); //wtf is atob?? https://developer.mozilla.org/en-US/docs/Web/API/Window.atob
   var ab = new ArrayBuffer(byteString.length);
@@ -409,6 +426,7 @@ $(document).ready(function() {
     createChart(container);
     enableSaveButton();
     initFontSelector();
+    initSiteNameClickHandler();
   });
 
 });
