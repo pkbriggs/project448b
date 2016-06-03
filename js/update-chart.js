@@ -332,6 +332,32 @@ function showEditDataContainer(mouse_event, d, i, key_for_line) {
   edit_data_active = true;
 }
 
+function updateLegendColors(new_colors) {
+  if (chart_type != "line") return; // there is no legend unless it is a line chart
+  console.log(new_colors);
+  $.each($(".legend_color"), function(index, block) {
+    var id_num = block.id.substr(block.id.length - 1);
+    console.log($("#legend-color-" + id_num)[0]);
+    console.log(new_colors[index]);
+    $("#legend-color-" + id_num).css("fill", new_colors[index]);
+  });
+
+
+
+
+
+
+  // var $first_color = $($(".legend_color").first());
+  // $first_color.css("fill", new_colors[0]);
+  // var curr_color = $first_color;
+  // console.log("setting first box ", $first_color, " to " + new_colors[0]);
+  // for (var i = 1; i < new_colors.length; i += 1) { // note i is initialized to 1 since we start at the first color
+  //   var $color = curr_color.next();
+  //   console.log("setting color of ", curr_color, " to " + new_colors[i]);
+  //   $color.css("fill", new_colors[i]);
+  // }
+}
+
 function individuallyColorChart(color_hash) {
   new_colors = [color_hash["0"], color_hash["1"], color_hash["2"], color_hash["3"], color_hash["4"]];
   setColorScale(color_scale.domain(), new_colors);

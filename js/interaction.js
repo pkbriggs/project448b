@@ -299,6 +299,9 @@ function createChart(container) {
       })
       .append('rect')
       .attr("class", "legend_color")
+      .attr("id", function(d, i) {
+        return "legend-color-" + i;
+      })
       .attr('width', legendRectSize)
       .attr('height', legendRectSize)
       .attr('fill', function(d, i) {
