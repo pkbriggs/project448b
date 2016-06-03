@@ -1,7 +1,9 @@
 
 // declaring constants
 var CANVAS_WIDTH = $(window).width() - 500;
+var SVG_WIDTH = CANVAS_WIDTH;
 var CANVAS_HEIGHT = $(window).height() * 0.8;
+var SVG_HEIGHT = CANVAS_HEIGHT;
 var OUTPUT_FILENAME = "chart.png";
 var OUTPUT_FILETYPE = "image/png";
 var CHART_BACKGROUND_COLOR = "white";
@@ -81,17 +83,16 @@ function createSVG() {
   //   CANVAS_WIDTH += LEGEND_WIDTH + CHART_MARGINS.legend_margin; // if it's a line chart, add in some extra space for the legend
   //   console.log("we have a line chart. after, width = " + CANVAS_WIDTH);
   // }
-  var svg_width = CANVAS_WIDTH;
   if (chart_type == "line")
-    svg_width += LEGEND_WIDTH + LEGEND_MARGIN;
+    SVG_WIDTH += LEGEND_WIDTH + LEGEND_MARGIN;
 
   $("#graph_width_input").val(CHART_WIDTH.toFixed(2));
   $("#graph_height_input").val(CHART_HEIGHT.toFixed(2));
   // Add an svg element to the DOM
   var svg = d3.select(".vis_container").append("svg")
     .attr("class", "chart_svg")
-    .attr("width", svg_width)
-    .attr("height", CANVAS_HEIGHT);
+    .attr("width", SVG_WIDTH)
+    .attr("height", SVG_HEIGHT);
 
   svg.append("rect")
       .attr("width", "100%")
@@ -398,8 +399,8 @@ function setupHandlersToHideStylingSections() {
 function enableSaveButton() {
   d3.select(".save_button").on("click", function(){
     // ensure the canvas we draw to is the correct size
-    $(".save_canvas")[0].width = CANVAS_WIDTH;
-    $(".save_canvas")[0].height = CANVAS_HEIGHT;
+    $(".save_canvas")[0].width = SVG_WIDTH;
+    $(".save_canvas")[0].height = SVG_HEIGHT;
 
     // get the HTML representing our chart's SVG
     var html = d3.select("svg")
