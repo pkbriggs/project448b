@@ -20,9 +20,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     if(chart_type === "line") {
       type = "graph";
       key = "width";
-      console.log(value);
       value = ORIG_CHART_WIDTH * value;
-      console.log(value);
     } else {
       redrawXAxis();  // Re-draw x-axis and bars
       redrawBars();  // Re-draw the bars/bar labels
@@ -33,60 +31,59 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
   if (type === "bars") {
     if(!is_bar_label) {
       if(chart_type === "bar") {
-        container.selectAll(".chart_bar").transition().attr(key, value);
+        container.selectAll(".chart_bar").attr(key, value);
       } else {
         // Changes all the colors on the bar to one color: FIX!
         if(key === "fill") {
-          container.selectAll(".chart_dot").transition().attr("stroke", value);
+          container.selectAll(".chart_dot").attr("stroke", value);
           container.selectAll(".chart_dot").attr("fill", value);
         } else {
-          container.selectAll(".chart_line").transition().attr(key, value);
-          if(key === "stroke-width") container.selectAll(".chart_dot").transition().attr("r", value*1.5);
+          container.selectAll(".chart_line").attr(key, value);
+          if(key === "stroke-width") container.selectAll(".chart_dot").attr("r", value*1.5);
         }
       }
     } else {
       if (key == "label_font") {
-        container.selectAll(".chart_bar_label").transition().attr("font-family", value); // doesn't do anything?
         $(".chart_bar_label").css("font-family", value);
       }
-      container.selectAll(".chart_bar_label").transition().attr(key, value);
+      container.selectAll(".chart_bar_label").attr(key, value);
     }
 
   } else if (type === "grid") {
-    container.selectAll(".y_grid").transition().attr(key, value);
+    container.selectAll(".y_grid").attr(key, value);
 
   } else if (type === "axis") {
     if(key === "line_color") {
-      container.selectAll(".x_axis path, .y_axis path").transition().attr("fill", value);
+      container.selectAll(".x_axis path, .y_axis path").attr("fill", value);
       $(".x_axis .tick line, .y_axis .tick line").css("stroke", value);
 
     } else if (key === "tick_label_color") {
-      container.selectAll(".x_axis .tick, .y_axis .tick").transition().attr("fill", value);
+      container.selectAll(".x_axis .tick, .y_axis .tick").attr("fill", value);
 
     } else if (key === "tick_label_font") {
-      container.selectAll(".x_axis .tick text, .y_axis .tick text").transition().attr("font-family", value); // doesn't do anything?
+      container.selectAll(".x_axis .tick text, .y_axis .tick text").attr("font-family", value); // doesn't do anything?
       $(".x_axis .tick text, .y_axis .tick text").css("font-family", value);
 
     } else if (key === "tick_label_font_size") {
-      container.selectAll(".x_axis .tick text, .y_axis .tick text").transition().attr("font-size", value);
+      container.selectAll(".x_axis .tick text, .y_axis .tick text").attr("font-size", value);
 
     } else if (key === "x_label") {
-      container.selectAll(".x_axis .axis_label").transition().text(value);
+      container.selectAll(".x_axis .axis_label").text(value);
       redrawAxisLabels();
 
     } else if (key === "y_label") {
-      container.selectAll(".y_axis .axis_label").transition().text(value);
+      container.selectAll(".y_axis .axis_label").text(value);
       redrawAxisLabels();
 
     } else if (key === "label_color") {
-      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("fill", value);
+      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").attr("fill", value);
 
     } else if (key === "label_font") {
-      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("font-family", value); // doesn't do anything?
+      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").attr("font-family", value); // doesn't do anything?
       $(".y_axis .axis_label, .x_axis .axis_label").css("font-family", value);
 
     } else if (key === "label_font_size") {
-      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").transition().attr("font-size", value);
+      container.selectAll(".y_axis .axis_label, .x_axis .axis_label").attr("font-size", value);
     }
 
   } else if (type === "change_color_scale") {
@@ -105,7 +102,6 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     
   } else if (type === "graph") {
     if(key === "width") {
-      console.log("Dirk");
       CHART_WIDTH = parseInt(value);
       $("#graph_width_input").val(CHART_WIDTH);
     } else if (key === "height") {
@@ -121,7 +117,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       }
     }
 
-    // redraw everything
+    // redraw all the graph elements
     redrawXAxis();
     redrawGrid();
     redrawAxisLabels();
@@ -315,4 +311,120 @@ function showEditDataContainer(mouse_event, d, i, key_for_line) {
   $("#edit_data_container").data("open", "true");
   tooltip.updatePosition(mouse_event, "edit_data_container");
   edit_data_active = true;
+}
+
+// method that takes data from the passed in hashmap and
+// restyles the chart with it
+function restyleGraph(preset_config) {
+  // Update the bars/lines
+  for (var key in preset_config["bars"]) {
+    var value = preset_config["bars"][key];
+    if(key.indexOf("label") !== -1) {
+      // dealing with data labels
+      updateChartConfigValue("bars", key, value, true);
+    } else {
+      if(key === "stroke" && chart_type === "line" && value === "transparent"){
+        value = "#333";
+      }
+      updateChartConfigValue("bars", key, value, false);
+    }
+  } 
+
+  // Update the grid
+  restyleComponent(preset_config, "grid")
+  // Update the axis
+  restyleComponent(preset_config, "axis")
+  // update the graph components
+  restyleComponent(preset_config, "graph")
+  // make changes appear in the controls too!
+  applyStyleToAllControls(preset_config);
+}
+
+function restyleComponent(preset_config, type) {
+  for (var key in preset_config[type]) {
+    var value = preset_config[type][key];
+    updateChartConfigValue(type, key, value, false);
+  } 
+}
+
+function applyStyleToAllControls(config) {
+  applyLineOrBarStyleToControls(config);
+
+  applyGridStyleToControls(config);
+
+  applyAxisStyleToControls(config);
+  
+  applyGraphStyleToControls(config);
+} 
+
+function applyLineOrBarStyleToControls(config) {
+  // line/bar spacing controls
+  $($(".slider")[0]).slider("value", config["bars"]["spacing"] * 100);
+  $($(".slider_reading")[0]).text(config["bars"]["spacing"] * 100 +"%");
+  // line/bar stroke color
+  $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["stroke"]);
+  // line/bar fill color
+  $($("#single_fill_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["fill"]);
+  // line/bar label color
+  $($("#bar-label-cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["label_fill"]);
+  // line/bar label font-size
+  $("#label-font-size-dropdown span").text(config["bars"]["label_font_size"]);
+  // add line/bar label font
+  $("#bar-label-font-dropdown span").text(config["bars"]["label_font"]);
+  loadFont(config["bars"]["label_font"]);
+  // line/bar label toggle
+  if(config["bars"]["label_visiblity"] === true) {
+    $("input:radio[name=bar_label_toggle]")[0].click()
+  } else {
+    $("input:radio[name=bar_label_toggle]")[1].click()
+  }
+}
+
+function applyGridStyleToControls(config) {
+  // grid visibility
+  if(config["grid"]["visiblity"] === true) {
+    $("input:radio[name=grid_toggle]")[0].click()
+  } else {
+    $("input:radio[name=grid_toggle]")[1].click()
+  }
+  // grid opacity
+  $($(".slider")[1]).slider("value", config["grid"]["opacity"] * 100);
+  $($(".slider_reading")[1]).text(config["grid"]["opacity"] * 100 +"%");
+  // grid stroke width
+  $("#grid-width-input").val(config["grid"]["stroke_width"]);
+}
+
+function applyAxisStyleToControls(config) {
+  // axis color
+  $($("#axis-color-cp").colorpicker()[0]).colorpicker('setValue', config["axis"]["line_color"]);
+  // axis x-label
+  $("#x-label-input").val(config["axis"]["x_label"]);
+  // axis y-label
+  $("#y-label-input").val(config["axis"]["y_label"]);
+  // axis - tick label color
+  $($("#tick-label-cp").colorpicker()[0]).colorpicker('setValue', config["axis"]["tick_label_color"]);
+  // axis - tick label font-size
+  $("#tick-label-font-size-dropdown span").text(config["axis"]["tick_label_font_size"]);
+  // axis - tick label font
+  $("#tick-label-font-dropdown span").text(config["axis"]["tick_label_font"]);
+  loadFont(config["graph"]["font"]);
+  // axis - label color
+  $($("#axis-label-cp").colorpicker()[0]).colorpicker('setValue', config["axis"]["label_color"]);
+  // axis - tick label font-size
+  $("#axis-label-font-size-dropdown span").text(config["axis"]["label_font_size"]);
+  // axis - tick label font
+  $("#axis-label-font-dropdown span").text(config["axis"]["label_font"]);
+  loadFont(config["graph"]["font"]);
+}
+
+function applyGraphStyleToControls(config) {
+  // graph title 
+  $("#graph-title-input").val(config["graph"]["title"]);
+  // graph title font size
+  $("#graph-title-font-size-options span").text(config["graph"]["font-size"]);
+  // add graph title font
+  $("#graph-title-font-dropdown span").text(config["graph"]["font"]);
+  loadFont(config["graph"]["font"]);
+  // graph title color
+  $($("#graph-title-cp").colorpicker()[0]).colorpicker('setValue', config["graph"]["color"]);
 }

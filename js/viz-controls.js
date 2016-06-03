@@ -72,10 +72,19 @@ $(function() {
   		return;
   	}
   	var id = $(this).attr("id");
-  	if(id === "single_fill_cp" || id === "single_stroke_cp") {
+  	if(id === "single_fill_cp") {
   		// when we change the color of the single colorpicker, we propagate
   		// those changes to the rest of them
-  		$(".multi_cp").colorpicker().colorpicker('setValue', color);
+  		if(chart_type === "bar") {
+  			$(".multi_cp").colorpicker().colorpicker('setValue', color);
+  		}
+  	}
+  	if(id === "single_stroke_cp") {
+  		// when we change the color of the single colorpicker, we propagate
+  		// those changes to the rest of them
+  		if(chart_type === "line") {
+  			$(".multi_cp").colorpicker().colorpicker('setValue', color);
+  		}
   	}
   	var type = $(this).data("type");
 	var key = $(this).data("key");

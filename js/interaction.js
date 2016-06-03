@@ -23,34 +23,35 @@ var chart_config = {
     "stroke": "transparent",
     "label_visiblity": false,
     "label_fill": "#333",
-    "label_font": "Arial",
+    "label_font": "Roboto",
     "label_font_size": 10,
     "stroke-width": 1
     // "y_label": "Drinks Consumed"
   },
   "grid": {
     "visiblity": true,
-    "opacity": 0.8,
+    "opacity": 0.25,
     "stroke_width": 1
     // frequency?
   },
   "axis": {
     "line_color": "#333",
     "tick_label_color": "#333",
-    "tick_label_font": "Arial",
-    "tick_label_font_size": 12,
+    "tick_label_font": "Roboto",
+    "tick_label_font_size": 14,
     "x_label": "X Label",
     "y_label": "Y Label",
     "label_color": "#333",
-    "label_font": "Arial",
-    "label_font_size": 16
+    "label_font": "Roboto",
+    "label_font_size": 14
   },
   "graph": {
     "width": CHART_WIDTH,
     "height": CHART_HEIGHT,
-    "font": "Arial",
+    "font": "Roboto",
     "font-size": "20",
-    "color": "#333"
+    "color": "#333",
+    "title": "My Graph"
   }
 };
 
