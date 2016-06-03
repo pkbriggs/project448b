@@ -68,8 +68,8 @@ function setupChartData(chart_type) {
         "val_five": 83
       }
     ];
-    setColorScale(["val_one", "val_two", "val_three", "val_four"], ["#333", "#333", "#333", "#333", "#333"]);
-    num_chart_colors = 4;
+    setColorScale(["val_one", "val_two", "val_three", "val_four", "val_five"], ["#333", "#333", "#333", "#333", "#333"]);
+    num_chart_colors = 5;
   }
 
   return chart_data;
