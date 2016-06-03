@@ -34,28 +34,32 @@ function setupChartData(chart_type) {
         "val_one": 3.03, // Washington D.C.
         "val_two": 4.49, // SF
         "val_three": 0.55, // Las Vegas
-        "val_four": 5.12 // New Orleans
+        "val_four": 5.12, // New Orleans
+        "val_five": 0.75 // Anchorage, AK
       },
       {
         "label": "February",
         "val_one": 2.48,
         "val_two": 4.45,
         "val_three": 0.75,
-        "val_four": 5.28
+        "val_four": 5.28,
+        "val_five": 0.71
       },
       {
         "label": "March",
         "val_one": 3.23,
         "val_two": 3.27,
         "val_three": 0.43,
-        "val_four": 4.49
+        "val_four": 4.49,
+        "val_five": 0.59
       },
       {
         "label": "April",
         "val_one": 3.15,
         "val_two": 1.46,
         "val_three": 0.16,
-        "val_four": 4.57
+        "val_four": 4.57,
+        "val_five": 0.47
       },
       {
         "label": "May",
@@ -63,6 +67,7 @@ function setupChartData(chart_type) {
         "val_two": 0.71,
         "val_three": 0.12,
         "val_four": 4.57,
+        "val_five": 0.71
       }
     ];
     setColorScale(["val_one", "val_two", "val_three", "val_four"], ["#333", "#333", "#333", "#333", "#333"]);

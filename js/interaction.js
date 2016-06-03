@@ -1,6 +1,6 @@
 
 // declaring constants
-var CANVAS_WIDTH = $(window).width() - 500;
+var CANVAS_WIDTH = $(window).width() - 400;
 var CANVAS_HEIGHT = $(window).height() * 0.8;
 var OUTPUT_FILENAME = "chart.png";
 var OUTPUT_FILETYPE = "image/png";
@@ -10,9 +10,10 @@ var CHART_MARGINS = {
   top: 50,
   bottom: 90,
   left: 100,
-  right: 80
+  right: 30,
 };
-var CHART_WIDTH = CANVAS_WIDTH - CHART_MARGINS.left - CHART_MARGINS.right;
+var LEGEND_WIDTH = 100;
+var CHART_WIDTH = CANVAS_WIDTH - CHART_MARGINS.left - CHART_MARGINS.right - LEGEND_WIDTH;
 var ORIG_CHART_WIDTH = CHART_WIDTH;
 var CHART_HEIGHT = CANVAS_HEIGHT - CHART_MARGINS.top - CHART_MARGINS.bottom;
 
@@ -264,6 +265,60 @@ function createChart(container) {
       .attr("x", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
       .attr("y", function(d) { return yScale(d["value"]) - 7; })
       .attr("visibility", "hidden");
+
+    // legend
+    var legendRectSize = 18;
+           var legendSpacing = 4;
+
+    var legend = container.selectAll('.legend')
+      .data(chart_data);
+
+    legend
+      .enter()
+      .append('g')
+      .attr('class', 'legend')
+      .attr('transform', function(d, i) {
+        // var height = legendRectSize + legendSpacing;
+        // var offset =  height * i;
+        var horz = CHART_WIDTH + CHART_MARGINS.right;
+        // var vert = i * height - offset;
+        var vert = (legendRectSize + legendSpacing) * i;
+        return 'translate(' + horz + ',' + vert + ')';
+      })
+
+      .append('rect')
+      .attr('width', legendRectSize)
+      .attr('height', legendRectSize)
+      .style('fill', function(d, i) {
+        return color_scale(this.parentNode.__data__.name );
+      });
+      // .style('stroke', color)
+
+    legend.enter()
+      .append('text')
+      .attr('transform', function(d, i) {
+              // var height = legendRectSize + legendSpacing;
+              // var offset =  height * i;
+              var horz = (CHART_WIDTH + CHART_MARGINS.right) + legendRectSize + legendSpacing*1.5;
+              // var vert = i * height - offset;
+              var vert = (legendRectSize + legendSpacing) * i + legendRectSize*(3/4);
+              return 'translate(' + horz + ',' + vert + ')';
+            })
+      // .attr('dx', legendRectSize + legendSpacing)
+      // .attr('dy', legendRectSize - legendSpacing)
+      .text(function(d) { return d["label"]; })
+      ;
+
+    // legend.append('rect')                                     // NEW
+    //   .attr('width', legendRectSize)                          // NEW
+    //   .attr('height', legendRectSize)                         // NEW
+    //   .style('fill', color)                                   // NEW
+    //   .style('stroke', color);                                // NEW
+
+    // legend.append('text')                                     // NEW
+    //   .attr('x', legendRectSize + legendSpacing)              // NEW
+    //   .attr('y', legendRectSize - legendSpacing)              // NEW
+    //   .text(function(d) { return d; });                       // NEW
 
   } else {
     $("#line-stroke-width").hide()  // hide line stroke width
