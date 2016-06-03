@@ -25,6 +25,7 @@ $(function() {
 			using_single_color = false;
 		}
 	}
+  window.switchColorMode = switchColorMode;
 
 	// Dealing with buttons that show/hide elements on the graph
 	var $radio_btns = $("input[type=radio]");
