@@ -58,18 +58,20 @@ header {
 	border-left: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.tool.save {
+.tool .save {
 	width: 150px;
 }
 
-.tool .theme_picker span {
+
+
+.tool .theme_picker span, .save_button {
 	opacity: 1;
   transition: opacity .25s ease-in-out;
   -moz-transition: opacity .25s ease-in-out;
   -webkit-transition: opacity .25s ease-in-out;
 }
 
-.tool .theme_picker span:hover {
+.tool .theme_picker span:hover, .save_button:hover {
 	opacity: 0.5;
 	cursor: pointer;
 }
