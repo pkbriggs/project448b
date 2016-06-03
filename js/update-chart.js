@@ -96,10 +96,9 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       container.selectAll(".chart_line")  // Re-color line
         .attr("stroke", function(d) { return color_scale(d.name); });
       container.selectAll(".legend_color")
-        .attr("fill", function(d, i) { return color_scale(d.label); })
+        .attr("fill", function(d, i) { return color_scale(d.name); }); // TODO: Fix me
       container.selectAll(".chart_dot")  // Re-color points
         .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
-      console.log(container.selectAll(".legend_color"));
     } else {
       container.selectAll(".chart_bar")  // Re-color bars
         .attr("fill", function(d, i){ return color_scale(i)})

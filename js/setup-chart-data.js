@@ -1,3 +1,5 @@
+var CHART_LABELS = ["Washington, D.C.", "San Francisco", "Las Vegas", "New Orleans", "Anchorage"];
+
 function setupChartData(chart_type) {
   // Function containing hard coded data examples
   if(chart_type === "bar") {

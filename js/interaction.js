@@ -1,6 +1,6 @@
 
 // declaring constants
-var CANVAS_WIDTH = $(window).width() - 400;
+var CANVAS_WIDTH = $(window).width() - 350;
 var CANVAS_HEIGHT = $(window).height() * 0.8;
 var OUTPUT_FILENAME = "chart.png";
 var OUTPUT_FILETYPE = "image/png";
@@ -12,7 +12,7 @@ var CHART_MARGINS = {
   left: 100,
   right: 30,
 };
-var LEGEND_WIDTH = 100;
+var LEGEND_WIDTH = 140;
 var CHART_WIDTH = CANVAS_WIDTH - CHART_MARGINS.left - CHART_MARGINS.right - LEGEND_WIDTH;
 var ORIG_CHART_WIDTH = CHART_WIDTH;
 var CHART_HEIGHT = CANVAS_HEIGHT - CHART_MARGINS.top - CHART_MARGINS.bottom;
@@ -301,7 +301,8 @@ function createChart(container) {
         var vert = (legendRectSize + legendSpacing) * i + legendRectSize*(3/4);
         return 'translate(' + horz + ',' + vert + ')';
       })
-      .text(function(d) { return d["label"]; });
+      .text(function(d, i) { return CHART_LABELS[i]; });
+      // .text(function(d, i) { return d["label"]; });
 
   } else {
     $("#line-stroke-width").hide()  // hide line stroke width
