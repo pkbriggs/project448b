@@ -323,6 +323,7 @@ function createChart(container) {
     .text("My Graph");
 
   redrawAxisLabels();
+  restyleGraph(themes["Default"]);
 }
 
 function setupHandlersToHideStylingSections() {
