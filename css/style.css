@@ -127,6 +127,18 @@ header {
 	font-size: 14px;
 }
 
+.vis_controls_blanket {
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: dimgrey;
+	opacity: 0.6;
+	z-index: 10000;
+}
+
 
 /* uploaded image things */
 .image_upload_container {
@@ -218,33 +230,6 @@ header {
 	stroke: #333;
 }
 
-/* style for first step in workflow */
-.chart_image_container {
-	width: 200px;
-	height: 200px;
-	margin: 10px;
-	float: left;
-	background-image: url("../img/dirk_bar.jpg");
-	background-size: cover;
-	color: white;
-	opacity: 0.8;
-}
-
-.chart_image_container:hover {
-	opacity: 1;
-	cursor: pointer;
-}
-
-#select_chart_container {
-	width: 100%;
-	height: 100%;
-}
-
-#chart_super_container {
-	display: none;
-  height: 100%;
-}
-
 /* tooltip style */
 
 .tooltip {
@@ -291,4 +276,125 @@ hr.tooltip-hr {
 	display: none;
 	background-color: rgba(226, 226, 226, 0.8);
 	padding: 10px;
+}
+
+/* Home page styling */
+#select_chart_container {
+	width: 100%;
+	height: 100%;
+}
+
+#chart_super_container {
+	display: none;
+  	height: 100%;
+}
+
+.home_page_header {
+	padding-top: 25px;
+	padding-left: 35px;
+	padding-bottom: 20px;
+	font-size: 1.5em;
+}
+
+.grey_container {
+	display: flex;
+	padding-left: 35px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: #F5F5F5;
+	width: 100%;
+}
+
+.chart_type_container {
+	background-color: #4D9FC4;
+	border-radius: 10px;
+	border: 2px solid #4D9FC4;
+	width: auto;
+	margin-right: 20px;
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+.chart_type_image_container {
+	width: 240px;
+	height: 200px;
+	margin: 10px;
+	background-image: url("../img/dirk_bar.jpg");
+	background-size: cover;
+	color: white;
+	opacity: 0.8;
+	display: inline-block;
+}
+
+.chart_type_container:hover {
+	opacity: 1;
+}
+
+.chart_type_container_selected {
+	border: 2px solid green;
+	opacity: 1;
+}
+
+.chart_type_header {
+	text-align: center;
+	color: white;
+	font-size: 1.1em;
+	padding-bottom: 10px;
+}
+
+.spacer {
+	padding: 20px;
+}
+
+.chart_example_container {
+	padding-left: 40px;
+	display: flex;
+	width: 70%;
+}
+
+.chart_example_image_container {
+	width: 180px;
+	height: 150px;
+	margin: 10px;
+	background-image: url("../img/dirk_line.jpg");
+	background-size: cover;
+	color: white;
+	opacity: 0.8;
+	display: inline-block;
+}
+
+/* Choose a file styling */
+label {
+	border-radius: 5px;
+    max-width: 80%;
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    /* 10px 20px */
+}
+
+label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    /* 4px */
+    margin-right: 0.25em;
+    /* 4px */
+}
+
+label {
+    color: #f1e5e6;
+    background-color: #4D9FC4;
+}
+
+label:hover {
+    background-color: #2A5E8A;
 }
