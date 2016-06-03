@@ -32,7 +32,7 @@
 }
 
 .header_options {
-	padding: 1px 0px;
+	padding: 1px 0;
 	height: 183px;
 	overflow-y: scroll;
 }
@@ -48,6 +48,11 @@
 	z-index: 1 !important;
 	height: 220px;
 	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* When the dropdown is active*/
+.header_dd_display.active + .header_dd .image_upload_container {
+	overflow-y: scroll;
 }
 
 .header_dd_display.active + .header_dd .header_options {

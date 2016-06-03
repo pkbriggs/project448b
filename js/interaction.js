@@ -109,6 +109,10 @@ function createChart(container) {
   xScale = d3.scale.ordinal().rangeRoundBands([0, CHART_WIDTH], chart_config["bars"]["spacing"]);
   yScale = d3.scale.linear().range([CHART_HEIGHT, 0]);
 
+  var $tools = $("header .tools");
+  $tools.css("display", "block");
+
+
   // We only use this array of maps when we are in "line" mode
   var line_data = color_scale.domain().map(function(name) {
     return {
