@@ -417,8 +417,26 @@ function binaryblob(){
 
 $(document).ready(function() {
   $(".part_one_chart_type").click(function(event) {
-    $(this).addClass("part_one_chart_type_selected");
+    $(this).addClass("part_one_chart_type_selected");    
     $(this).find(".fa-check-circle").css("display", "block");
+
+    $(this).siblings().removeClass("part_one_chart_type_selected");
+    $(this).siblings().find(".fa-check-circle").css("display", "none");
+
+    var $p2 = $("#part-two");
+    if ($p2.hasClass("hide")) {
+      console.log("here");
+      $p2.removeClass("hide");
+    }
+
+    if ($(this).hasClass("bar_chart")) {
+      $("#part-two .chart_type_container.bar_chart").css("display", "block");
+      $("#part-two .chart_type_container.line_chart").css("display", "none");
+    }
+    else {
+      $("#part-two .chart_type_container.line_chart").css("display", "block");
+      $("#part-two .chart_type_container.bar_chart").css("display", "none");
+    }
   });
 
   $(".chart_example_image_container").click(function(event) {
