@@ -327,7 +327,7 @@ var individual_colors = {
 			"4": "#c47c64"
 		}
 	},
-	"Vintage": {
+	"Neutrals": {
 		"colors": {
 			"used": true,
 			"0": "#44545c",
