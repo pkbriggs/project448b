@@ -83,8 +83,8 @@ function getCorrectNumColors(colorPalette) {
 }
 
 // function that runs through the new colors and updates the
-function updateColorControls(new_colors) {
-  if (IS_SINGLE) {
+function updateColorControls(new_colors, is_single_check) {
+  if (is_single_check) {
     if(chart_type === "bar") {
       $($("#single_fill_cp").colorpicker()[0]).colorpicker('setValue', new_colors[0]);
     } else { // line chart
@@ -196,7 +196,7 @@ function applyColorPaletteToGraph(palette) {
   var new_colors = getCorrectNumColors(palette);
   setColorScale(color_scale.domain(), new_colors);
   updateChartConfigValue("change_color_scale", "", "", false);
-  updateColorControls(new_colors);
+  updateColorControls(new_colors, IS_SINGLE);
 }
 
 // when a user begins dragging something over the drag area

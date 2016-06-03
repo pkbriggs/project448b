@@ -58,18 +58,20 @@ header {
 	border-left: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-.tool.save {
+.tool .save {
 	width: 150px;
 }
 
-.tool .theme_picker span {
+
+
+.tool .theme_picker span, .save_button {
 	opacity: 1;
   transition: opacity .25s ease-in-out;
   -moz-transition: opacity .25s ease-in-out;
   -webkit-transition: opacity .25s ease-in-out;
 }
 
-.tool .theme_picker span:hover {
+.tool .theme_picker span:hover, .save_button:hover {
 	opacity: 0.5;
 	cursor: pointer;
 }
@@ -101,12 +103,8 @@ header {
 }
 
 .vis_container {
-	position: absolute;
-	left: 230px;
-	width: 600px;
-	width: -webkit-calc(100% - 230px);
-	width: -moz-calc(100% - 230px);
-	width: calc(100% - 230px);
+	position: relative;
+	margin-left: 225px;
 }
 
 .vis_controls {
@@ -130,10 +128,10 @@ header {
 
 .vis_controls_blanket {
 	display: none;
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	left: 0px;
-	width: 100%;
+	width: 225px;
 	height: 100%;
 	background-color: rgba(105, 105, 105, 0.95);
 	z-index: 10000;
@@ -494,18 +492,10 @@ label {
     overflow: hidden;
     margin: 0px auto;
     padding: 0.625rem 1.25rem;
-    /* 10px 20px */
 }
 
-label svg {
-    width: 1em;
-    height: 1em;
-    vertical-align: middle;
-    fill: currentColor;
-    margin-top: -0.25em;
-    /* 4px */
-    margin-right: 0.25em;
-    /* 4px */
+label i {
+	margin-right: 10px;
 }
 
 label {

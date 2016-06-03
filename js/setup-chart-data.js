@@ -32,28 +32,32 @@ function setupChartData(chart_type) {
         "val_one": 40,
         "val_two": 13,
         "val_three": 70,
-        "val_four": 6
+        "val_four": 6,
+        "val_five": 60
       },
       {
         "label": "February",
         "val_one": 50,
         "val_two": 29,
         "val_three": 40,
-        "val_four": 15
+        "val_four": 15,
+        "val_five": 55
       },
       {
         "label": "March",
         "val_one": 15,
         "val_two": 40,
         "val_three": 50,
-        "val_four": 5
+        "val_four": 5,
+        "val_five": 58
       },
       {
         "label": "April",
         "val_one": 14,
         "val_two": 35,
         "val_three": 55,
-        "val_four": 8
+        "val_four": 8,
+        "val_five": 65
       },
       {
         "label": "May",
@@ -61,10 +65,11 @@ function setupChartData(chart_type) {
         "val_two": 60,
         "val_three": 15,
         "val_four": 5,
+        "val_five": 83
       }
     ];
-    setColorScale(["val_one", "val_two", "val_three", "val_four"], ["#333", "#333", "#333", "#333", "#333"]);
-    num_chart_colors = 4;
+    setColorScale(["val_one", "val_two", "val_three", "val_four", "val_five"], ["#333", "#333", "#333", "#333", "#333"]);
+    num_chart_colors = 5;
   }
 
   return chart_data;

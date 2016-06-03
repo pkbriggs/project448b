@@ -78,6 +78,7 @@ function createSVG() {
   $("#graph_height_input").val(CHART_HEIGHT.toFixed(2));
   // Add an svg element to the DOM
   var svg = d3.select(".vis_container").append("svg")
+    .attr("class", "chart_svg")
     .attr("width", CANVAS_WIDTH)
     .attr("height", CANVAS_HEIGHT);
 
@@ -93,8 +94,11 @@ function createSVG() {
   container
     .attr("transform", "translate(" + CHART_MARGINS.left + "," + CHART_MARGINS.top + ")");
 
-  var space_to_add_at_top = ($("#chart_super_container").height() - $(".vis_container").height() - $("header").height()) / 2.0;
+  var space_to_add_at_top = ($("#chart_super_container").height() - CANVAS_HEIGHT - $("header").height()) / 2.0;
   $(".vis_container").css("margin-top", space_to_add_at_top);
+  var space_to_add_at_left = ($("#chart_super_container").width() - CANVAS_WIDTH + $(".vis_controls").width()) / 2.0;
+  $(".vis_container").css("margin-left", space_to_add_at_left);
+
   window.container = container;
 
   return container;
