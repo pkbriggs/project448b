@@ -1,6 +1,6 @@
 
 // declaring constants
-var CANVAS_WIDTH = $(window).width() - 500;
+var CANVAS_WIDTH = $(window).width() - 350;
 var CANVAS_HEIGHT = $(window).height() * 0.8;
 var OUTPUT_FILENAME = "chart.png";
 var OUTPUT_FILETYPE = "image/png";
@@ -10,8 +10,9 @@ var CHART_MARGINS = {
   top: 50,
   bottom: 90,
   left: 100,
-  right: 80
+  right: 30,
 };
+var LEGEND_WIDTH = 140;
 var CHART_WIDTH = CANVAS_WIDTH - CHART_MARGINS.left - CHART_MARGINS.right;
 var ORIG_CHART_WIDTH = CHART_WIDTH;
 var CHART_HEIGHT = CANVAS_HEIGHT - CHART_MARGINS.top - CHART_MARGINS.bottom;
@@ -74,6 +75,9 @@ var edit_data_active = false;
 tooltip = Tooltip("vis-tooltip", 230);
 
 function createSVG() {
+  if (chart_type == "line")
+    CANVAS_WIDTH += LEGEND_WIDTH; // if it's a line chart, add in some extra space for the legend
+
   $("#graph_width_input").val(CHART_WIDTH.toFixed(2));
   $("#graph_height_input").val(CHART_HEIGHT.toFixed(2));
   // Add an svg element to the DOM
@@ -269,6 +273,40 @@ function createChart(container) {
       .attr("y", function(d) { return yScale(d["value"]) - 7; })
       .attr("visibility", "hidden");
 
+    // legend
+    var legendRectSize = 18;
+           var legendSpacing = 4;
+
+    var legend = container.selectAll('.legend')
+      .data(chart_data);
+
+    legend
+      .enter()
+      .append('g')
+      .attr('class', 'legend')
+      .attr('transform', function(d, i) {
+        var horz = CHART_WIDTH + CHART_MARGINS.right;
+        var vert = (legendRectSize + legendSpacing) * i;
+        return 'translate(' + horz + ',' + vert + ')';
+      })
+      .append('rect')
+      .attr("class", "legend_color")
+      .attr('width', legendRectSize)
+      .attr('height', legendRectSize)
+      .attr('fill', function(d, i) {
+        return color_scale(this.parentNode.__data__.name );
+      });
+
+    legend.enter()
+      .append('text')
+      .attr('transform', function(d, i) {
+        var horz = (CHART_WIDTH + CHART_MARGINS.right) + legendRectSize + legendSpacing*1.5;
+        var vert = (legendRectSize + legendSpacing) * i + legendRectSize*(3/4);
+        return 'translate(' + horz + ',' + vert + ')';
+      })
+      .text(function(d, i) { return CHART_LABELS[i]; });
+      // .text(function(d, i) { return d["label"]; });
+
   } else {
     $("#line-stroke-width").hide()  // hide line stroke width
     $("#stroke_color_toggles").hide();
@@ -320,7 +358,7 @@ function createChart(container) {
     .attr("class", "chart_title")
     .attr("y", 0 - (CHART_MARGINS.top / 2))
     .attr("font-size", "20px")
-    .text("My Graph");
+    .text(chart_config["graph"]["title"]);
 
   redrawAxisLabels();
   restyleGraph(themes["Default"]);
@@ -390,7 +428,7 @@ function initSiteNameClickHandler() {
       text: "Are you sure you want to abandon your chart? Any unsaved changes will be lost.",
       type: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
+      confirmButtonColor: "#4D9FC4",
       confirmButtonText: "Yes, I already saved",
       closeOnConfirm: false
     },
@@ -418,7 +456,7 @@ function binaryblob(){
 
 $(document).ready(function() {
   $(".part_one_chart_type").click(function(event) {
-    $(this).addClass("part_one_chart_type_selected");    
+    $(this).addClass("part_one_chart_type_selected");
     $(this).find(".fa-check-circle").css("display", "block");
 
     $(this).siblings().removeClass("part_one_chart_type_selected");

@@ -95,6 +95,8 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     if(chart_type === "line") {
       container.selectAll(".chart_line")  // Re-color line
         .attr("stroke", function(d) { return color_scale(d.name); });
+      container.selectAll(".legend_color")
+        .attr("fill", function(d, i) { return color_scale(d.name); }); // TODO: Fix me
       container.selectAll(".chart_dot")  // Re-color points
         .attr("stroke", function(d){ return color_scale(this.parentNode.__data__.name )})
     } else {
@@ -396,7 +398,7 @@ function applyLineOrBarStyleToControls(config) {
   if(chart_type === "line" && config["bars"]["stroke"] === "transparent"){
     $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["#333"]);
   } else {
-    $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["stroke"]); 
+    $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["stroke"]);
   }
   // line/bar fill color
   $($("#single_fill_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["fill"]);
