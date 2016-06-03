@@ -282,47 +282,26 @@ function createChart(container) {
       .append('g')
       .attr('class', 'legend')
       .attr('transform', function(d, i) {
-        // var height = legendRectSize + legendSpacing;
-        // var offset =  height * i;
         var horz = CHART_WIDTH + CHART_MARGINS.right;
-        // var vert = i * height - offset;
         var vert = (legendRectSize + legendSpacing) * i;
         return 'translate(' + horz + ',' + vert + ')';
       })
-
       .append('rect')
+      .attr("class", "legend_color")
       .attr('width', legendRectSize)
       .attr('height', legendRectSize)
-      .style('fill', function(d, i) {
+      .attr('fill', function(d, i) {
         return color_scale(this.parentNode.__data__.name );
       });
-      // .style('stroke', color)
 
     legend.enter()
       .append('text')
       .attr('transform', function(d, i) {
-              // var height = legendRectSize + legendSpacing;
-              // var offset =  height * i;
-              var horz = (CHART_WIDTH + CHART_MARGINS.right) + legendRectSize + legendSpacing*1.5;
-              // var vert = i * height - offset;
-              var vert = (legendRectSize + legendSpacing) * i + legendRectSize*(3/4);
-              return 'translate(' + horz + ',' + vert + ')';
-            })
-      // .attr('dx', legendRectSize + legendSpacing)
-      // .attr('dy', legendRectSize - legendSpacing)
-      .text(function(d) { return d["label"]; })
-      ;
-
-    // legend.append('rect')                                     // NEW
-    //   .attr('width', legendRectSize)                          // NEW
-    //   .attr('height', legendRectSize)                         // NEW
-    //   .style('fill', color)                                   // NEW
-    //   .style('stroke', color);                                // NEW
-
-    // legend.append('text')                                     // NEW
-    //   .attr('x', legendRectSize + legendSpacing)              // NEW
-    //   .attr('y', legendRectSize - legendSpacing)              // NEW
-    //   .text(function(d) { return d; });                       // NEW
+        var horz = (CHART_WIDTH + CHART_MARGINS.right) + legendRectSize + legendSpacing*1.5;
+        var vert = (legendRectSize + legendSpacing) * i + legendRectSize*(3/4);
+        return 'translate(' + horz + ',' + vert + ')';
+      })
+      .text(function(d) { return d["label"]; });
 
   } else {
     $("#line-stroke-width").hide()  // hide line stroke width
@@ -444,7 +423,7 @@ function initSiteNameClickHandler() {
       text: "Are you sure you want to abandon your chart? Any unsaved changes will be lost.",
       type: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
+      confirmButtonColor: "#4D9FC4",
       confirmButtonText: "Yes, I already saved",
       closeOnConfirm: false
     },
