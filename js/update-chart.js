@@ -317,6 +317,20 @@ function showEditDataContainer(mouse_event, d, i, key_for_line) {
   edit_data_active = true;
 }
 
+function individuallyColorChart(color_hash) {
+  new_colors = [color_hash["0"], color_hash["1"], color_hash["2"], color_hash["3"], color_hash["4"]];
+  setColorScale(color_scale.domain(), new_colors);
+  updateChartConfigValue("change_color_scale", "", "", false);  // re-draw the bars on the chart
+
+  // update the color-picker controls
+  updateColorControls(new_colors, false);
+  if(chart_type === "bar") {
+    $("input:radio[name=bar_fill_color_toggle]")[1].click()
+  } else {
+    $("input:radio[name=bar_stroke_color_toggle]")[1].click()
+  }
+}
+
 // method that takes data from the passed in hashmap and
 // restyles the chart with it
 function restyleGraph(preset_config) {
