@@ -427,6 +427,8 @@ $(document).ready(function() {
     $("#chart_super_container").fadeIn(250);
     $("#chart_super_container").css("position", "relative");
 
+    $("html, body").css("overflow", "hidden"); // prevent scrolling on the chart customization page
+
     setupHandlersToHideStylingSections();
     var container = createSVG();
     createChart(container);
