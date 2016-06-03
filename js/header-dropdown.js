@@ -127,7 +127,7 @@ $(function() {
 		var $target = $(event.target);
 		if($target.parent().hasClass("active")) {
 			$(".vis_controls_blanket").fadeOut(250);
-			restyleGraph(chart_config);
+			restyleGraph(current_theme);
 		} else {
 			$(".vis_controls_blanket").fadeIn(250);
 			// we need to resave the progress here!
