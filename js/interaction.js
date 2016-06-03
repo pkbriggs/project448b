@@ -234,7 +234,7 @@ function createChart(container) {
       .attr("cx", function(d, i) { return xScale(d["label"]) + xScale.rangeBand()/2; })
       .attr("cy", function(d) { return yScale(d["value"]); })
       .attr("r", "2")
-        .on("mouseover", showDetails)
+        .on("mousemove", showDetails)
         .on("mouseout", hideDetails);
 
     // Add edit_data interaction upon click
@@ -283,7 +283,7 @@ function createChart(container) {
       .attr("y", function(d) { return yScale(d["value"]); })
       .attr("height", function(d) { return CHART_HEIGHT - yScale(d["value"]); })
 
-    bars.on("mouseover", showDetails)
+    bars.on("mousemove", showDetails)
       .on("mouseout", hideDetails);
 
     container.selectAll(".chart_bar").on('click', function (d, i) {
