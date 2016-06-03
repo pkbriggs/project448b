@@ -475,7 +475,6 @@ $(document).ready(function() {
 
     var $p2 = $("#part-two");
     if ($p2.hasClass("hide")) {
-      console.log("here");
       $p2.removeClass("hide");
     }
 
