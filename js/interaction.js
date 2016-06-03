@@ -316,7 +316,7 @@ function createChart(container) {
     .attr("class", "chart_title")
     .attr("y", 0 - (CHART_MARGINS.top / 2))
     .attr("font-size", "20px")
-    .text("My Graph");
+    .text(chart_config["graph"]["title"]);
 
   redrawAxisLabels();
 }

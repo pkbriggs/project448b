@@ -4,67 +4,71 @@ function setupChartData(chart_type) {
     var chart_data = [
       {
         "value": 40,
-        "label": "fruits"
+        "label": "Basketball"
       },
       {
         "value": 60,
-        "label": "vegetables"
+        "label": "Baseball"
       },
       {
-        "value": 25,
-        "label": 1966
+        "value": 28,
+        "label": "Football"
       },
       {
         "value": 70,
-        "label": "onomatopoeia"
+        "label": "Soccer"
       },
       {
-        "value": 66,
-        "label": "hi"
+        "value": 15,
+        "label": "Hockey"
       }
     ];
     setColorScale([0, 1, 2, 3, 4], ["#333", "#333", "#333", "#333", "#333"]);
     num_chart_colors = 5;
+    chart_config["axis"]["x_label"] = "Favorite Sport";
+    chart_config["axis"]["y_label"] = "Number of Students";
   } else {
     var chart_data = [
       {
         "label": "January",
-        "val_one": 40,
-        "val_two": 13,
-        "val_three": 70,
-        "val_four": 6
+        "val_one": 3.03, // Washington D.C.
+        "val_two": 4.49, // SF
+        "val_three": 0.55, // Las Vegas
+        "val_four": 5.12 // New Orleans
       },
       {
         "label": "February",
-        "val_one": 50,
-        "val_two": 29,
-        "val_three": 40,
-        "val_four": 15
+        "val_one": 2.48,
+        "val_two": 4.45,
+        "val_three": 0.75,
+        "val_four": 5.28
       },
       {
         "label": "March",
-        "val_one": 15,
-        "val_two": 40,
-        "val_three": 50,
-        "val_four": 5
+        "val_one": 3.23,
+        "val_two": 3.27,
+        "val_three": 0.43,
+        "val_four": 4.49
       },
       {
         "label": "April",
-        "val_one": 14,
-        "val_two": 35,
-        "val_three": 55,
-        "val_four": 8
+        "val_one": 3.15,
+        "val_two": 1.46,
+        "val_three": 0.16,
+        "val_four": 4.57
       },
       {
         "label": "May",
-        "val_one": 70,
-        "val_two": 60,
-        "val_three": 15,
-        "val_four": 5,
+        "val_one": 4.13,
+        "val_two": 0.71,
+        "val_three": 0.12,
+        "val_four": 4.57,
       }
     ];
     setColorScale(["val_one", "val_two", "val_three", "val_four"], ["#333", "#333", "#333", "#333", "#333"]);
     num_chart_colors = 4;
+    chart_config["axis"]["x_label"] = "City";
+    chart_config["axis"]["y_label"] = "Average Rainfall (in inches)";
   }
 
   return chart_data;
