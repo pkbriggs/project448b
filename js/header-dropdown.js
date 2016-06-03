@@ -1,4 +1,5 @@
 var current_theme = JSON.parse(JSON.stringify(chart_config));
+var current_color_range = JSON.parse(JSON.stringify(color_scale.range()));
 var new_theme = null;
 
 $(function() {
@@ -8,10 +9,13 @@ $(function() {
 		if($target.parent().hasClass("active")) {
 			$(".vis_controls_blanket").fadeOut(250);
 			restyleGraph(current_theme);
+			color_scale.range(current_color_range);
+			individuallyColorChart(color_scale.range());
 		} else {
 			$(".vis_controls_blanket").fadeIn(250);
 			// we need to resave the progress here!
 			current_theme = JSON.parse(JSON.stringify(chart_config));
+			current_color_range = JSON.parse(JSON.stringify(color_scale.range()));
 		}
 		if (!$target.hasClass("header_dd_display")) {
 			$target = $target.parent();
@@ -30,6 +34,11 @@ $(function() {
 
 		restyleGraph(themes[selection]);
 		new_theme = themes[selection];
+
+		if(individual_colors[selection]["colors"]["used"] === true) {
+			// we need to individually color the chart
+			individuallyColorChart(individual_colors[selection]["colors"]);
+		}
 		
 		// change bg color to show selection
 		if ($lastSelection)
@@ -55,6 +64,8 @@ $(function() {
 		$(".vis_controls_blanket").fadeOut(250);
 		// cancel and revert to how it was
 		restyleGraph(current_theme);
+		color_scale.range(current_color_range);
+		individuallyColorChart(color_scale.range());
 		
 		// to hide the dd again
 		var $dropdown = $(event.target).parent().parent().prev();
