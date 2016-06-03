@@ -97,31 +97,32 @@
   </header>
   <!-- First section contains types of charts you can style from the image-->
   <section id="select_chart_container">
-    <div class="home_page_header">First, select a chart type</div>
+    <div class="home_page_header"><img class="number_one" src="img/number-one.png" alt="number-one">Select a chart type</div>
 
     <div class="grey_container"> 
       <!-- Bar Chart Type -->
-      <div class="chart_type_container part_one_chart_type">
+      <div class="chart_type_container part_one_chart_type bar_chart">
         <div class="chart_type_image_container"></div>
         <div class="chart_type_header">Bar Chart</div>
         <i class="fa fa-check-circle fa-2x"></i>
       </div>
 
       <!-- Line Chart Type -->
-      <div class="chart_type_container part_one_chart_type">
+      <div class="chart_type_container part_one_chart_type line_chart">
         <div class="chart_type_image_container"></div>
         <div class="chart_type_header">Line Chart</div>
         <i class="fa fa-check-circle fa-2x"></i>
       </div>
     </div>
 
-    <section id="part_two">  <!-- hidden by default--> 
+    <section id="part-two" class="hide">  <!-- hidden by default--> 
       <div class="spacer"></div>
-      <div class="home_page_header">Next, select a chart you would like to restyle</div>
+      <div class="home_page_header"><img class="number_one" src="img/number-two.png" alt="number-two">Select the chart you would like to restyle</div>
 
       <div class="grey_container"> 
         <!-- Upload image to extract info-->
         <div class="upload_image_to_extract">
+          <div class="coming_soon">Coming Soon</div>
           <div class="drop_an_image">Drop an <br/>image here</div>
           <div class="box">
             <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file&hellip;</span></label>
@@ -132,19 +133,21 @@
         <div class="chart_example_container">
           <div class="or">OR</div>
           <!-- example #1 -->
-          <div class="chart_type_container">
+          <div class="chart_type_container bar_chart">
             <div class="chart_example_image_container" data-type="bar" id="bar_example"></div>
             <div class="chart_type_header">World Languages</div>
           </div>
 
           <!-- example #2 -->
-          <div class="chart_type_container">
+          <div class="chart_type_container line_chart">
             <div class="chart_example_image_container" data-type="line" id="line_example"></div>
             <div class="chart_type_header">Heights</div>
           </div>
         </div>
       </div>
     </section>
+    <div class="spacer"></div>
+    <div class="spacer"></div>
   </section>
 
   <!-- Contains the actual D3 chart and styling tools -->
