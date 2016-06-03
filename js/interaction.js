@@ -23,7 +23,7 @@ var chart_config = {
     "stroke": "transparent",
     "label_visiblity": false,
     "label_fill": "#333",
-    "label_font": "Source Sans Pro",
+    "label_font": "Roboto",
     "label_font_size": 10,
     "stroke-width": 1
     // "y_label": "Drinks Consumed"
@@ -37,18 +37,18 @@ var chart_config = {
   "axis": {
     "line_color": "#333",
     "tick_label_color": "#333",
-    "tick_label_font": "Source Sans Pro",
+    "tick_label_font": "Roboto",
     "tick_label_font_size": 14,
     "x_label": "X Label",
     "y_label": "Y Label",
     "label_color": "#333",
-    "label_font": "Source Sans Pro",
+    "label_font": "Roboto",
     "label_font_size": 14
   },
   "graph": {
     "width": CHART_WIDTH,
     "height": CHART_HEIGHT,
-    "font": "Source Sans Pro",
+    "font": "Roboto",
     "font-size": "20",
     "color": "#333",
     "title": "My Graph"

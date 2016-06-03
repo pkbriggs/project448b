@@ -31,7 +31,6 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
   if (type === "bars") {
     if(!is_bar_label) {
       if(chart_type === "bar") {
-        console.log(type, key, value);
         container.selectAll(".chart_bar").attr(key, value);
       } else {
         // Changes all the colors on the bar to one color: FIX!
@@ -337,6 +336,8 @@ function restyleGraph(preset_config) {
   restyleComponent(preset_config, "axis")
   // update the graph components
   restyleComponent(preset_config, "graph")
+
+  applyStyleToAllControls(preset_config);
 }
 
 function restyleComponent(preset_config, type) {
@@ -344,4 +345,86 @@ function restyleComponent(preset_config, type) {
     var value = preset_config[type][key];
     updateChartConfigValue(type, key, value, false);
   } 
+}
+
+function applyStyleToAllControls(config) {
+  applyLineOrBarStyleToControls(config);
+
+  applyGridStyleToControls(config);
+
+  applyAxisStyleToControls(config);
+  
+  applyGraphStyleToControls(config);
+} 
+
+function applyLineOrBarStyleToControls(config) {
+  // line/bar spacing controls
+  $($(".slider")[0]).slider("value", config["bars"]["spacing"] * 100);
+  $($(".slider_reading")[0]).text(config["bars"]["spacing"] * 100 +"%");
+  // line/bar stroke color
+  $($("#single_stroke_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["stroke"]);
+  // line/bar fill color
+  $($("#single_fill_cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["fill"]);
+  // line/bar label color
+  $($("#bar-label-cp").colorpicker()[0]).colorpicker('setValue', config["bars"]["label_fill"]);
+  // line/bar label font-size
+  $("#label-font-size-dropdown span").text(config["bars"]["label_font_size"]);
+  // add line/bar label font
+  $("#bar-label-font-dropdown span").text(config["bars"]["label_font"]);
+  loadFont(config["bars"]["label_font"]);
+  // line/bar label toggle
+  if(config["bars"]["label_visiblity"] === true) {
+    $("input:radio[name=bar_label_toggle]")[0].click()
+  } else {
+    $("input:radio[name=bar_label_toggle]")[1].click()
+  }
+}
+
+function applyGridStyleToControls(config) {
+  // grid visibility
+  if(config["grid"]["visiblity"] === true) {
+    $("input:radio[name=grid_toggle]")[0].click()
+  } else {
+    $("input:radio[name=grid_toggle]")[1].click()
+  }
+  // grid opacity
+  $($(".slider")[1]).slider("value", config["grid"]["opacity"] * 100);
+  $($(".slider_reading")[1]).text(config["grid"]["opacity"] * 100 +"%");
+  // grid stroke width
+  $("#grid-width-input").val(config["grid"]["stroke_width"]);
+}
+
+function applyAxisStyleToControls(config) {
+  // axis color
+  $($("#axis-color-cp").colorpicker()[0]).colorpicker('setValue', config["axis"]["line_color"]);
+  // axis x-label
+  $("#x-label-input").val(config["axis"]["x_label"]);
+  // axis y-label
+  $("#y-label-input").val(config["axis"]["y_label"]);
+  // axis - tick label color
+  $($("#tick-label-cp").colorpicker()[0]).colorpicker('setValue', config["axis"]["tick_label_color"]);
+  // axis - tick label font-size
+  $("#tick-label-font-size-dropdown span").text(config["axis"]["tick_label_font_size"]);
+  // axis - tick label font
+  $("#tick-label-font-dropdown span").text(config["axis"]["tick_label_font"]);
+  loadFont(config["graph"]["font"]);
+  // axis - label color
+  $($("#axis-label-cp").colorpicker()[0]).colorpicker('setValue', config["axis"]["label_color"]);
+  // axis - tick label font-size
+  $("#axis-label-font-size-dropdown span").text(config["axis"]["label_font_size"]);
+  // axis - tick label font
+  $("#axis-label-font-dropdown span").text(config["axis"]["label_font"]);
+  loadFont(config["graph"]["font"]);
+}
+
+function applyGraphStyleToControls(config) {
+  // graph title 
+  $("#graph-title-input").val(config["graph"]["title"]);
+  // graph title font size
+  $("#graph-title-font-size-options span").text(config["graph"]["font-size"]);
+  // add graph title font
+  $("#graph-title-font-dropdown span").text(config["graph"]["font"]);
+  loadFont(config["graph"]["font"]);
+  // graph title color
+  $($("#graph-title-cp").colorpicker()[0]).colorpicker('setValue', config["graph"]["color"]);
 }
