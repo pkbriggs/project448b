@@ -361,6 +361,7 @@ function createChart(container) {
     .text(chart_config["graph"]["title"]);
 
   redrawAxisLabels();
+  restyleGraph(themes["Default"]);
 }
 
 function setupHandlersToHideStylingSections() {
