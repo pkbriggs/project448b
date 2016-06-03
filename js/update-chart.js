@@ -103,6 +103,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       container.selectAll(".chart_bar")  // Re-color bars
         .attr("fill", function(d, i){ return color_scale(i)})
     }
+    updateLegendColors(color_scale.range());
 
   } else if (type === "graph") {
     if(key === "width") {
@@ -242,19 +243,19 @@ function redrawBarLabels() {
 // function that re-draws the svg and re-centers it
 function redrawSvgAndContainer() {
   var actual_chart_height = d3.select(".actual_chart").node().getBoundingClientRect().height;
-  var actual_chart_width = d3.select(".actual_chart").node().getBoundingClientRect().width;
+  // var actual_chart_width = d3.select(".actual_chart").node().getBoundingClientRect().width;
 
   d3.selectAll(".chart_svg").attr("height", actual_chart_height + 20);
-  d3.selectAll(".chart_svg").attr("width", actual_chart_width);
+  // d3.selectAll(".chart_svg").attr("width", actual_chart_width);
 
   $(".vis_container").attr("height", actual_chart_height + 20);
-  $(".vis_container").attr("width", actual_chart_width);
+  // $(".vis_container").attr("width", actual_chart_width);
 
   var space_to_add_at_top = ($("#chart_super_container").height() - actual_chart_height - $("header").height()) / 2.0;
   $(".vis_container").css("margin-top", space_to_add_at_top);
 
-  var space_to_add_at_left = ($("#chart_super_container").width() - actual_chart_width + $(".vis_controls").width()) / 3.0;
-  $(".vis_container").css("margin-left", space_to_add_at_left);
+  // var space_to_add_at_left = ($("#chart_super_container").width() - actual_chart_width + $(".vis_controls").width()) / 3.0;
+  // $(".vis_container").css("margin-left", space_to_add_at_left);
 }
 
 /*
@@ -330,6 +331,14 @@ function showEditDataContainer(mouse_event, d, i, key_for_line) {
   $("#edit_data_container").data("open", "true");
   tooltip.updatePosition(mouse_event, "edit_data_container");
   edit_data_active = true;
+}
+
+function updateLegendColors(new_colors) {
+  if (chart_type != "line") return; // there is no legend unless it is a line chart
+  $.each($(".legend_color"), function(index, block) {
+    var id_num = block.id.substr(block.id.length - 1);
+    $("#legend-color-" + id_num).css("fill", new_colors[index]);
+  });
 }
 
 function individuallyColorChart(color_hash) {

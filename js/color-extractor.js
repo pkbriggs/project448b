@@ -1,6 +1,7 @@
 
 var NUM_COLORS_IN_PALETTE = 5;
 var IS_SINGLE = false;
+var DEFAULT_RGB_COLOR = "rgb(33, 33, 33)";
 
 function getDominantColorFromImage(image) {
   var colorThief = new ColorThief();
@@ -69,9 +70,16 @@ function loadAndRenderUploadedImage(image, callback) {
 function getCorrectNumColors(colorPalette) {
   var result = [];
 
+  if (colorPalette.length == 0) { // special case when the user has selected no colors - make sure we return something
+    console.log("no colors!");
+    for (var i = 0; i < NUM_COLORS_IN_PALETTE; i += 1)
+      result.push(DEFAULT_RGB_COLOR);
+    return result;
+  }
+
   // cycle through the colors and add them repeatedly until we have exactly num_chart_colors colors
   while (true) {
-    for (var i = 0; i < colorPalette.length; i++) {
+    for (var i = 0; i < colorPalette.length; i += 1) {
       if (result.length >= num_chart_colors) return result; // we have enough colors, stop!
       var curColorArray = colorPalette[i];
       var rgbColor = "rgb(" + curColorArray[0] + ", " + curColorArray[1] + "," + curColorArray[2] + ")";
@@ -94,8 +102,9 @@ function updateColorControls(new_colors, is_single_check) {
     for (var i = 0; i < new_colors.length; i++) {
       if(chart_type === "bar")
         $($(".multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
-      else
+      else {
         $($("#multi_strokecolorpicker_container .multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
+      }
     }
   }
 }
@@ -170,7 +179,10 @@ function getColorsFromImage(image) {
     $(".image_color_palette_container")[0].appendChild(colorBlock);
 
     $("input[value=multi]").prop("checked", true); // updates the color controls on the left so that it shows "Multi" as selected
-    switchColorMode($("input[value=multi]")[0], "#multi_colorpicker_container", "#single_colorpicker_container"); // updates the color controls on the left so that they show multiple color inputs
+    if (chart_type == "bar")
+      switchColorMode($("input[value=multi]")[0], "#multi_colorpicker_container", "#single_colorpicker_container"); // updates the color controls on the left so that they show multiple color inputs
+    else
+      switchColorMode($("input[value=multi]")[0], "#multi_strokecolorpicker_container", "#single_strokecolorpicker_container");
   });
 
   initPaletteHandler();
@@ -194,6 +206,7 @@ function getCurrentColorPalette() {
 function applyColorPaletteToGraph(palette) {
   // use colors taken from graph to color lines/bars on the graph
   var new_colors = getCorrectNumColors(palette);
+  updateLegendColors(new_colors);
   setColorScale(color_scale.domain(), new_colors);
   updateChartConfigValue("change_color_scale", "", "", false);
   updateColorControls(new_colors, IS_SINGLE);
@@ -275,7 +288,10 @@ function initColorToggle() {
     $("input:radio[name=palette-multi]").prop('checked', false);
     handleSingleColorPaletteSelected();
     $("input:radio[value=single]").prop('checked', true); // updates the color controls on the left so that it shows "Single" as selected
-    switchColorMode($(this)[0], "#multi_colorpicker_container", "#single_colorpicker_container"); // updates the color controls on the left so that they show a single color input
+    if (chart_type == "bar")
+      switchColorMode($(this)[0], "#multi_colorpicker_container", "#single_colorpicker_container"); // updates the color controls on the left so that they show a single color input
+    else
+      switchColorMode($(this)[0], "#multi_strokecolorpicker_container", "#single_strokecolorpicker_container");
     applyColorPaletteToGraph(getCurrentColorPalette());
   });
 
@@ -284,7 +300,10 @@ function initColorToggle() {
     $("input:radio[name=palette-single]").prop('checked', false);
     // $("input:radio[name=bar_fill_color_toggle]").prop('checked', false);
     $("input[value=multi]").prop("checked", true); // updates the color controls on the left so that it shows "Multi" as selected
-    switchColorMode($(this)[0], "#multi_colorpicker_container", "#single_colorpicker_container"); // updates the color controls on the left so that they show multiple color inputs
+    if (chart_type == "bar")
+      switchColorMode($(this)[0], "#multi_colorpicker_container", "#single_colorpicker_container"); // updates the color controls on the left so that they show multiple color inputs
+    else
+      switchColorMode($(this)[0], "#multi_strokecolorpicker_container", "#single_strokecolorpicker_container");
     applyColorPaletteToGraph(getCurrentColorPalette());
   });
 }

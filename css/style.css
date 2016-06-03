@@ -62,8 +62,6 @@ header {
 	width: 150px;
 }
 
-
-
 .tool .theme_picker span, .save_button {
 	opacity: 1;
   transition: opacity .25s ease-in-out;
@@ -104,7 +102,7 @@ header {
 
 .vis_container {
 	position: relative;
-	margin-left: 225px;
+	margin-left: 255px;
 }
 
 .vis_controls {
@@ -129,12 +127,12 @@ header {
 .vis_controls_blanket {
 	display: none;
 	position: fixed;
-	top: 0px;
-	left: 0px;
-	width: 225px;
-	height: 100%;
-	background-color: rgba(105, 105, 105, 0.95);
-	z-index: 10000;
+	top: 48px;
+    left: 0px;
+    width: 225px;
+    height: 100%;
+    background-color: rgba(105, 105, 105, 0.7);
+    z-index: 5;
 	color: white;
 }
 
@@ -142,11 +140,11 @@ header {
 	position: absolute;
 	font-size: 16px;
 	top: 47%;
-  text-align: left;
-  width: 184px;
-  margin-left: 22px;
-  margin-top: -25px;
-  height: 50px;
+	text-align: left;
+	width: 184px;
+	margin-left: 22px;
+	margin-top: -35px;
+	height: 50px;
 }
 
 /* uploaded image things */
