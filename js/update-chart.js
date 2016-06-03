@@ -244,12 +244,11 @@ function redrawBarLabels() {
 function redrawSvgAndContainer() {
   var actual_chart_height = d3.select(".actual_chart").node().getBoundingClientRect().height;
   var actual_chart_width = d3.select(".actual_chart").node().getBoundingClientRect().width;
-  console.log(actual_chart_width);
 
-  d3.selectAll(".chart_svg").attr("height", actual_chart_height);
+  d3.selectAll(".chart_svg").attr("height", actual_chart_height + 20);
   d3.selectAll(".chart_svg").attr("width", actual_chart_width);
 
-  $(".vis_container").attr("height", actual_chart_height);
+  $(".vis_container").attr("height", actual_chart_height + 20);
   $(".vis_container").attr("width", actual_chart_width);
 
   var space_to_add_at_top = ($("#chart_super_container").height() - actual_chart_height - $("header").height()) / 2.0;

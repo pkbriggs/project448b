@@ -70,8 +70,8 @@ function setupChartData(chart_type) {
         "val_five": 0.71
       }
     ];
-    setColorScale(["val_one", "val_two", "val_three", "val_four"], ["#333", "#333", "#333", "#333", "#333"]);
-    num_chart_colors = 4;
+    setColorScale(["val_one", "val_two", "val_three", "val_four", "val_five"], ["#333", "#333", "#333", "#333", "#333"]);
+    num_chart_colors = 5;
     chart_config["axis"]["x_label"] = "City";
     chart_config["axis"]["y_label"] = "Average Rainfall (in inches)";
   }
