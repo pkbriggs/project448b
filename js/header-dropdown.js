@@ -39,7 +39,7 @@ $(function() {
 			// we need to individually color the chart
 			individuallyColorChart(individual_colors[selection]["colors"]);
 		}
-		
+
 		// change bg color to show selection
 		if ($lastSelection)
 			$lastSelection.css("background-color", "transparent");
@@ -66,7 +66,7 @@ $(function() {
 		restyleGraph(current_theme);
 		color_scale.range(current_color_range);
 		individuallyColorChart(color_scale.range());
-		
+
 		// to hide the dd again
 		var $dropdown = $(event.target).parent().parent().prev();
 		$dropdown.toggleClass("active");
@@ -316,7 +316,7 @@ var individual_colors = {
 			"3": "#028090",
 			"4": "#05668d"
 		}
-	}, 
+	},
 	"Vintage": {
 		"colors": {
 			"used": true,

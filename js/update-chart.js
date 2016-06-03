@@ -111,6 +111,7 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
       if(origin_graph_width_request === "input_field") {
         ORIG_CHART_WIDTH = CHART_WIDTH;
       }
+      updateLegendPosition();
     } else if (key === "height") {
       CHART_HEIGHT = parseInt(value);
     } else {
@@ -133,6 +134,22 @@ function updateChartConfigValue(type, key, value, is_bar_label) {
     updateLineData();
     redrawSvgAndContainer();
   }
+}
+
+function updateLegendPosition() {
+  container.selectAll('.legend')
+    .attr('transform', function(d, i) {
+      var horz = CHART_WIDTH + LEGEND_MARGIN;
+      var vert = (legendRectSize + legendSpacing) * i;
+      return 'translate(' + horz + ',' + vert + ')';
+    });
+
+  container.selectAll('.legend_text')
+    .attr('transform', function(d, i) {
+      var horz = (CHART_WIDTH + LEGEND_MARGIN) + legendRectSize + legendSpacing*1.5;
+      var vert = (legendRectSize + legendSpacing) * i + legendRectSize*(3/4);
+      return 'translate(' + horz + ',' + vert + ')';
+    });
 }
 
 // helper function that redraws the x-axis
