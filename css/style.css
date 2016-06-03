@@ -337,16 +337,16 @@ hr.tooltip-hr {
     font-weight: 600;
     height: 100%;
     background: repeating-linear-gradient(
-    	45deg, rgba(230, 230, 230, 0.86), 
-    	rgba(230, 230, 230, 0.86) 3px, 
-    	rgba(210, 210, 210, 0.75) 3px, 
-    	rgba(210, 210, 210, 0.75) 11px 
+    	45deg, rgba(230, 230, 230, 0.86),
+    	rgba(230, 230, 230, 0.86) 3px,
+    	rgba(210, 210, 210, 0.75) 3px,
+    	rgba(210, 210, 210, 0.75) 11px
     );
    background: -webkit-repeating-linear-gradient(
-    	45deg, rgba(230, 230, 230, 0.86), 
-    	rgba(230, 230, 230, 0.86) 3px, 
-    	rgba(210, 210, 210, 0.75) 3px, 
-    	rgba(210, 210, 210, 0.75) 11px 
+    	45deg, rgba(230, 230, 230, 0.86),
+    	rgba(230, 230, 230, 0.86) 3px,
+    	rgba(210, 210, 210, 0.75) 3px,
+    	rgba(210, 210, 210, 0.75) 11px
     );
 }
 
@@ -378,11 +378,19 @@ hr.tooltip-hr {
 	width: 240px;
 	height: 200px;
 	margin: 10px;
-	background-image: url("../img/dirk_bar.jpg");
+
 	background-size: cover;
 	color: white;
 	opacity: 0.8;
 	display: inline-block;
+}
+
+.bar_chart_image_container {
+  background-image: url("../img/bar_chart.png");
+}
+
+.line_chart_image_container {
+  background-image: url("../img/line_chart.png");
 }
 
 .chart_type_container:hover {
@@ -466,7 +474,6 @@ hr.tooltip-hr {
 	width: 180px;
 	height: 150px;
 	margin: 10px;
-	background-image: url("../img/dirk_line.jpg");
 	background-size: cover;
 	color: white;
 	opacity: 0.8;

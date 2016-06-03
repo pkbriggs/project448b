@@ -13,7 +13,7 @@ var CHART_MARGINS = {
   right: 30,
 };
 var LEGEND_WIDTH = 140;
-var CHART_WIDTH = CANVAS_WIDTH - CHART_MARGINS.left - CHART_MARGINS.right - LEGEND_WIDTH;
+var CHART_WIDTH = CANVAS_WIDTH - CHART_MARGINS.left - CHART_MARGINS.right;
 var ORIG_CHART_WIDTH = CHART_WIDTH;
 var CHART_HEIGHT = CANVAS_HEIGHT - CHART_MARGINS.top - CHART_MARGINS.bottom;
 
@@ -75,8 +75,8 @@ var edit_data_active = false;
 tooltip = Tooltip("vis-tooltip", 230);
 
 function createSVG() {
-  if (chart_type == "bar")
-    CANVAS_WIDTH -= LEGEND_WIDTH;
+  if (chart_type == "line")
+    CANVAS_WIDTH += LEGEND_WIDTH; // if it's a line chart, add in some extra space for the legend
 
   $("#graph_width_input").val(CHART_WIDTH.toFixed(2));
   $("#graph_height_input").val(CHART_HEIGHT.toFixed(2));
@@ -455,7 +455,7 @@ function binaryblob(){
 
 $(document).ready(function() {
   $(".part_one_chart_type").click(function(event) {
-    $(this).addClass("part_one_chart_type_selected");    
+    $(this).addClass("part_one_chart_type_selected");
     $(this).find(".fa-check-circle").css("display", "block");
 
     $(this).siblings().removeClass("part_one_chart_type_selected");
