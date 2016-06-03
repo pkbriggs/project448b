@@ -412,6 +412,11 @@ function binaryblob(){
 }
 
 $(document).ready(function() {
+  $(".part_one_chart_type").click(function(event) {
+    $(this).addClass("part_one_chart_type_selected");
+    $(this).find(".fa-check-circle").css("display", "block");
+  });
+
   $(".chart_example_image_container").click(function(event) {
     chart_type = $(this).data("type");
     chart_data = setupChartData(chart_type);

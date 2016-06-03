@@ -298,6 +298,10 @@ hr.tooltip-hr {
   	height: 100%;
 }
 
+.part_one_chart_type_selected {
+	border: 5px solid green !important;
+}
+
 .home_page_header {
 	padding-top: 25px;
 	padding-left: 35px;
@@ -317,11 +321,21 @@ hr.tooltip-hr {
 .chart_type_container {
 	background-color: #4D9FC4;
 	border-radius: 10px;
-	border: 2px solid #4D9FC4;
+	border: 5px solid #4D9FC4;
 	width: auto;
 	margin-right: 20px;
 	cursor: pointer;
 	opacity: 0.8;
+	position: relative;
+}
+
+.chart_type_container .fa-check-circle {
+	display: none;
+	color: green;
+	position: absolute;
+	top: -15px;
+    right: -10px;
+	z-index: 100;
 }
 
 .chart_type_image_container {
