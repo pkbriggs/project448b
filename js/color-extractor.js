@@ -94,8 +94,11 @@ function updateColorControls(new_colors, is_single_check) {
     for (var i = 0; i < new_colors.length; i++) {
       if(chart_type === "bar")
         $($(".multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
-      else
+      else {
         $($("#multi_strokecolorpicker_container .multi_cp").colorpicker()[i]).colorpicker('setValue', new_colors[i]);
+        console.log("I have the new colors!");
+        console.log(new_colors);
+      }
     }
   }
 }

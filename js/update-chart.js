@@ -242,19 +242,19 @@ function redrawBarLabels() {
 // function that re-draws the svg and re-centers it
 function redrawSvgAndContainer() {
   var actual_chart_height = d3.select(".actual_chart").node().getBoundingClientRect().height;
-  var actual_chart_width = d3.select(".actual_chart").node().getBoundingClientRect().width;
+  // var actual_chart_width = d3.select(".actual_chart").node().getBoundingClientRect().width;
 
   d3.selectAll(".chart_svg").attr("height", actual_chart_height + 20);
-  d3.selectAll(".chart_svg").attr("width", actual_chart_width);
+  // d3.selectAll(".chart_svg").attr("width", actual_chart_width);
 
   $(".vis_container").attr("height", actual_chart_height + 20);
-  $(".vis_container").attr("width", actual_chart_width);
+  // $(".vis_container").attr("width", actual_chart_width);
 
   var space_to_add_at_top = ($("#chart_super_container").height() - actual_chart_height - $("header").height()) / 2.0;
   $(".vis_container").css("margin-top", space_to_add_at_top);
 
-  var space_to_add_at_left = ($("#chart_super_container").width() - actual_chart_width + $(".vis_controls").width()) / 2.0;
-  $(".vis_container").css("margin-left", space_to_add_at_left);
+  // var space_to_add_at_left = ($("#chart_super_container").width() - actual_chart_width + $(".vis_controls").width()) / 2.0;
+  // $(".vis_container").css("margin-left", space_to_add_at_left);
 }
 
 /*

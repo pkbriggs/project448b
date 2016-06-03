@@ -1,6 +1,6 @@
 
 // declaring constants
-var CANVAS_WIDTH = $(window).width() - 350;
+var CANVAS_WIDTH = $(window).width() - 500;
 var CANVAS_HEIGHT = $(window).height() * 0.8;
 var OUTPUT_FILENAME = "chart.png";
 var OUTPUT_FILETYPE = "image/png";
@@ -10,9 +10,10 @@ var CHART_MARGINS = {
   top: 50,
   bottom: 90,
   left: 100,
-  right: 30,
+  right: 80
 };
-var LEGEND_WIDTH = 140;
+var LEGEND_WIDTH = 70;
+var LEGEND_MARGIN = 20;
 var CHART_WIDTH = CANVAS_WIDTH - CHART_MARGINS.left - CHART_MARGINS.right;
 var ORIG_CHART_WIDTH = CHART_WIDTH;
 var CHART_HEIGHT = CANVAS_HEIGHT - CHART_MARGINS.top - CHART_MARGINS.bottom;
@@ -75,15 +76,21 @@ var edit_data_active = false;
 tooltip = Tooltip("vis-tooltip", 230);
 
 function createSVG() {
+  // if (chart_type == "line") {
+  //   console.log("we have a line chart. before, width = " + CANVAS_WIDTH);
+  //   CANVAS_WIDTH += LEGEND_WIDTH + CHART_MARGINS.legend_margin; // if it's a line chart, add in some extra space for the legend
+  //   console.log("we have a line chart. after, width = " + CANVAS_WIDTH);
+  // }
+  var svg_width = CANVAS_WIDTH;
   if (chart_type == "line")
-    CANVAS_WIDTH += LEGEND_WIDTH; // if it's a line chart, add in some extra space for the legend
+    svg_width += LEGEND_WIDTH + LEGEND_MARGIN;
 
   $("#graph_width_input").val(CHART_WIDTH.toFixed(2));
   $("#graph_height_input").val(CHART_HEIGHT.toFixed(2));
   // Add an svg element to the DOM
   var svg = d3.select(".vis_container").append("svg")
     .attr("class", "chart_svg")
-    .attr("width", CANVAS_WIDTH)
+    .attr("width", svg_width)
     .attr("height", CANVAS_HEIGHT);
 
   svg.append("rect")
@@ -100,8 +107,8 @@ function createSVG() {
 
   var space_to_add_at_top = ($("#chart_super_container").height() - CANVAS_HEIGHT - $("header").height()) / 2.0;
   $(".vis_container").css("margin-top", space_to_add_at_top);
-  var space_to_add_at_left = ($("#chart_super_container").width() - CANVAS_WIDTH + $(".vis_controls").width()) / 2.0;
-  $(".vis_container").css("margin-left", space_to_add_at_left);
+  // var space_to_add_at_left = ($("#chart_super_container").width() - CANVAS_WIDTH + $(".vis_controls").width()) / 2.0;
+  // $(".vis_container").css("margin-left", space_to_add_at_left);
 
   window.container = container;
 
@@ -285,7 +292,7 @@ function createChart(container) {
       .append('g')
       .attr('class', 'legend')
       .attr('transform', function(d, i) {
-        var horz = CHART_WIDTH + CHART_MARGINS.right;
+        var horz = CHART_WIDTH + LEGEND_MARGIN;
         var vert = (legendRectSize + legendSpacing) * i;
         return 'translate(' + horz + ',' + vert + ')';
       })
@@ -300,7 +307,7 @@ function createChart(container) {
     legend.enter()
       .append('text')
       .attr('transform', function(d, i) {
-        var horz = (CHART_WIDTH + CHART_MARGINS.right) + legendRectSize + legendSpacing*1.5;
+        var horz = (CHART_WIDTH + LEGEND_MARGIN) + legendRectSize + legendSpacing*1.5;
         var vert = (legendRectSize + legendSpacing) * i + legendRectSize*(3/4);
         return 'translate(' + horz + ',' + vert + ')';
       })
