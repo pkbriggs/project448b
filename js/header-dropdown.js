@@ -6,7 +6,12 @@ $(function() {
 	$dropdown.click(function(event) {
 		var $target = $(event.target);
 		if($target.parent().hasClass("active")) {
+			$(".vis_controls_blanket").fadeOut(250);
 			restyleGraph(current_theme);
+		} else {
+			$(".vis_controls_blanket").fadeIn(250);
+			// we need to resave the progress here!
+			current_theme = JSON.parse(JSON.stringify(chart_config));
 		}
 		if (!$target.hasClass("header_dd_display")) {
 			$target = $target.parent();
@@ -37,9 +42,7 @@ $(function() {
 $(function() {
 	var $select = $(".header_dd .submit .select");
 	$select.click(function(event) {
-		// select the given theme
-		current_theme = JSON.parse(JSON.stringify(new_theme));
-
+		$(".vis_controls_blanket").fadeOut(250);
 		// to hide the dd again
 		var $dropdown = $(event.target).parent().parent().prev();
 		$dropdown.toggleClass("active");
@@ -49,6 +52,7 @@ $(function() {
 $(function() {
 	var $cancel = $(".header_dd .submit .cancel");
 	$cancel.click(function(event) {
+		$(".vis_controls_blanket").fadeOut(250);
 		// cancel and revert to how it was
 		restyleGraph(current_theme);
 		
@@ -84,7 +88,9 @@ var themes = {
 			"tick_label_font_size": 14,
 			"label_color": "#333",
 			"label_font": "Lato",
-			"label_font_size": 16
+			"label_font_size": 16,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": CHART_WIDTH,
@@ -118,7 +124,9 @@ var themes = {
 			"tick_label_font_size": 14,
 			"label_color": "#333",
 			"label_font": "Didact Gothic",
-			"label_font_size": 16
+			"label_font_size": 16,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": CHART_WIDTH,
@@ -152,7 +160,9 @@ var themes = {
 			"tick_label_font_size": 14,
 			"label_color": "#333",
 			"label_font": "IM Fell French Canon",
-			"label_font_size": 16
+			"label_font_size": 16,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": 475,
@@ -185,7 +195,9 @@ var themes = {
 			"tick_label_font_size": 14,
 			"label_color": "#333",
 			"label_font": "PT Sans",
-			"label_font_size": 16
+			"label_font_size": 16,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": 475,
@@ -218,7 +230,9 @@ var themes = {
 			"tick_label_font_size": 14,
 			"label_color": "#333",
 			"label_font": "Coming Soon",
-			"label_font_size": 16
+			"label_font_size": 16,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": 500,
@@ -251,7 +265,9 @@ var themes = {
 			"tick_label_font_size": 16,
 			"label_color": "#333",
 			"label_font": "Josefin Sans",
-			"label_font_size": 18
+			"label_font_size": 18,
+			"x_label": "X Label",
+			"y_label": "Y Label",
 		},
 		"graph": {
 			"width": 500,

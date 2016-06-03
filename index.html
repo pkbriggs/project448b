@@ -97,14 +97,54 @@
   </header>
   <!-- First section contains types of charts you can style from the image-->
   <section id="select_chart_container">
-    <h2>Magic Image Processing Extraction</h2>
-    <div class="chart_image_container" data-type="bar" id="bar_example">
-      Bar Chart Example
+    <div class="home_page_header">First, select a chart type</div>
+
+    <div class="grey_container"> 
+      <!-- Bar Chart Type -->
+      <div class="chart_type_container part_one_chart_type">
+        <div class="chart_type_image_container"></div>
+        <div class="chart_type_header">Bar Chart</div>
+        <i class="fa fa-check-circle fa-2x"></i>
+      </div>
+
+      <!-- Line Chart Type -->
+      <div class="chart_type_container part_one_chart_type">
+        <div class="chart_type_image_container"></div>
+        <div class="chart_type_header">Line Chart</div>
+        <i class="fa fa-check-circle fa-2x"></i>
+      </div>
     </div>
 
-    <div class="chart_image_container" data-type="line" id="line_example">
-      Line Chart Example
-    </div>
+    <section id="part_two">  <!-- hidden by default--> 
+      <div class="spacer"></div>
+      <div class="home_page_header">Next, select a chart you would like to restyle</div>
+
+      <div class="grey_container"> 
+        <!-- Upload image to extract info-->
+        <div class="upload_image_to_extract">
+          <div class="drop_an_image">Drop an <br/>image here</div>
+          <div class="box">
+            <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file&hellip;</span></label>
+          </div>
+        </div>
+
+        <!-- chart example container -->
+        <div class="chart_example_container">
+          <div class="or">OR</div>
+          <!-- example #1 -->
+          <div class="chart_type_container">
+            <div class="chart_example_image_container" data-type="bar" id="bar_example"></div>
+            <div class="chart_type_header">World Languages</div>
+          </div>
+
+          <!-- example #2 -->
+          <div class="chart_type_container">
+            <div class="chart_example_image_container" data-type="line" id="line_example"></div>
+            <div class="chart_type_header">Heights</div>
+          </div>
+        </div>
+      </div>
+    </section>
   </section>
 
   <!-- Contains the actual D3 chart and styling tools -->
@@ -116,6 +156,9 @@
     </div>
 
     <div class="vis_controls">
+      <div class="vis_controls_blanket">
+        <div class="warning">While previewing themes, you can't make any styling changes</div>
+      </div>
       <!-- Bar Styling -->
       <h3 class="title special" data-target="bar_styling" data-open="open" id="data_styling_title">
         <span>Bar Styling</span> <i class="fa fa-chevron-down toggle_control_vis"></i>
@@ -266,7 +309,7 @@
           <div class="font_and_size">
             <div class="font">
               <div class="style_input font_picker dropdown" data-type="bars" data-key="label_font" data-callback="load_font" data-label="true" id="bar-label-font-dropdown">
-                <span>Helvetica Neue</span>
+                <span>Droid Sans</span>
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
               </div>
@@ -374,7 +417,7 @@
           <div class="font_and_size">
             <div class="font">
               <div class="style_input font_picker dropdown" value="Arial" data-type="axis" data-key="tick_label_font"  data-callback="load_font" id="tick-label-font-dropdown">
-                <span>Helvetica Neue</span>
+                <span>Droid Sans</span>
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
               </div>
@@ -437,7 +480,7 @@
           <div class="font_and_size">
             <div class="font">
               <div class="style_input font_picker dropdown" data-type="axis" data-key="label_font" data-callback="load_font" id="axis-label-font-dropdown">
-                <span>Helvetica Neue</span>
+                <span>Droid Sans</span>
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
               </div>
@@ -501,7 +544,7 @@
           <div class="font_and_size">
             <div class="font">
               <div class="style_input font_picker dropdown" data-type="graph" data-key="font" data-callback="load_font" id="graph-title-font-dropdown">
-                <span>Helvetica Neue</span>
+                <span>Droid Sans</span>
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
               </div>
