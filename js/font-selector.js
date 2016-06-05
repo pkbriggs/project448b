@@ -39,12 +39,3 @@ function initFontSelector() {
   });
   $(".font_options").html(font_options_html);
 }
-
-// given a human friendly font name, loads the respective google font
-function loadFont(human_font_name) {
-  font_name = human_font_name.replace(/\ /g, '\+'); // replace spaces in name with +
-  var font_link = font_link_base + font_name;
-  if ($("link[href*='" + font_link + "']").length === 0) {
-    $('link:last').after('<link href="' + font_link + '" rel="stylesheet" type="text/css">');
-  }
-}

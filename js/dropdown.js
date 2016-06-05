@@ -16,15 +16,12 @@ $(function() {
 		var option = $target.text();
 		var $dropdown = $target.parent().prev();
 		$dropdown.toggleClass("active");
-		
+
 		var $selection = $dropdown.find("span");
 		$selection.text(option);
 		var type = $dropdown.data("type");
 		var key = $dropdown.data("key");
 		var is_bar_label = ($dropdown.data("label") !== undefined) ? true : false;
-		var callback = $dropdown.data("callback");
-		if (callback && callback === "load_font")
-			loadFont(option);
 		updateChartConfigValue(type, key, option, is_bar_label);
 	});
 });
