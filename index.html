@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">
   <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/sliders.css">
+  <link rel="stylesheet" href="css/google-fonts.css">
   <link rel="stylesheet" href="css/sweetalert.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
@@ -34,7 +35,6 @@
           <i class="fa fa-save"></i>
           Save
         </span>
-        <canvas class="save_canvas" width="1" height="1" style="display:none"></canvas> <!-- hidden canvas used for saving the chart in the backend -->
       </div>
       <div class="tool">
         <div class="theme_picker header_dd_display" data-type="bars" data-key="" data-callback="" data-label="">
@@ -319,7 +319,7 @@
 
           <div class="font_and_size">
             <div class="font">
-              <div class="style_input font_picker dropdown" data-type="bars" data-key="label_font" data-callback="load_font" data-label="true" id="bar-label-font-dropdown">
+              <div class="style_input font_picker dropdown" data-type="bars" data-key="label_font"  data-label="true" id="bar-label-font-dropdown">
                 <span>Droid Sans</span>
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
@@ -427,7 +427,7 @@
          <!-- Font and Size -->
           <div class="font_and_size">
             <div class="font">
-              <div class="style_input font_picker dropdown" value="Arial" data-type="axis" data-key="tick_label_font"  data-callback="load_font" id="tick-label-font-dropdown">
+              <div class="style_input font_picker dropdown" value="Arial" data-type="axis" data-key="tick_label_font"   id="tick-label-font-dropdown">
                 <span>Droid Sans</span>
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
@@ -490,7 +490,7 @@
           <!-- Font and size of XY Labels -->
           <div class="font_and_size">
             <div class="font">
-              <div class="style_input font_picker dropdown" data-type="axis" data-key="label_font" data-callback="load_font" id="axis-label-font-dropdown">
+              <div class="style_input font_picker dropdown" data-type="axis" data-key="label_font"  id="axis-label-font-dropdown">
                 <span>Droid Sans</span>
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
@@ -554,7 +554,7 @@
           <!-- Font and size of XY Labels -->
           <div class="font_and_size">
             <div class="font">
-              <div class="style_input font_picker dropdown" data-type="graph" data-key="font" data-callback="load_font" id="graph-title-font-dropdown">
+              <div class="style_input font_picker dropdown" data-type="graph" data-key="font"  id="graph-title-font-dropdown">
                 <span>Droid Sans</span>
                 <i class="fa fa-angle-up"></i>
                 <i class="fa fa-angle-down"></i>
@@ -652,6 +652,7 @@
   <script src="js/color-thief.min.js"></script>
   <script src="js/color-extractor.js"></script>
   <script src="js/sweetalert.min.js"></script>
+  <script src="js/saveSvgAsPng.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 </body>

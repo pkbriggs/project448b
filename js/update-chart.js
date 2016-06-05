@@ -440,7 +440,6 @@ function applyLineOrBarStyleToControls(config) {
   $("#label-font-size-dropdown span").text(config["bars"]["label_font_size"]);
   // add line/bar label font
   $("#bar-label-font-dropdown span").text(config["bars"]["label_font"]);
-  loadFont(config["bars"]["label_font"]);
   // line/bar label toggle
   if(config["bars"]["label_visiblity"] === true) {
     $("input:radio[name=bar_label_toggle]")[0].click()
@@ -476,14 +475,12 @@ function applyAxisStyleToControls(config) {
   $("#tick-label-font-size-dropdown span").text(config["axis"]["tick_label_font_size"]);
   // axis - tick label font
   $("#tick-label-font-dropdown span").text(config["axis"]["tick_label_font"]);
-  loadFont(config["graph"]["font"]);
   // axis - label color
   $($("#axis-label-cp").colorpicker()[0]).colorpicker('setValue', config["axis"]["label_color"]);
   // axis - tick label font-size
   $("#axis-label-font-size-dropdown span").text(config["axis"]["label_font_size"]);
   // axis - tick label font
   $("#axis-label-font-dropdown span").text(config["axis"]["label_font"]);
-  loadFont(config["graph"]["font"]);
 }
 
 function applyGraphStyleToControls(config) {
@@ -493,7 +490,6 @@ function applyGraphStyleToControls(config) {
   $("#graph-title-font-size-options span").text(config["graph"]["font-size"]);
   // add graph title font
   $("#graph-title-font-dropdown span").text(config["graph"]["font"]);
-  loadFont(config["graph"]["font"]);
   // graph title color
   $($("#graph-title-cp").colorpicker()[0]).colorpicker('setValue', config["graph"]["color"]);
 }

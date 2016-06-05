@@ -5,7 +5,6 @@ var SVG_WIDTH = CANVAS_WIDTH;
 var CANVAS_HEIGHT = $(window).height() * 0.8;
 var SVG_HEIGHT = CANVAS_HEIGHT;
 var OUTPUT_FILENAME = "chart.png";
-var OUTPUT_FILETYPE = "image/png";
 var CHART_BACKGROUND_COLOR = "white";
 var legendRectSize = 18;
 var legendSpacing = 4;
@@ -130,7 +129,6 @@ function createChart(container) {
 
   var $tools = $("header .tools");
   $tools.css("display", "block");
-  loadFont("Droid Sans");
 
 
   // We only use this array of maps when we are in "line" mode
@@ -375,7 +373,6 @@ function createChart(container) {
     .text(chart_config["graph"]["title"]);
 
   redrawAxisLabels();
-  console.log(themes["Default"]);
 
   for(var key in themes) {
     if(chart_type === "bar") {
@@ -415,34 +412,7 @@ function setupHandlersToHideStylingSections() {
 // TODO: note source - http://techslides.com/save-svg-as-an-image
 function enableSaveButton() {
   d3.select(".save_button").on("click", function(){
-    // ensure the canvas we draw to is the correct size
-    $(".save_canvas")[0].width = SVG_WIDTH;
-    $(".save_canvas")[0].height = SVG_HEIGHT;
-
-    // get the HTML representing our chart's SVG
-    var html = d3.select("svg")
-          .attr("version", 1.1)
-          .attr("xmlns", "http://www.w3.org/2000/svg")
-          .node().parentNode.innerHTML;
-
-    var canvas = $(".save_canvas")[0];
-    var context = canvas.getContext("2d");
-
-    var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
-    var image = new Image;
-    image.src = imgsrc;
-    image.onload = function() {
-      context.drawImage(image, 0, 0);
-
-      // save and serve the canvas as an actual filename
-      binaryblob();
-
-      var a = document.createElement("a");
-      a.download = OUTPUT_FILENAME;
-      a.href = canvas.toDataURL(OUTPUT_FILETYPE);
-      a.click();
-    };
-
+    saveSvgAsPng($(".chart_svg")[0], OUTPUT_FILENAME, {scale: 2.0});
   });
 }
 
@@ -463,21 +433,6 @@ function initSiteNameClickHandler() {
   });
 }
 
-function binaryblob(){
-  var byteString = atob($(".save_canvas")[0].toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")); //wtf is atob?? https://developer.mozilla.org/en-US/docs/Web/API/Window.atob
-  var ab = new ArrayBuffer(byteString.length);
-  var ia = new Uint8Array(ab);
-  for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-    var dataView = new DataView(ab);
-  var blob = new Blob([dataView], {type: "image/png"});
-  var DOMURL = self.URL || self.webkitURL || self;
-  var newurl = DOMURL.createObjectURL(blob);
-
-  var img = '<img src="'+newurl+'">';
-  d3.select("#img").html(img);
-}
 
 $(document).ready(function() {
   $(".part_one_chart_type").click(function(event) {
