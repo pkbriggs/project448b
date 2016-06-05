@@ -70,6 +70,10 @@ header {
   -webkit-transition: opacity .25s ease-in-out;
 }
 
+.legend_text {
+	font-family: "Lato", sans-serif;
+}
+
 .tool .theme_picker span:hover, .save_button:hover {
 	opacity: 0.5;
 	cursor: pointer;

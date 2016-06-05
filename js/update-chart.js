@@ -360,6 +360,11 @@ function updateLegendColors(new_colors) {
     var id_num = block.id.substr(block.id.length - 1);
     $("#legend-color-" + id_num).css("fill", new_colors[index]);
   });
+
+  var font = d3.select(".tick text").attr("font-family");
+  if (!font)
+    font = "Lato";
+  $(".legend_text").css("font-family", '"'+font+'"');
 }
 
 function individuallyColorChart(color_hash) {
@@ -400,6 +405,7 @@ function restyleGraph(preset_config) {
   // update the graph components
   restyleComponent(preset_config, "graph")
   // make changes appear in the controls too!
+
   applyStyleToAllControls(preset_config);
 }
 
