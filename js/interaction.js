@@ -414,8 +414,10 @@ function enableSaveButton() {
   d3.select(".save_button").on("click", function(){
     swal({
       title: '<i class="fa fa-spinner fa-pulse fa-fw"></i> Saving...',
+      text: "This should only take a few seconds.",
       html: true,
-      showConfirmButton: false
+      showConfirmButton: false,
+      type: "info"
       // timer: 20
     });
     setTimeout(function() {
