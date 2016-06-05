@@ -412,7 +412,15 @@ function setupHandlersToHideStylingSections() {
 // TODO: note source - http://techslides.com/save-svg-as-an-image
 function enableSaveButton() {
   d3.select(".save_button").on("click", function(){
-    saveSvgAsPng($(".chart_svg")[0], OUTPUT_FILENAME, {scale: 2.0});
+    swal({
+      title: '<i class="fa fa-spinner fa-pulse fa-fw"></i> Saving...',
+      html: true,
+      showConfirmButton: false
+    });
+    setTimeout(function() {
+      saveSvgAsPng($(".chart_svg")[0], OUTPUT_FILENAME, {scale: 2.0});
+      swal.close();
+    }, 80);
   });
 }
 
