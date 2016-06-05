@@ -2,6 +2,7 @@ function Tooltip(tooltipId, width){
   var tooltipId = tooltipId;
   $("body").append("<div class='tooltip' id='"+tooltipId+"'></div>");
 
+
   if(width){
     $("#"+tooltipId).css("width", width);
   }
@@ -12,6 +13,8 @@ function Tooltip(tooltipId, width){
     $("#"+tooltipId).html(content);
     $("#"+tooltipId).show();
     $("#"+tooltipId).css("opacity", "1");
+    var font = d3.select(".tick text").attr("font-family");
+    $("#"+tooltipId+" .main").css("font-family", '"'+font+'"');
 
     updatePosition(event, tooltipId);
   }

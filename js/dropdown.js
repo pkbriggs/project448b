@@ -21,6 +21,7 @@ $(function() {
 		$selection.text(option);
 		var type = $dropdown.data("type");
 		var key = $dropdown.data("key");
+
 		var is_bar_label = ($dropdown.data("label") !== undefined) ? true : false;
 		var callback = $dropdown.data("callback");
 		if (callback && callback === "load_font")
