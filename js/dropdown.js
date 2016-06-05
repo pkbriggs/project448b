@@ -22,6 +22,10 @@ $(function() {
 		var type = $dropdown.data("type");
 		var key = $dropdown.data("key");
 
+		if (key == "tick_label_font") {
+			$(".legend_text").css("font-family", '"'+option+'"');
+		}
+
 		var is_bar_label = ($dropdown.data("label") !== undefined) ? true : false;
 		updateChartConfigValue(type, key, option, is_bar_label);
 	});
