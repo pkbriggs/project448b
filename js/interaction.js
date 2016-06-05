@@ -416,10 +416,13 @@ function enableSaveButton() {
       title: '<i class="fa fa-spinner fa-pulse fa-fw"></i> Saving...',
       html: true,
       showConfirmButton: false
+      // timer: 20
     });
     setTimeout(function() {
       saveSvgAsPng($(".chart_svg")[0], OUTPUT_FILENAME, {scale: 2.0});
-      swal.close();
+      setTimeout(function() {
+        swal.close();
+      }, 80)
     }, 80);
   });
 }
